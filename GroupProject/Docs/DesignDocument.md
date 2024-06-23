@@ -57,6 +57,7 @@
 ### 2.2 Deployment Diagram
 
 *This section should describe how the different components will be deployed on actual hardware devices. Similar to the previous subsection, this diagram may be unnecessary for simple systems; in these cases, simply state so and concisely state why.*
+![image](./images/deployment_diagram.png)
 
 ## 3 Low-Level Design
 
