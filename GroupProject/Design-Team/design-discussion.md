@@ -34,11 +34,10 @@
   - Job Offer could be a subclass of Job to inherit Job’s attributes.
   - Missing derived variables
 
-  
 ## Team Design
 ### Design display
 ![team-design.png](images/team-design.png)
 ### Design discussion
-
+Some commonalities of each individual design are:
 
 ## Summary
