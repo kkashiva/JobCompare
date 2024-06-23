@@ -82,7 +82,7 @@ The table below shows a list of test cases that we will use
 | User edits/updates comparison settings |  Comparison settings successfully updated saved |  |  |
 | User retrieves a job offer by id/name |  Job offer is retrieved and successfully returned |  |  |
 | User retrieves a job offer that does not exist | A response showing that job offer does not exist is returned |  |  |
-|| User retrieves the current job details |  Current Job is retrieved and successfully returned |  |  |
+| User retrieves the current job details |  Current Job is retrieved and successfully returned |  |  |
 | User retrieves the comparison settings | Comparison settings are retrieved and successfully returned |  |  |
 | Perform Job ranking computation | The correct job score is computed and returned |  |  |
 | Retrive a job score for a specific job offer | The correct job score is returned |  |  |
