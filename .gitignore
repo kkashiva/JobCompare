@@ -24,3 +24,6 @@ hs_err_pid*
 
 # ignore MacOS folder view options
 .DS_Store
+
+# .idea
+*.idea
