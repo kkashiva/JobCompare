@@ -34,10 +34,23 @@
   - Job Offer could be a subclass of Job to inherit Job’s attributes.
   - Missing derived variables
 
+  
 ## Team Design
 ### Design display
 ![team-design.png](images/team-design.png)
 ### Design discussion
-Some commonalities of each individual design are:
+The initial draft of team design was developed during team meetings. Compared to Design #1, the team design removed the
+**jobOperation** class, and added the calculated score as derived variable for the **Job** class.
+Compared to Design #2, the team design removed the **MainMenu** class as the displaying through UI is preferred in actual development.
+We retained the subclass structure mentioned in Design#1 and #2 to reflect the different relationships between the user
+and current job/ future job offers, and to ensure the "compare job" is enabled when feasible.
+The absence of subclass in design #3 and #4 are the main shortage of those individual design and the main difference between them and the team design.
+Additionally, both design #3 and #4 did not include derived variables for jobs.
+
+The team also chose to add more detailed functions than individual designs to class **Job** to better handle the requirements.
+Adding those variables to the team design will make the implementation phase more efficient.
 
 ## Summary
+The team design is a culmination of the individual designs. We combined the advantages of each design,
+discussed the shortage of individual designs, while keeping the final output concise and comprehensive.
+As the project move forward, the team may adjust the design slightly to reflect the new/missing requirements.
