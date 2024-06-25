@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/titleLabel"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:outlineSpotShadowColor="#232F72"
+            android:text="Job Offer Comparison"
+            android:textAlignment="center"
+            android:textFontWeight="800"
+            android:textSize="24sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/cipherButtonID"
+                android:layout_width="217dp"
+                android:layout_height="wrap_content"
+                android:background="#2196F3"
+                android:gravity="center"
+                android:maxLength="400"
+                android:onClick="handleClick"
+                android:text="Enter Current Job Details"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/cipherButtonID"
+                android:layout_width="217dp"
+                android:layout_height="wrap_content"
+                android:background="#2196F3"
+                android:gravity="center"
+                android:maxLength="400"
+                android:onClick="handleClick"
+                android:text="Edit Current Job Details"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/cipherButtonID"
+                android:layout_width="217dp"
+                android:layout_height="wrap_content"
+                android:background="#2196F3"
+                android:gravity="center"
+                android:maxLength="400"
+                android:onClick="handleClick"
+                android:text="Enter Job Offers"
+                android:textAlignment="center" />
+        </LinearLayout>    
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/cipherButtonID"
+                android:layout_width="217dp"
+                android:layout_height="wrap_content"
+                android:background="#2196F3"
+                android:gravity="center"
+                android:maxLength="400"
+                android:onClick="handleClick"
+                android:text="Adjust the Comparison Settings"
+                android:textAlignment="center" />
+        </LinearLayout>   
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/cipherButtonID"
+                android:layout_width="217dp"
+                android:layout_height="wrap_content"
+                android:background="#2196F3"
+                android:gravity="center"
+                android:maxLength="400"
+                android:onClick="handleClick"
+                android:text="Compare Job Offers"
+                android:textAlignment="center" />
+        </LinearLayout>   
+
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
