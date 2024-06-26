@@ -24,7 +24,6 @@ public class Job {
     // Hardcoded parameters; need to change in next Phase
     private final List<Integer> adjustedParameter = Arrays.asList(1, 1, 1, 1, 1);
 
-
     public Job(String title, String company, String locationState, String locationCity, Integer costOfLiving,
                Integer yearlySalary, Integer yearlyBonus, Integer trainDevFund,
                Integer leaveDay, Integer teleworkDaysPerWeek) {
@@ -86,9 +85,6 @@ public class Job {
         this.score = score;
     }
 
-
-
-
     // get functions
     public String getTitle() {
         return title;
@@ -149,7 +145,7 @@ public class Job {
     }
 
     public Double calculateJobScore(List<Integer> adjustedParameter, Double AYS, Double AYB,
-                                  Integer trainDevFund, Integer leaveDay, Integer teleworkDaysPerWeek){
+                                    Integer trainDevFund, Integer leaveDay, Integer teleworkDaysPerWeek){
         double valueOfEmpHour = (Double) (AYS / 260) / 8;
         double yearlyCommuterHour = (260 - 52 * teleworkDaysPerWeek) * 1.0;
         double travelTimeCost = (Double) valueOfEmpHour * yearlyCommuterHour;
