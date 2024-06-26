@@ -19,7 +19,7 @@
             android:fontFamily="sans-serif"
             android:gravity="center"
             android:outlineSpotShadowColor="#232F72"
-            android:text="Job Offer Comparison"
+            android:text="@string/job_offer_comparison"
             android:textAlignment="center"
             android:textFontWeight="800"
             android:textSize="24sp" />
@@ -31,14 +31,14 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/cipherButtonID"
+                android:id="@+id/enterCurrentJobDetailsButtonID"
                 android:layout_width="217dp"
                 android:layout_height="wrap_content"
                 android:background="#2196F3"
                 android:gravity="center"
                 android:maxLength="400"
-                android:onClick="handleClick"
-                android:text="Enter Current Job Details"
+                android:onClick="handleClickEnterCurrentJobDetails"
+                android:text="@string/enter_current_job_details"
                 android:textAlignment="center" />
         </LinearLayout>
 
@@ -49,14 +49,14 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/cipherButtonID"
+                android:id="@+id/editCurrentJobDetailsButtonID"
                 android:layout_width="217dp"
                 android:layout_height="wrap_content"
                 android:background="#2196F3"
                 android:gravity="center"
                 android:maxLength="400"
-                android:onClick="handleClick"
-                android:text="Edit Current Job Details"
+                android:onClick="handleClickEditCurrentJobDetails"
+                android:text="@string/edit_current_job_details"
                 android:textAlignment="center" />
         </LinearLayout>
 
@@ -67,14 +67,14 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/cipherButtonID"
+                android:id="@+id/enterJobOffersButtonID"
                 android:layout_width="217dp"
                 android:layout_height="wrap_content"
                 android:background="#2196F3"
                 android:gravity="center"
                 android:maxLength="400"
-                android:onClick="handleClick"
-                android:text="Enter Job Offers"
+                android:onClick="handleClickEnterJobOffers"
+                android:text="@string/enter_job_offers"
                 android:textAlignment="center" />
         </LinearLayout>    
 
@@ -85,14 +85,14 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/cipherButtonID"
+                android:id="@+id/adjustComparisonSettingsButtonID"
                 android:layout_width="217dp"
                 android:layout_height="wrap_content"
                 android:background="#2196F3"
                 android:gravity="center"
                 android:maxLength="400"
-                android:onClick="handleClick"
-                android:text="Adjust the Comparison Settings"
+                android:onClick="handleClickAdjustComparisonSettings"
+                android:text="@string/adjust_the_comparison_settings"
                 android:textAlignment="center" />
         </LinearLayout>   
 
@@ -103,14 +103,14 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/cipherButtonID"
+                android:id="@+id/compareJobOffersButtonID"
                 android:layout_width="217dp"
                 android:layout_height="wrap_content"
                 android:background="#2196F3"
                 android:gravity="center"
                 android:maxLength="400"
-                android:onClick="handleClick"
-                android:text="Compare Job Offers"
+                android:onClick="handleClickCompareJobOffer"
+                android:text="@string/compare_job_offers"
                 android:textAlignment="center" />
         </LinearLayout>   
 

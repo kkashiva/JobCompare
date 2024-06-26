@@ -1,6 +1,8 @@
 package edu.gatech.seclass.jobcompare6300;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,5 +13,24 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
+
+    public void handleClickEnterCurrentJobDetails(View view) {
+        startActivity(new Intent(MainActivity.this, EnterCurrentJobDetails.class));
+    }
+
+    public void handleClickEditCurrentJobDetails(View view) {
+        startActivity(new Intent(MainActivity.this, EditCurrentJobDetails.class));
+    }
+
+    public void handleClickEnterJobOffers(View view) {
+        startActivity(new Intent(MainActivity.this, EnterJobOffers.class));
+    }
+
+    public void handleClickAdjustComparisonSettings(View view) {
+    }
+
+    public void handleClickCompareJobOffer(View view) {
+        startActivity(new Intent(MainActivity.this, CompareJobOffers.class));
     }
 }

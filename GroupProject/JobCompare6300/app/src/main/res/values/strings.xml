@@ -1,3 +1,32 @@
 <resources>
     <string name="app_name">JobCompare6300</string>
+    <string name="title_activity_enter_current_job_details">enterCurrentJobDetails</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="job_offer_comparison">Job Offer Comparison</string>
+
+    <!--    Enter Current Job Details-->
+    <string name="enter_current_job_details_screen">Enter Current Job Details Screen</string>
+    <string name="enter_current_job_details">Enter Current Job Details</string>
+
+    <!--    Edit Current Job Details-->
+    <string name="edit_current_job_details_screen">Edit Current Job Details Screen</string>
+    <string name="edit_current_job_details">Edit Current Job Details</string>
+
+    <!--    Enter Job Offers-->
+    <string name="enter_job_offers">Enter Job Offers</string>
+    <string name="enter_job_offers_screen">Enter Job Offers Screen</string>
+
+<!--    Compare Job Offers-->
+    <string name="compare_job_offers">Compare Job Offers</string>
+    <string name="compare_job_offers_screen">Compare Job Offers Screen</string>
+
+
+    <string name="adjust_the_comparison_settings">Adjust the Comparison Settings</string>
+
+    <string name="back_to_main_menu">Back to Main Menu</string>
 </resources>
