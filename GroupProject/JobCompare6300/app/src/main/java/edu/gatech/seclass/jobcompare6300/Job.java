@@ -4,8 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Job {
-    private static int idCounter = 0;
-    private int jobID;
     private String title;
     private String company;
     private String locationState;
@@ -30,7 +28,6 @@ public class Job {
     public Job(String title, String company, String locationState, String locationCity, Integer costOfLiving,
                Integer yearlySalary, Integer yearlyBonus, Integer trainDevFund,
                Integer leaveDay, Integer teleworkDaysPerWeek) {
-        this.jobID = ++idCounter;
         this.title = title;
         this.company = company;
         this.locationState = locationState;
@@ -43,8 +40,8 @@ public class Job {
         this.teleworkDaysPerWeek = teleworkDaysPerWeek;
 
         this.location = locationState + ',' + locationCity;
-        this.AYS = getAdjustedYearlySalary(yearlySalary, costOfLiving);
-        this.AYB = getAdjustedYearlyBonus(yearlyBonus, costOfLiving);
+        this.AYS = calculateAdjustedYearlySalary(yearlySalary, costOfLiving);
+        this.AYB = calculateAdjustedYearlyBonus(yearlyBonus, costOfLiving);
         this.score = calculateJobScore(adjustedParameter, AYS, AYB, trainDevFund, leaveDay, teleworkDaysPerWeek);
     }
 
@@ -79,6 +76,17 @@ public class Job {
     public void setTeleworkDaysWeekly(Integer teleworkDaysPerWeek) {
         this.teleworkDaysPerWeek = teleworkDaysPerWeek;
     }
+    public void setAYS(Double AYS){
+        this.AYS = AYS;
+    }
+    public void setAYB(Double AYB){
+        this.AYB = AYB;
+    }
+    public void setJobScore(Double score){
+        this.score = score;
+    }
+
+
 
 
     // get functions
@@ -93,6 +101,9 @@ public class Job {
     }
     public String getCity() {
         return locationCity;
+    }
+    public String getLocation() {
+        return location;
     }
     public Integer getCostOfLiving() {
         return costOfLiving;
@@ -113,35 +124,48 @@ public class Job {
         return teleworkDaysPerWeek;
     }
 
-    // Derived Variable functions
+    public Double getAYS(){
+        return AYS;
+    }
+    public Double getAYB(){
+        return AYB;
+    }
+    public Double getJobScore(){
+        return score;
+    }
+
+    // Derived Variable functions - Calculations
     private void updateLocation() {
         this.location = this.locationState + ", " + this.locationCity;
     }
-    public String getLocation() {
-        return location;
-    }
-    public Double getAdjustedYearlySalary(Integer yearlySalary, Integer costOfLiving){
+
+    public Double calculateAdjustedYearlySalary(Integer yearlySalary, Integer costOfLiving){
         AYS = (double) ((yearlySalary * 100)/ costOfLiving);
         return AYS;
     }
-    public Double getAdjustedYearlyBonus(Integer yearlyBonus, Integer costOfLiving){
+    public Double calculateAdjustedYearlyBonus(Integer yearlyBonus, Integer costOfLiving){
         AYB = (double) ((yearlyBonus * 100)/ costOfLiving);
         return AYB;
     }
 
     public Double calculateJobScore(List<Integer> adjustedParameter, Double AYS, Double AYB,
                                   Integer trainDevFund, Integer leaveDay, Integer teleworkDaysPerWeek){
-        Double valueOfEmpHour = (Double) (AYS / 260) / 8;
-        Double yearlyCommuterHour = (260 - 52 * teleworkDaysPerWeek) * 1.0;
-        Double travelTimeCost = (Double) valueOfEmpHour * yearlyCommuterHour;
-        score = AYS + AYB + trainDevFund + leaveDay * valueOfEmpHour * 8 - travelTimeCost;
-        return score;
-    }
-    public void setJobScore(Double score){
-        this.score = score;
-    }
-    public Double getJobScore(){
-        return score;
-    }
+        double valueOfEmpHour = (Double) (AYS / 260) / 8;
+        double yearlyCommuterHour = (260 - 52 * teleworkDaysPerWeek) * 1.0;
+        double travelTimeCost = (Double) valueOfEmpHour * yearlyCommuterHour;
 
+        int totalParam = 0;
+        for (int param: adjustedParameter){
+            totalParam += param;
+        }
+        double AYSParam = (double) (adjustedParameter.get(0)/totalParam);
+        double AYBParam = (double) (adjustedParameter.get(1)/totalParam);
+        double TDFParam = (double) (adjustedParameter.get(2)/totalParam);
+        double LTParam = (double) (adjustedParameter.get(3)/totalParam);
+        double commuteCostParam = (double) (adjustedParameter.get(4)/totalParam);
+
+        score = AYSParam * AYS + AYBParam * AYB + TDFParam * trainDevFund +
+                LTParam * leaveDay * valueOfEmpHour * 8 - commuteCostParam * travelTimeCost;
+        return score;
+    }
 }

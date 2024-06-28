@@ -18,6 +18,8 @@ public class EnterCurrentJobDetails extends AppCompatActivity {
     private EditText inputTitle, inputCompany, inputState, inputCity,inputLivingCost,
             inputYearlySalary,inputYearlyBonus,inputTrainingDevelopment,inputLeaveTime, inputTelework;
 
+    private String title, company, locationState, locationCity, costOfLiving, yearlySalary, yearlyBonus, trainDevFund, leaveTime, teleworkDay;
+    private Integer costOfLivingInt, yearlySalaryInt, yearlyBonusInt, trainDevFundInt, leaveTimeInt, teleworkDayInt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,16 +41,16 @@ public class EnterCurrentJobDetails extends AppCompatActivity {
         buttonSaveJob.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String title = inputTitle.getText().toString().trim();
-                String company = inputCompany.getText().toString().trim();
-                String locationState = inputState.getText().toString().trim();
-                String locationCity = inputCity.getText().toString().trim();
-                String costOfLiving = inputLivingCost.getText().toString().trim();
-                String yearlySalary = inputYearlySalary.getText().toString().trim();
-                String yearlyBonus = inputYearlyBonus.getText().toString().trim();
-                String trainDevFund = inputTrainingDevelopment.getText().toString().trim();
-                String leaveTime = inputLeaveTime.getText().toString().trim();
-                String teleworkDay = inputTelework.getText().toString().trim();
+                title = inputTitle.getText().toString().trim();
+                company = inputCompany.getText().toString().trim();
+                locationState = inputState.getText().toString().trim();
+                locationCity = inputCity.getText().toString().trim();
+                costOfLiving = inputLivingCost.getText().toString().trim();
+                yearlySalary = inputYearlySalary.getText().toString().trim();
+                yearlyBonus = inputYearlyBonus.getText().toString().trim();
+                trainDevFund = inputTrainingDevelopment.getText().toString().trim();
+                leaveTime = inputLeaveTime.getText().toString().trim();
+                teleworkDay = inputTelework.getText().toString().trim();
 
                 boolean isValid = checkIfValid(title, company, locationState, locationCity,
                         costOfLiving, yearlySalary, yearlyBonus, trainDevFund,leaveTime, teleworkDay);
@@ -57,12 +59,14 @@ public class EnterCurrentJobDetails extends AppCompatActivity {
                     return;
                 }
 
-                Integer costOfLivingInt = Integer.parseInt(costOfLiving);
-                Integer yearlySalaryInt = Integer.parseInt(yearlySalary);
-                Integer yearlyBonusInt = Integer.parseInt(yearlyBonus);
-                Integer trainDevFundInt = Integer.parseInt(trainDevFund);
-                Integer leaveTimeInt = Integer.parseInt(leaveTime);
-                Integer teleworkDayInt = Integer.parseInt(teleworkDay);
+                costOfLivingInt = Integer.parseInt(costOfLiving);
+                yearlySalaryInt = Integer.parseInt(yearlySalary);
+                yearlyBonusInt = Integer.parseInt(yearlyBonus);
+                trainDevFundInt = Integer.parseInt(trainDevFund);
+                leaveTimeInt = Integer.parseInt(leaveTime);
+                teleworkDayInt = Integer.parseInt(teleworkDay);
+
+                handleClickSaveJob(v);
             }
         });
     }
@@ -132,35 +136,36 @@ public class EnterCurrentJobDetails extends AppCompatActivity {
         startActivity(new Intent(EnterCurrentJobDetails.this, MainActivity.class));
     }
 
-
     public void handleClickSaveJob(View view) {
-    }
-
-
-
-    public void handleClickTestSave(View view) {
         // Instantiate our subclass of SQLiteOpenHelper
         JobDbHelper dbHelper = new JobDbHelper(this);
 
         // Gets the data repository in write mode
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
+        //Create a new job object
+        Job job = new Job(title, company, locationState, locationCity, costOfLivingInt,
+                yearlySalaryInt, yearlyBonusInt, trainDevFundInt, leaveTimeInt, teleworkDayInt);
+
         // Create a new map of values, where column names are the keys
-        // hardcoding values to test, onlce input fields are added these values will be dynamic based on user input
+        // hardcoding values to test, once input fields are added these values will be dynamic based on user input
         ContentValues values = new ContentValues();
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_TITLE, "SDE");
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_COMPANY, "Test Company");
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_LOCATION_CITY, "Atlanta");
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_LOCATION_STATE, "GA");
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_COST_OF_LIVING, 200);
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_YEARLY_SALARY, 90000.00);
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_YEARLY_BONUS, 10000.00);
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_TRAINING_DEVELOPMENT_FUND, 5000.00);
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_LEAVE_TIME, 15);
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK, 2);
+        values.put(DatabaseContract.Jobs.COLUMN_NAME_TITLE, job.getTitle());
+        values.put(DatabaseContract.Jobs.COLUMN_NAME_COMPANY, job.getCompany());
+        values.put(DatabaseContract.Jobs.COLUMN_NAME_LOCATION_CITY, job.getCity());
+        values.put(DatabaseContract.Jobs.COLUMN_NAME_LOCATION_STATE, job.getState());
+        values.put(DatabaseContract.Jobs.COLUMN_NAME_COST_OF_LIVING, job.getCostOfLiving());
+        values.put(DatabaseContract.Jobs.COLUMN_NAME_YEARLY_SALARY, job.getYearlySalary());
+        values.put(DatabaseContract.Jobs.COLUMN_NAME_YEARLY_BONUS, job.getYearlyBonus());
+        values.put(DatabaseContract.Jobs.COLUMN_NAME_TRAINING_DEVELOPMENT_FUND, job.getTrainingDevelopmentFund());
+        values.put(DatabaseContract.Jobs.COLUMN_NAME_LEAVE_TIME, job.getLeaveTime());
+        values.put(DatabaseContract.Jobs.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK, job.getTeleworkDaysPerWeek());
         values.put(DatabaseContract.Jobs.COLUMN_NAME_JOB_TYPE, 0); // 0 for CurrentJob, 1 for JobOffer
         
-        // need to calculate AYS, AYB and Score
+        // some derived variables
+        values.put(DatabaseContract.Jobs.COLUMN_NAME_AYS, job.getAYS());
+        values.put(DatabaseContract.Jobs.COLUMN_NAME_AYB, job.getAYB());
+        values.put(DatabaseContract.Jobs.COLUMN_NAME_SCORE, job.getJobScore());
 
         // Insert the new row, returning the primary key value of the new row
         long jobId = db.insert(DatabaseContract.Jobs.TABLE_NAME, null, values);
