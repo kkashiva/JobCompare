@@ -18,7 +18,7 @@
             android:fontFamily="sans-serif"
             android:gravity="center"
             android:outlineSpotShadowColor="#232F72"
-            android:text="@string/enter_job_offer_details_screen"
+            android:text="@string/enter_job_offers"
             android:textAlignment="center"
             android:textFontWeight="800"
             android:textSize="24sp" />
