@@ -17,4 +17,7 @@ public class EnterJobOffers extends AppCompatActivity {
     public void handleClickBackToMainMenu(View view) {
         startActivity(new Intent(EnterJobOffers.this, MainActivity.class));
     }
+
+    public void handleClickSaveJob(View view) {
+    }
 }

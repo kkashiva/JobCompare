@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".EnterJobOffers">
     <LinearLayout
+        android:id="@+id/enterJobOffer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -17,14 +18,269 @@
             android:fontFamily="sans-serif"
             android:gravity="center"
             android:outlineSpotShadowColor="#232F72"
-            android:text="@string/enter_job_offers_screen"
+            android:text="@string/enter_job_offer_details_screen"
             android:textAlignment="center"
             android:textFontWeight="800"
             android:textSize="24sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="58dp"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/inputTitleTxt"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="@string/title"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/inputTitleID"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="8"
+                android:ems="10"
+                android:hint="Software Engineer"
+                android:inputType="text"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/inputCompanyTxt"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:ems="10"
+                android:text="Company"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/inputCompanyID"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="8"
+                android:ems="10"
+                android:hint="Amazon"
+                android:inputType="text"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/inputLocationTxt"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="@string/location"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/inputStateID"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:ems="10"
+                android:hint="WA"
+                android:inputType="text"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/inputCityID"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:ems="10"
+                android:hint="Seattle"
+                android:inputType="text"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/inputLivingCostTxt"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="@string/cost_of_living"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/inputLivingCostID"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="8"
+                android:ems="10"
+                android:hint="@string/cost_of_living_index"
+                android:inputType="text" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/inputYearlySalaryTxt"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="@string/yearly_salary"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/inputYearlySalaryID"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="8"
+                android:ems="10"
+                android:hint="250,000"
+                android:inputType="number" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/inputYearlyBonusTxt"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="@string/yearly_bonus"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/inputYearlyBonusID"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="8"
+                android:ems="10"
+                android:hint="60,000"
+                android:inputType="number" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/inputTrainingDevelopmentTxt"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="@string/training_dev_fund"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/inputTrainingDevelopmentID"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="8"
+                android:ems="10"
+                android:hint="5,000"
+                android:inputType="number" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/inputLeaveTimeTxt"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="@string/leave_time_day_per_year"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/inputLeaveTimeID"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="8"
+                android:ems="10"
+                android:hint="14"
+                android:inputType="number" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/inputTeleworkTxt"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="@string/telework_day_per_week"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/inputTeleworkID"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="8"
+                android:ems="10"
+                android:hint="1"
+                android:inputType="number" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/saveJobButtonID"
+                android:layout_width="217dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#5ab505"
+                android:gravity="center"
+                android:maxLength="400"
+                android:onClick="handleClickSaveJob"
+                android:text="@string/save_job_offer"
+                android:textAlignment="center"
+                android:textSize="19sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -32,12 +288,15 @@
                 android:id="@+id/backToMainMenuButtonID"
                 android:layout_width="217dp"
                 android:layout_height="wrap_content"
-                android:background="#2196F3"
+                android:backgroundTint="#b58316"
                 android:gravity="center"
                 android:maxLength="400"
                 android:onClick="handleClickBackToMainMenu"
                 android:text="@string/back_to_main_menu"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textSize="19sp" />
+
         </LinearLayout>
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
