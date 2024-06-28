@@ -24,6 +24,7 @@ public final class DatabaseContract {
         public static final String COLUMN_NAME_AYS = "AYS"; // Adjusted Yearly Salary
         public static final String COLUMN_NAME_AYB = "AYB"; // Adjusted Yearly Bonus
         public static final String COLUMN_NAME_SCORE = "Score";
+
     }
 
 }
