@@ -299,6 +299,24 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/saveTestButtonID"
+                android:layout_width="217dp"
+                android:layout_height="wrap_content"
+                android:background="#2196F3"
+                android:gravity="center"
+                android:maxLength="400"
+                android:onClick="handleClickTestSave"
+                android:text="Save Test"
+                android:textAlignment="center" />
+        </LinearLayout>
+
     </LinearLayout>
 
 
