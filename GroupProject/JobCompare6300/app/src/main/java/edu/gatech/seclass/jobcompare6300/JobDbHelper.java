@@ -10,7 +10,7 @@ public class JobDbHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "JobDatabase.db";
 
     // CREATE TABLE query for the Job table
-    private static final String SQL_CREATE_ENTRIES =
+    private static final String SQL_CREATE_JOB_ENTRIES =
             "CREATE TABLE " + DatabaseContract.Jobs.TABLE_NAME + " (" +
                     DatabaseContract.Jobs._ID + " INTEGER PRIMARY KEY," +
                     DatabaseContract.Jobs.COLUMN_NAME_JOB_ID + " TEXT," +
@@ -47,7 +47,7 @@ public class JobDbHelper extends SQLiteOpenHelper {
     }
 
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(SQL_CREATE_ENTRIES);
+        db.execSQL(SQL_CREATE_JOB_ENTRIES);
         db.execSQL(SQL_CREATE_COMPARISON_SETTING_ENTRIES);
     }
 
