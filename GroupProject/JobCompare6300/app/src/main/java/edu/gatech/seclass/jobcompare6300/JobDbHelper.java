@@ -19,9 +19,9 @@ public class JobDbHelper extends SQLiteOpenHelper {
                     DatabaseContract.Jobs.COLUMN_NAME_LOCATION_STATE + " TEXT," +
                     DatabaseContract.Jobs.COLUMN_NAME_LOCATION_CITY + " TEXT," +
                     DatabaseContract.Jobs.COLUMN_NAME_COST_OF_LIVING + " INTEGER," +
-                    DatabaseContract.Jobs.COLUMN_NAME_YEARLY_SALARY + " REAL," +
-                    DatabaseContract.Jobs.COLUMN_NAME_YEARLY_BONUS + " REAL," +
-                    DatabaseContract.Jobs.COLUMN_NAME_TRAINING_DEVELOPMENT_FUND + " REAL," +
+                    DatabaseContract.Jobs.COLUMN_NAME_YEARLY_SALARY + " INTEGER," +
+                    DatabaseContract.Jobs.COLUMN_NAME_YEARLY_BONUS + " INTEGER," +
+                    DatabaseContract.Jobs.COLUMN_NAME_TRAINING_DEVELOPMENT_FUND + " INTEGER," +
                     DatabaseContract.Jobs.COLUMN_NAME_LEAVE_TIME + " INTEGER," +
                     DatabaseContract.Jobs.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK + " INTEGER," +
                     DatabaseContract.Jobs.COLUMN_NAME_JOB_TYPE + " INTEGER," +
