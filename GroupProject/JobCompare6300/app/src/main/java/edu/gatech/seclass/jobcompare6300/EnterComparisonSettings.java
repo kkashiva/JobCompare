@@ -89,4 +89,5 @@ public class EnterComparisonSettings extends AppCompatActivity {
     public void handleClickBackToMainMenuFromComparisonSettings(View view) {
         startActivity(new Intent(EnterComparisonSettings.this, MainActivity.class));
     }
+
 }

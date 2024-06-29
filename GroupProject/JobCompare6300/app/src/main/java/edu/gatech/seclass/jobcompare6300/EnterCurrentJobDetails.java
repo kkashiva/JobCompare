@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 public class EnterCurrentJobDetails extends AppCompatActivity {
+
+    private JobDbHelper dbHelper;
     private EditText inputTitle, inputCompany, inputState, inputCity, inputLivingCost,
             inputYearlySalary, inputYearlyBonus, inputTrainingDevelopment, inputLeaveTime, inputTelework;
 
@@ -121,8 +123,7 @@ public class EnterCurrentJobDetails extends AppCompatActivity {
         Integer teleworkDayInt = Integer.parseInt(teleworkDay);
 
 
-        // Instantiate our subclass of SQLiteOpenHelper
-        JobDbHelper dbHelper = new JobDbHelper(this);
+        dbHelper = JobDbHelper.getInstance(this); //get singleton instance
 
         // Gets the data repository in write mode
         SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -157,5 +158,12 @@ public class EnterCurrentJobDetails extends AppCompatActivity {
         // show the jobId in a toast
         Toast.makeText(this, "Job ID: " + jobId, Toast.LENGTH_SHORT).show();
 
+    }
+
+    // close the database in onDestroy()
+    @Override
+    protected void onDestroy() {
+        dbHelper.close();
+        super.onDestroy();
     }
 }

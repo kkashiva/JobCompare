@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class EditCurrentJobDetails extends AppCompatActivity {
+
+    private JobDbHelper dbHelper;
     private EditText inputTitle, inputCompany, inputState, inputCity,inputLivingCost,
             inputYearlySalary,inputYearlyBonus,inputTrainingDevelopment,inputLeaveTime, inputTelework;
 
@@ -42,7 +44,7 @@ public class EditCurrentJobDetails extends AppCompatActivity {
     }
 
     private void displayCurrentJobDetails() {
-        JobDbHelper dbHelper = new JobDbHelper(this);
+        dbHelper = JobDbHelper.getInstance(this); //get singleton instance
         SQLiteDatabase db = dbHelper.getReadableDatabase();
     
         String[] projection = {
@@ -82,10 +84,7 @@ public class EditCurrentJobDetails extends AppCompatActivity {
             int trainingDevelopmentFund = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_TRAINING_DEVELOPMENT_FUND));
             int leaveTime = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_LEAVE_TIME));
             int teleworkDaysPerWeek = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK));
-                
-            // Construct the message
-//            String message = "Title: " + title + ", Company: " + company + ", City: " + city + ", State: " + state + ", COL: " + costOfLiving + ", Salary: " + yearlySalary + ", Bonus: " + yearlyBonus + ", TDF: " + trainingDevelopmentFund + ", Leave: " + leaveTime + ", Telework: " + teleworkDaysPerWeek;
-//            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+
             cursor.close();
             inputTitle.setText(title);
             inputCompany.setText(company);
@@ -104,7 +103,7 @@ public class EditCurrentJobDetails extends AppCompatActivity {
     }
 
     public void handleClickEditJob(View view) {
-        JobDbHelper dbHelper = new JobDbHelper(this);
+        dbHelper = JobDbHelper.getInstance(this); //get singleton instance
         SQLiteDatabase db = dbHelper.getWritableDatabase();
     
         ContentValues values = new ContentValues();
@@ -127,6 +126,13 @@ public class EditCurrentJobDetails extends AppCompatActivity {
                 values,
                 selection,
                 selectionArgs);
+    }
+
+    // close the database in onDestroy()
+    @Override
+    protected void onDestroy() {
+        dbHelper.close();
+        super.onDestroy();
     }
 
 }
