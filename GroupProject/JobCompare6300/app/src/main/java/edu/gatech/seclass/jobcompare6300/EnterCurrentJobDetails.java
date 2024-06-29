@@ -161,9 +161,9 @@ public class EnterCurrentJobDetails extends AppCompatActivity {
     }
 
     // close the database in onDestroy()
-    @Override
-    protected void onDestroy() {
-        dbHelper.close();
-        super.onDestroy();
-    }
+    // @Override
+    // protected void onDestroy() {
+    //     dbHelper.close();
+    //     super.onDestroy();
+    // }
 }
