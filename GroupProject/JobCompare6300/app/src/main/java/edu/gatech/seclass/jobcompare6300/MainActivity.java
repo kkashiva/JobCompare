@@ -12,12 +12,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
+    private JobDbHelper dbHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        JobDbHelper dbHelper = new JobDbHelper(this);
+        dbHelper = JobDbHelper.getInstance(this); //get singleton instance
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         /* Query Job table for any existing jobOffer (jobType == 1).
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         if (cursor == null) {
             Button compareJobOfferButton = findViewById(R.id.compareJobOffersButtonID);
             compareJobOfferButton.setEnabled(false);
+        } else {
+            cursor.close();
         }
 
     }
@@ -64,5 +67,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void handleClickCompareJobOffer(View view) {
         startActivity(new Intent(MainActivity.this, CompareJobOffers.class));
+    }
+
+    // close the database in onDestroy()
+    @Override
+    protected void onDestroy() {
+        dbHelper.close();
+        super.onDestroy();
     }
 }

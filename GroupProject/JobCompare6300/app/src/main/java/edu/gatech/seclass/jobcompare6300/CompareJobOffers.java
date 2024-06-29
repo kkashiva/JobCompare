@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 public class CompareJobOffers extends AppCompatActivity {
 
+    private JobDbHelper dbHelper;
     private static final String TAG = "CompareJobOffers";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +22,7 @@ public class CompareJobOffers extends AppCompatActivity {
         setContentView(R.layout.activity_compare_job_offers);
         Log.d(TAG, "onCreate: started");
 
-        JobDbHelper dbHelper = new JobDbHelper(this);
+        dbHelper = JobDbHelper.getInstance(this); //get singleton instance
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         ListView listView = findViewById(R.id.listViewId);
@@ -71,5 +72,12 @@ public class CompareJobOffers extends AppCompatActivity {
     public void handleClickBackToCompareJobOffersScreen(View view) {
         startActivity(new Intent(CompareJobOffers.this, MainActivity.class));
     }
+
+    // close the database in onDestroy()
+    // @Override
+    // protected void onDestroy() {
+    //     dbHelper.close();
+    //     super.onDestroy();
+    // }
 
 }
