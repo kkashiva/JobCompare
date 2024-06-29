@@ -1,11 +1,14 @@
 package edu.gatech.seclass.jobcompare6300;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.Cursor;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,6 +26,12 @@ public class EnterComparisonSettings extends AppCompatActivity {
         leaveTimeEditText = findViewById(R.id.leaveTimeEditTextId);
         teleworkDaysEditText = findViewById(R.id.teleworkDaysEditTextId);
         buttonSubmit = findViewById(R.id.submitComparisonSettingsButtonID);
+
+        // Instantiate our subclass of SQLiteOpenHelper
+        JobDbHelper dbHelper = new JobDbHelper(this);
+
+        // Gets the data repository in write mode
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,12 +54,18 @@ public class EnterComparisonSettings extends AppCompatActivity {
                 int leaveTimeInt = Integer.parseInt(leaveTime);
                 int teleworkDaysInt = Integer.parseInt(teleworkDays);
 
-//                boolean isInserted = databaseHelper.insertComparisonSettings(yearlySalaryInt, yearlyBonusInt, trainingFundInt, leaveTimeInt, teleworkDaysInt);
-//                if (isInserted) {
-//                    Toast.makeText(EnterComparisonSettings.this, "Comparison settings saved Successfully.", Toast.LENGTH_LONG).show();
-//                } else {
-//                    Toast.makeText(EnterComparisonSettings.this, "Comparison settings not Saved", Toast.LENGTH_LONG).show();
-//                }
+                ContentValues values = new ContentValues();
+                values.put(DatabaseContract.ComparisonSetting.COLUMN_NAME_YEARLY_SALARY_WEIGHT, yearlySalaryInt);
+                values.put(DatabaseContract.ComparisonSetting.COLUMN_NAME_YEARLY_BONUS_WEIGHT, yearlyBonusInt);
+                values.put(DatabaseContract.ComparisonSetting.COLUMN_NAME_LEAVE_TIME_WEIGHT, leaveTimeInt);
+                values.put(DatabaseContract.ComparisonSetting.COLUMN_NAME_TRAINING_AND_DEVELOPMENT_FUND_WEIGHT, trainingFundInt);
+                values.put(DatabaseContract.ComparisonSetting.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK_WEIGHT, teleworkDaysInt);
+
+                // Insert the new row, returning the primary key value of the new row
+                long comparisonSettingsId = db.insert(DatabaseContract.ComparisonSetting.TABLE_NAME, null, values);
+
+                // show the jobId in a toast
+                Toast.makeText(EnterComparisonSettings.this, "Comparison Settings Id: " + comparisonSettingsId, Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -88,5 +103,62 @@ public class EnterComparisonSettings extends AppCompatActivity {
 
     public void handleClickBackToMainMenuFromComparisonSettings(View view) {
         startActivity(new Intent(EnterComparisonSettings.this, MainActivity.class));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        displayCurrentComparisonSettings();
+    }
+
+    private void displayCurrentComparisonSettings() {
+        JobDbHelper dbHelper = new JobDbHelper(this);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        String[] projection = {
+                DatabaseContract.ComparisonSetting.COLUMN_NAME_YEARLY_SALARY_WEIGHT,
+                DatabaseContract.ComparisonSetting.COLUMN_NAME_YEARLY_BONUS_WEIGHT,
+                DatabaseContract.ComparisonSetting.COLUMN_NAME_LEAVE_TIME_WEIGHT,
+                DatabaseContract.ComparisonSetting.COLUMN_NAME_TRAINING_AND_DEVELOPMENT_FUND_WEIGHT,
+                DatabaseContract.ComparisonSetting.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK_WEIGHT
+
+        };
+
+
+
+        Cursor cursor = db.query(
+                DatabaseContract.ComparisonSetting.TABLE_NAME,   // FROM
+                projection,                         // SELECT
+                null,
+                null,        // WHERE values
+                null,                       // GROUP BY
+                null,                        // filter by row groups
+                null                        // SORT BY
+        );
+        Toast.makeText(EnterComparisonSettings.this, "Cursor results: " + cursor, Toast.LENGTH_SHORT).show();
+//
+//        if (cursor != null && cursor.moveToFirst()) {
+//            int yearlySalaryWeight = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.ComparisonSetting.COLUMN_NAME_YEARLY_SALARY_WEIGHT));
+//            int yearlyBonusWeight = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.ComparisonSetting.COLUMN_NAME_YEARLY_BONUS_WEIGHT));
+//            int trainingDevelopmentFundWeight = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.ComparisonSetting.COLUMN_NAME_TRAINING_AND_DEVELOPMENT_FUND_WEIGHT));
+//            int leaveTimeWeight = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.ComparisonSetting.COLUMN_NAME_LEAVE_TIME_WEIGHT));
+//            int teleworkDaysPerWeekWeight = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.ComparisonSetting.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK_WEIGHT));
+//
+//
+//            cursor.close();
+//            yearlySalaryEditText.setText(yearlySalaryWeight);
+//            yearlyBonusEditText.setText(yearlyBonusWeight);
+//            trainingAndDevEditText.setText(trainingDevelopmentFundWeight);
+//            leaveTimeEditText.setText(leaveTimeWeight);
+//            teleworkDaysEditText.setText(teleworkDaysPerWeekWeight);
+//
+//        } else {
+//            int defaultWeight = 1;
+//            yearlySalaryEditText.setText(defaultWeight);
+//            yearlyBonusEditText.setText(defaultWeight);
+//            trainingAndDevEditText.setText(defaultWeight);
+//            leaveTimeEditText.setText(defaultWeight);
+//            teleworkDaysEditText.setText(defaultWeight);
+//        }
     }
 }
