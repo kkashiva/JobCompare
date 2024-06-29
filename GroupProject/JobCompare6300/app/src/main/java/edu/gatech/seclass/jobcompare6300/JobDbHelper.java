@@ -9,6 +9,7 @@ public class JobDbHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "JobDatabase.db";
 
+    // CREATE TABLE query for the Job table
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + DatabaseContract.Jobs.TABLE_NAME + " (" +
                     DatabaseContract.Jobs._ID + " INTEGER PRIMARY KEY," +
@@ -28,6 +29,16 @@ public class JobDbHelper extends SQLiteOpenHelper {
                     DatabaseContract.Jobs.COLUMN_NAME_AYB + " REAL," +
                     DatabaseContract.Jobs.COLUMN_NAME_SCORE + " REAL)";
 
+    // CREATE TABLE query for the ComparisonSetting table in the same db
+    String SQL_CREATE_COMPARISON_SETTING_ENTRIES =
+            "CREATE TABLE " + DatabaseContract.ComparisonSetting.TABLE_NAME + " (" +
+                    DatabaseContract.ComparisonSetting._ID + " INTEGER PRIMARY KEY," +
+                    DatabaseContract.ComparisonSetting.COLUMN_NAME_YEARLY_SALARY_WEIGHT + " INTEGER," +
+                    DatabaseContract.ComparisonSetting.COLUMN_NAME_YEARLY_BONUS_WEIGHT + " INTEGER," +
+                    DatabaseContract.ComparisonSetting.COLUMN_NAME_TRAINING_AND_DEVELOPMENT_FUND_WEIGHT + " INTEGER," +
+                    DatabaseContract.ComparisonSetting.COLUMN_NAME_LEAVE_TIME_WEIGHT + " INTEGER," +
+                    DatabaseContract.ComparisonSetting.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK_WEIGHT + " INTEGER)";
+
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + DatabaseContract.Jobs.TABLE_NAME;
 
@@ -37,6 +48,7 @@ public class JobDbHelper extends SQLiteOpenHelper {
 
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_ENTRIES);
+        db.execSQL(SQL_CREATE_COMPARISON_SETTING_ENTRIES);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

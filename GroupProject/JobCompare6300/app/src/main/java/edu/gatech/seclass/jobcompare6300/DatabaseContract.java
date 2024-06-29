@@ -26,4 +26,13 @@ public final class DatabaseContract {
         public static final String COLUMN_NAME_SCORE = "Score";
     }
 
+    /* class to define the table ComparisonSetting */
+    public static class ComparisonSetting implements BaseColumns {
+        public static final String TABLE_NAME = "ComparisonSetting";
+        public static final String COLUMN_NAME_YEARLY_SALARY_WEIGHT = "yearlySalaryWeight";
+        public static final String COLUMN_NAME_YEARLY_BONUS_WEIGHT = "yearlyBonusWeight";
+        public static final String COLUMN_NAME_TRAINING_AND_DEVELOPMENT_FUND_WEIGHT = "trainingAndDevelopmentFundWeight";
+        public static final String COLUMN_NAME_LEAVE_TIME_WEIGHT = "leaveTimeWeight";
+        public static final String COLUMN_NAME_TELEWORK_DAYS_PER_WEEK_WEIGHT = "teleworkDaysPerWeekWeight";
+    }
 }
