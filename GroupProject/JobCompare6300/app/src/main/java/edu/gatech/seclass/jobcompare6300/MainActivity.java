@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void handleClickAdjustComparisonSettings(View view) {
+        startActivity(new Intent(MainActivity.this, EnterComparisonSettings.class));
     }
 
     public void handleClickCompareJobOffer(View view) {
