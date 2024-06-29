@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.database.sqlite.SQLiteDatabase;
@@ -27,49 +26,6 @@ public class EnterComparisonSettings extends AppCompatActivity {
         trainingAndDevEditText = findViewById(R.id.trainingAndDevEditTextId);
         leaveTimeEditText = findViewById(R.id.leaveTimeEditTextId);
         teleworkDaysEditText = findViewById(R.id.teleworkDaysEditTextId);
-        Button buttonSubmit = findViewById(R.id.submitComparisonSettingsButtonID);
-
-        // get singleton instance
-        dbHelper = JobDbHelper.getInstance(this);
-
-        // Gets the data repository in write mode
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-        buttonSubmit.setOnClickListener(v -> {
-                    String yearlySalary = yearlySalaryEditText.getText().toString().trim();
-                    String yearlyBonus = yearlyBonusEditText.getText().toString().trim();
-                    String trainingFund = trainingAndDevEditText.getText().toString().trim();
-                    String leaveTime = leaveTimeEditText.getText().toString().trim();
-                    String teleworkDays = teleworkDaysEditText.getText().toString().trim();
-
-                    boolean isValid = checkIfValid(yearlySalary, yearlyBonus, trainingFund, leaveTime, teleworkDays);
-                    if (!isValid) {
-                        return;
-                    }
-
-                    int yearlySalaryInt = Integer.parseInt(yearlySalary);
-                    int yearlyBonusInt = Integer.parseInt(yearlyBonus);
-                    int trainingFundInt = Integer.parseInt(trainingFund);
-                    int leaveTimeInt = Integer.parseInt(leaveTime);
-                    int teleworkDaysInt = Integer.parseInt(teleworkDays);
-
-                    ContentValues values = new ContentValues();
-                    values.put(DatabaseContract.ComparisonSetting.COLUMN_NAME_YEARLY_SALARY_WEIGHT, yearlySalaryInt);
-                    values.put(DatabaseContract.ComparisonSetting.COLUMN_NAME_YEARLY_BONUS_WEIGHT, yearlyBonusInt);
-                    values.put(DatabaseContract.ComparisonSetting.COLUMN_NAME_LEAVE_TIME_WEIGHT, leaveTimeInt);
-                    values.put(DatabaseContract.ComparisonSetting.COLUMN_NAME_TRAINING_AND_DEVELOPMENT_FUND_WEIGHT,
-                            trainingFundInt);
-                    values.put(DatabaseContract.ComparisonSetting.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK_WEIGHT,
-                            teleworkDaysInt);
-
-                    // Update the weights in the existing row in ComparisonSetting table
-                    db.update(DatabaseContract.ComparisonSetting.TABLE_NAME, values, null,
-                            null);
-
-                    Toast.makeText(this, "Weights updated", Toast.LENGTH_LONG).show();
-                }
-
-        );
 
     }
 
@@ -163,16 +119,57 @@ public class EnterComparisonSettings extends AppCompatActivity {
 
         } else {
             // no saved weights found in db so set default weight 1
+            // TODO: this should be created as a db ComparisonSetting row from MainActivity
             int defaultWeight = 1;
-            yearlySalaryEditText.setText(defaultWeight);
-            yearlyBonusEditText.setText(defaultWeight);
-            trainingAndDevEditText.setText(defaultWeight);
-            leaveTimeEditText.setText(defaultWeight);
-            teleworkDaysEditText.setText(defaultWeight);
+            yearlySalaryEditText.setText(String.valueOf(defaultWeight));
+            yearlyBonusEditText.setText(String.valueOf(defaultWeight));
+            trainingAndDevEditText.setText(String.valueOf(defaultWeight));
+            leaveTimeEditText.setText(String.valueOf(defaultWeight));
+            teleworkDaysEditText.setText(String.valueOf(defaultWeight));
             Toast.makeText(getApplicationContext(), "Set default. No saved comparison settings.", Toast.LENGTH_LONG).show();
         }
         if (cursor != null) {
             cursor.close();
         }
+    }
+
+    public void handleClickSaveWeights(View view) {
+        String yearlySalary = yearlySalaryEditText.getText().toString().trim();
+        String yearlyBonus = yearlyBonusEditText.getText().toString().trim();
+        String trainingFund = trainingAndDevEditText.getText().toString().trim();
+        String leaveTime = leaveTimeEditText.getText().toString().trim();
+        String teleworkDays = teleworkDaysEditText.getText().toString().trim();
+
+        boolean isValid = checkIfValid(yearlySalary, yearlyBonus, trainingFund, leaveTime, teleworkDays);
+        if (!isValid) {
+            return;
+        }
+
+        int yearlySalaryInt = Integer.parseInt(yearlySalary);
+        int yearlyBonusInt = Integer.parseInt(yearlyBonus);
+        int trainingFundInt = Integer.parseInt(trainingFund);
+        int leaveTimeInt = Integer.parseInt(leaveTime);
+        int teleworkDaysInt = Integer.parseInt(teleworkDays);
+
+        // get singleton instance
+        dbHelper = JobDbHelper.getInstance(this);
+
+        // Gets the data repository in write mode
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(DatabaseContract.ComparisonSetting.COLUMN_NAME_YEARLY_SALARY_WEIGHT, yearlySalaryInt);
+        values.put(DatabaseContract.ComparisonSetting.COLUMN_NAME_YEARLY_BONUS_WEIGHT, yearlyBonusInt);
+        values.put(DatabaseContract.ComparisonSetting.COLUMN_NAME_LEAVE_TIME_WEIGHT, leaveTimeInt);
+        values.put(DatabaseContract.ComparisonSetting.COLUMN_NAME_TRAINING_AND_DEVELOPMENT_FUND_WEIGHT,
+                trainingFundInt);
+        values.put(DatabaseContract.ComparisonSetting.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK_WEIGHT,
+                teleworkDaysInt);
+
+        // Update the weights in the existing row in ComparisonSetting table
+        db.update(DatabaseContract.ComparisonSetting.TABLE_NAME, values, null,
+                null);
+
+        Toast.makeText(this, "Weights updated", Toast.LENGTH_LONG).show();
     }
 }
