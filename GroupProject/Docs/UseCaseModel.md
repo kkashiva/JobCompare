@@ -39,6 +39,7 @@
 - Scenarios:
   - User selects 2 jobs from the list and selects Compare. The table of comparison is showed.
   - User selects the button to perform another comparison. The screen takes user back to the list of offers.
+  - User selects back to main menu button. It should route user back to main menu.
 
 #### Adjust Comparison Settings
 - Requirements: User can assign weight factors for each job offer.

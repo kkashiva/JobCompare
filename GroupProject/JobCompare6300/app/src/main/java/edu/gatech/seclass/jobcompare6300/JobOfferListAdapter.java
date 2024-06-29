@@ -13,8 +13,6 @@ import androidx.annotation.Nullable;
 import java.util.List;
 
 public class JobOfferListAdapter extends ArrayAdapter<JobOffer> {
-    private static final String TAG = "JobOfferListAdapter";
-
     private Context mContext;
     int mResource;
 
@@ -29,9 +27,9 @@ public class JobOfferListAdapter extends ArrayAdapter<JobOffer> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         String title = getItem(position).getTitle();
         String company = getItem(position).getCompany();
-        int ranking = 1;
-//        TODO: figure out ranking here
-
+//        TODO: uncomment this line once comparison setting is hooked up to calculate score correctly
+//        int score = getItem(position).getScore();
+        int score = 100;
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
 
@@ -39,7 +37,7 @@ public class JobOfferListAdapter extends ArrayAdapter<JobOffer> {
         TextView titleView = convertView.findViewById(R.id.title);
         TextView companyView = convertView.findViewById(R.id.company);
 
-        rankView.setText("1");
+        rankView.setText(String.format("%d", score));
         titleView.setText(title);
         companyView.setText(company);
 
