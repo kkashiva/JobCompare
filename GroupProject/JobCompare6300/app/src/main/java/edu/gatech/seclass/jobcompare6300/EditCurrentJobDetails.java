@@ -2,6 +2,7 @@ package edu.gatech.seclass.jobcompare6300;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -102,5 +103,30 @@ public class EditCurrentJobDetails extends AppCompatActivity {
         }
     }
 
+    public void handleClickEditJob(View view) {
+        JobDbHelper dbHelper = new JobDbHelper(this);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+    
+        ContentValues values = new ContentValues();
+        values.put(DatabaseContract.Jobs.COLUMN_NAME_TITLE, inputTitle.getText().toString());
+        values.put(DatabaseContract.Jobs.COLUMN_NAME_COMPANY, inputCompany.getText().toString());
+        values.put(DatabaseContract.Jobs.COLUMN_NAME_LOCATION_STATE, inputState.getText().toString());
+        values.put(DatabaseContract.Jobs.COLUMN_NAME_LOCATION_CITY, inputCity.getText().toString());
+        values.put(DatabaseContract.Jobs.COLUMN_NAME_COST_OF_LIVING, Integer.parseInt(inputLivingCost.getText().toString()));
+        values.put(DatabaseContract.Jobs.COLUMN_NAME_YEARLY_SALARY, Integer.parseInt(inputYearlySalary.getText().toString()));
+        values.put(DatabaseContract.Jobs.COLUMN_NAME_YEARLY_BONUS, Integer.parseInt(inputYearlyBonus.getText().toString()));
+        values.put(DatabaseContract.Jobs.COLUMN_NAME_TRAINING_DEVELOPMENT_FUND, Integer.parseInt(inputTrainingDevelopment.getText().toString()));
+        values.put(DatabaseContract.Jobs.COLUMN_NAME_LEAVE_TIME, Integer.parseInt(inputLeaveTime.getText().toString()));
+        values.put(DatabaseContract.Jobs.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK, Integer.parseInt(inputTelework.getText().toString()));
+    
+        String selection = DatabaseContract.Jobs.COLUMN_NAME_JOB_TYPE + " = ?";
+        String[] selectionArgs = { "0" };
+    
+        db.update(
+                DatabaseContract.Jobs.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs);
+    }
 
 }
