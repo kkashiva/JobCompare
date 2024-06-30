@@ -1,6 +1,7 @@
 package edu.gatech.seclass.jobcompare6300;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -153,9 +154,12 @@ public class EnterCurrentJobDetails extends AppCompatActivity {
 
             // Insert the new row, returning the primary key value of the new row
             long jobId = db.insert(DatabaseContract.Jobs.TABLE_NAME, null, values);
-
+            double score = job.getJobScore();
             // show the message in a toast
-            Toast.makeText(this, "Successfully saved current job!", Toast.LENGTH_SHORT).show();
+             Toast.makeText(this, "Successfully saved current job!", Toast.LENGTH_SHORT).show();
+
+            // show the score as a toast.
+            Toast.makeText(this, String.valueOf(score),Toast.LENGTH_LONG).show();
         }
         else{
             // show the failing message in a toast

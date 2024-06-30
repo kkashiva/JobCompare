@@ -142,12 +142,10 @@ public class Job {
     }
 
     public Double calculateAdjustedYearlySalary(Integer yearlySalary, Integer costOfLiving){
-        AYS = (double) ((yearlySalary * 100)/ costOfLiving);
-        return AYS;
+        return (double) ((yearlySalary * 100)/ costOfLiving);
     }
     public Double calculateAdjustedYearlyBonus(Integer yearlyBonus, Integer costOfLiving){
-        AYB = (double) ((yearlyBonus * 100)/ costOfLiving);
-        return AYB;
+        return (double) ((yearlyBonus * 100)/ costOfLiving);
     }
 
     public Double calculateJobScore(List<Integer> adjustedParameter, Double AYS, Double AYB,
@@ -166,8 +164,9 @@ public class Job {
         double LTParam = (double) (adjustedParameter.get(3)/totalParam);
         double commuteCostParam = (double) (adjustedParameter.get(4)/totalParam);
 
-        score = AYSParam * AYS + AYBParam * AYB + TDFParam * trainDevFund +
-                LTParam * leaveDay * valueOfEmpHour * 8 - commuteCostParam * travelTimeCost;
-        return score;
+//        return (double) AYSParam * AYS + AYBParam * AYB + TDFParam * trainDevFund +
+//                LTParam * leaveDay * valueOfEmpHour * 8 - commuteCostParam * travelTimeCost;
+        // put the non-weighted version as of now. Need more changes
+        return (double) AYS + AYB + TDFParam * trainDevFund + leaveDay * valueOfEmpHour * 8 - travelTimeCost;
     }
 }
