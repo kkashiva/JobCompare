@@ -41,6 +41,20 @@ public class CompareJobOffers extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         cursor.close();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick( AdapterView<?> parent, View item,
+                                     int position, long id) {
+                JobOffer offer = adapter.getItem( position );
+                planet.toggleChecked();
+                PlanetViewHolder viewHolder = (PlanetViewHolder) item.getTag();
+                viewHolder.getCheckBox().setChecked( planet.isChecked() );
+            }
+        });
+
+
+
     }
 
     public void handleClickBackToMainMenu(View view) {
@@ -48,6 +62,9 @@ public class CompareJobOffers extends AppCompatActivity {
     }
 
     public void handleClickCompareActionButton(View view) {
+        ListView listView = findViewById(R.id.listViewId);
+
+
         startActivity(new Intent(CompareJobOffers.this, Display2JobOffers.class));
     }
 }
