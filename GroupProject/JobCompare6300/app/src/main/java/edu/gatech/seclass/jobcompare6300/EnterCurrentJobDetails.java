@@ -121,7 +121,7 @@ public class EnterCurrentJobDetails extends AppCompatActivity {
 
 
             // Instantiate our subclass of SQLiteOpenHelper
-            JobDbHelper dbHelper = new JobDbHelper(this);
+            JobDbHelper dbHelper = JobDbHelper.getInstance(this);
 
             // Gets the data repository in write mode
             SQLiteDatabase db = dbHelper.getWritableDatabase();
