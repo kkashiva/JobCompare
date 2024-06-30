@@ -109,53 +109,57 @@ public class EnterCurrentJobDetails extends AppCompatActivity {
 
         boolean isValid = checkIfValid(title, company, locationState, locationCity,
                 costOfLiving, yearlySalary, yearlyBonus, trainDevFund, leaveTime, teleworkDay);
-        if (!isValid) {
-            return;
+        if (isValid) {
+            Integer costOfLivingInt = Integer.parseInt(costOfLiving);
+            Integer yearlySalaryInt = Integer.parseInt(yearlySalary);
+            Integer yearlyBonusInt = Integer.parseInt(yearlyBonus);
+            Integer trainDevFundInt = Integer.parseInt(trainDevFund);
+            Integer leaveTimeInt = Integer.parseInt(leaveTime);
+            Integer teleworkDayInt = Integer.parseInt(teleworkDay);
+
+
+            // Instantiate our subclass of SQLiteOpenHelper
+            JobDbHelper dbHelper = new JobDbHelper(this);
+
+            // Gets the data repository in write mode
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+            //Create a new job object
+            Integer jobType = 0;
+            Job job = new Job(title, company, locationState, locationCity, costOfLivingInt,
+                    yearlySalaryInt, yearlyBonusInt, trainDevFundInt, leaveTimeInt, teleworkDayInt, jobType); //jobType=0 for current job
+
+            // Create a new map of values, where column names are the keys
+            // hardcoding values to test, once input fields are added these values will be dynamic based on user input
+            ContentValues values = new ContentValues();
+            values.put(DatabaseContract.Jobs.COLUMN_NAME_TITLE, job.getTitle());
+            values.put(DatabaseContract.Jobs.COLUMN_NAME_COMPANY, job.getCompany());
+            values.put(DatabaseContract.Jobs.COLUMN_NAME_LOCATION_CITY, job.getCity());
+            values.put(DatabaseContract.Jobs.COLUMN_NAME_LOCATION_STATE, job.getState());
+            values.put(DatabaseContract.Jobs.COLUMN_NAME_COST_OF_LIVING, job.getCostOfLiving());
+            values.put(DatabaseContract.Jobs.COLUMN_NAME_YEARLY_SALARY, job.getYearlySalary());
+            values.put(DatabaseContract.Jobs.COLUMN_NAME_YEARLY_BONUS, job.getYearlyBonus());
+            values.put(DatabaseContract.Jobs.COLUMN_NAME_TRAINING_DEVELOPMENT_FUND, job.getTrainingDevelopmentFund());
+            values.put(DatabaseContract.Jobs.COLUMN_NAME_LEAVE_TIME, job.getLeaveTime());
+            values.put(DatabaseContract.Jobs.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK, job.getTeleworkDaysPerWeek());
+            values.put(DatabaseContract.Jobs.COLUMN_NAME_JOB_TYPE, job.getJobType()); // 0 for CurrentJob, 1 for JobOffer
+
+            // some derived variables
+            values.put(DatabaseContract.Jobs.COLUMN_NAME_AYS, job.getAYS());
+            values.put(DatabaseContract.Jobs.COLUMN_NAME_AYB, job.getAYB());
+            values.put(DatabaseContract.Jobs.COLUMN_NAME_SCORE, job.getJobScore());
+
+            // Insert the new row, returning the primary key value of the new row
+            long jobId = db.insert(DatabaseContract.Jobs.TABLE_NAME, null, values);
+
+            // show the jobId in a toast
+            Toast.makeText(this, "Job ID: " + jobId, Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(this, "Please adjust your inputs", Toast.LENGTH_SHORT).show();
         }
 
-        Integer costOfLivingInt = Integer.parseInt(costOfLiving);
-        Integer yearlySalaryInt = Integer.parseInt(yearlySalary);
-        Integer yearlyBonusInt = Integer.parseInt(yearlyBonus);
-        Integer trainDevFundInt = Integer.parseInt(trainDevFund);
-        Integer leaveTimeInt = Integer.parseInt(leaveTime);
-        Integer teleworkDayInt = Integer.parseInt(teleworkDay);
 
-
-        // Instantiate our subclass of SQLiteOpenHelper
-        JobDbHelper dbHelper = new JobDbHelper(this);
-
-        // Gets the data repository in write mode
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-        //Create a new job object
-        Job job = new Job(title, company, locationState, locationCity, costOfLivingInt,
-                yearlySalaryInt, yearlyBonusInt, trainDevFundInt, leaveTimeInt, teleworkDayInt);
-
-        // Create a new map of values, where column names are the keys
-        // hardcoding values to test, once input fields are added these values will be dynamic based on user input
-        ContentValues values = new ContentValues();
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_TITLE, job.getTitle());
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_COMPANY, job.getCompany());
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_LOCATION_CITY, job.getCity());
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_LOCATION_STATE, job.getState());
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_COST_OF_LIVING, job.getCostOfLiving());
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_YEARLY_SALARY, job.getYearlySalary());
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_YEARLY_BONUS, job.getYearlyBonus());
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_TRAINING_DEVELOPMENT_FUND, job.getTrainingDevelopmentFund());
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_LEAVE_TIME, job.getLeaveTime());
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK, job.getTeleworkDaysPerWeek());
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_JOB_TYPE, 0); // 0 for CurrentJob, 1 for JobOffer
-
-        // some derived variables
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_AYS, job.getAYS());
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_AYB, job.getAYB());
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_SCORE, job.getJobScore());
-
-        // Insert the new row, returning the primary key value of the new row
-        long jobId = db.insert(DatabaseContract.Jobs.TABLE_NAME, null, values);
-
-        // show the jobId in a toast
-        Toast.makeText(this, "Job ID: " + jobId, Toast.LENGTH_SHORT).show();
 
     }
 }
