@@ -21,13 +21,12 @@
     <string name="enter_job_offers_screen">Enter Job Offer Details Screen</string>
     <string name="enter_job_offers">Enter Job Offer Detail</string>
 
-<!--    Compare Job Offers-->
+    <!--    Compare Job Offers-->
     <string name="compare_job_offers">Compare Job Offers</string>
     <string name="compare_job_offers_screen">Job Offers Ranking</string>
 
 
     <string name="adjust_the_comparison_settings">Adjust the Comparison Settings</string>
-    <string name="save_comparison_settings">Save Comparison Settings</string>
 
     <string name="back_to_main_menu">Back to Main Menu</string>
     <string name="save_current_job">Save Current Job</string>
@@ -42,4 +41,5 @@
     <string name="save_job_offer">Save Job Offer</string>
     <string name="update_current_job">Update Current Job</string>
     <string name="telework_day_per_week">Telework Day per Week</string>
+    <string name="save_comparison_settings">Save Weights</string>
 </resources>

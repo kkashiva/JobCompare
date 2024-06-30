@@ -1,6 +1,7 @@
 package edu.gatech.seclass.jobcompare6300;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +14,6 @@ import androidx.annotation.Nullable;
 import java.util.List;
 
 public class JobOfferListAdapter extends ArrayAdapter<JobOffer> {
-    private static final String TAG = "JobOfferListAdapter";
-
     private Context mContext;
     int mResource;
 
@@ -29,8 +28,8 @@ public class JobOfferListAdapter extends ArrayAdapter<JobOffer> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         String title = getItem(position).getTitle();
         String company = getItem(position).getCompany();
-        int ranking = 1;
-//        TODO: figure out ranking here
+        int rank = getItem(position).getRank();
+        boolean isCurrentJob = getItem(position).isCurrentJob();
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
@@ -39,7 +38,13 @@ public class JobOfferListAdapter extends ArrayAdapter<JobOffer> {
         TextView titleView = convertView.findViewById(R.id.title);
         TextView companyView = convertView.findViewById(R.id.company);
 
-        rankView.setText("1");
+        if (isCurrentJob) {
+            rankView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
+            titleView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
+            companyView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
+        }
+
+        rankView.setText(String.format("%d", rank));
         titleView.setText(title);
         companyView.setText(company);
 

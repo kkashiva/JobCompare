@@ -7,7 +7,7 @@
     tools:context=".EditCurrentJobDetails">
 
     <LinearLayout
-        android:id="@+id/enterCurrentJob"
+        android:id="@+id/editCurrentJob"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -262,7 +262,7 @@
                 android:backgroundTint="#5ab505"
                 android:gravity="center"
                 android:maxLength="400"
-                android:onClick="handleClickSaveJob"
+                android:onClick="handleClickEditJob"
                 android:text="@string/update_current_job"
                 android:textAlignment="center"
                 android:textSize="19sp" />

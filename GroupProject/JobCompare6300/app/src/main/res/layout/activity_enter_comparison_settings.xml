@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CompareJobOffers">
+    tools:context=".EnterComparisonSettings">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -180,6 +180,7 @@
                 android:backgroundTint="#5ab505"
                 android:gravity="center"
                 android:maxLength="400"
+                android:onClick="handleClickSaveWeights"
                 android:text="@string/save_comparison_settings"
                 android:textAlignment="center"
                 />

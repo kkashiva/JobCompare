@@ -21,12 +21,14 @@ public class Job {
     private Double AYB;
     private Double score;
 
+    private Integer jobType;
+
     // Hardcoded parameters; need to change in next Phase
     private final List<Integer> adjustedParameter = Arrays.asList(1, 1, 1, 1, 1);
 
     public Job(String title, String company, String locationState, String locationCity, Integer costOfLiving,
                Integer yearlySalary, Integer yearlyBonus, Integer trainDevFund,
-               Integer leaveDay, Integer teleworkDaysPerWeek) {
+               Integer leaveDay, Integer teleworkDaysPerWeek, Integer jobType) {
         this.title = title;
         this.company = company;
         this.locationState = locationState;
@@ -39,9 +41,10 @@ public class Job {
         this.teleworkDaysPerWeek = teleworkDaysPerWeek;
 
         this.location = locationState + ',' + locationCity;
-        this.AYS = calculateAdjustedYearlySalary(yearlySalary, costOfLiving);
-        this.AYB = calculateAdjustedYearlyBonus(yearlyBonus, costOfLiving);
-        this.score = calculateJobScore(adjustedParameter, AYS, AYB, trainDevFund, leaveDay, teleworkDaysPerWeek);
+        this.AYS = calculateAdjustedYearlySalary(this.yearlySalary, this.costOfLiving);
+        this.AYB = calculateAdjustedYearlyBonus(this.yearlyBonus, this.costOfLiving);
+        this.score = calculateJobScore(adjustedParameter, this.AYS, this.AYB, this.trainDevFund, this.leaveDay, this.teleworkDaysPerWeek);
+        this.jobType = jobType;
     }
 
     // set functions
@@ -128,6 +131,9 @@ public class Job {
     }
     public Double getJobScore(){
         return score;
+    }
+    public Integer getJobType(){
+        return jobType;
     }
 
     // Derived Variable functions - Calculations

@@ -5,15 +5,31 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class JobDbHelper extends SQLiteOpenHelper {
+
     // If you change the database schema, you must increment the database version.
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "JobDatabase.db";
+
+    // Singleton pattern
+    private static JobDbHelper instance;
+    // making the constructor private to ensure singleton; only one instance of JobDbHelper
+    JobDbHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+    // public method to get the instance of JobDbHelper
+    public static synchronized JobDbHelper getInstance(Context context) {
+        // if no instance exists, create one
+        if (instance == null) {
+            instance = new JobDbHelper(context.getApplicationContext());
+        }
+        // if instance exists, return it instead of creating another
+        return instance;
+    }
 
     // CREATE TABLE query for the Job table
     private static final String SQL_CREATE_JOB_ENTRIES =
             "CREATE TABLE " + DatabaseContract.Jobs.TABLE_NAME + " (" +
                     DatabaseContract.Jobs._ID + " INTEGER PRIMARY KEY," +
-                    DatabaseContract.Jobs.COLUMN_NAME_JOB_ID + " TEXT," +
                     DatabaseContract.Jobs.COLUMN_NAME_TITLE + " TEXT," +
                     DatabaseContract.Jobs.COLUMN_NAME_COMPANY + " TEXT," +
                     DatabaseContract.Jobs.COLUMN_NAME_LOCATION_STATE + " TEXT," +
@@ -41,10 +57,6 @@ public class JobDbHelper extends SQLiteOpenHelper {
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + DatabaseContract.Jobs.TABLE_NAME;
-
-    public JobDbHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-    }
 
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_JOB_ENTRIES);
