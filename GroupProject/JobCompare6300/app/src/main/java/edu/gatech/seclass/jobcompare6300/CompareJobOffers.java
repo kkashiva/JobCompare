@@ -13,51 +13,34 @@ import java.util.ArrayList;
 
 public class CompareJobOffers extends AppCompatActivity {
 
+    private JobDbHelper dbHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compare_job_offers);
 
-        JobDbHelper dbHelper = JobDbHelper.getInstance(this); //get singleton instance
+        dbHelper = JobDbHelper.getInstance(this); //get singleton instance
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         ListView listView = findViewById(R.id.listViewId);
 
-        String[] projection = {
-                DatabaseContract.Jobs.COLUMN_NAME_TITLE,
-                DatabaseContract.Jobs.COLUMN_NAME_COMPANY,
-                DatabaseContract.Jobs.COLUMN_NAME_SCORE,
-                DatabaseContract.Jobs.COLUMN_NAME_JOB_TYPE,
-        };
-
-        Cursor cursor = db.query(
-                DatabaseContract.Jobs.TABLE_NAME,   // FROM
-                projection,                         // SELECT
-                null,                          // WHERE columns
-                null,                      // WHERE values
-                null,                       // GROUP BY
-                null,                        // filter by row groups
-                DatabaseContract.Jobs.COLUMN_NAME_SCORE  // SORT BY
-        );
+        String query = "SELECT title, company, score, jobType FROM Job ORDER BY Score DESC";
+        Cursor cursor = db.rawQuery(query, null);
 
         ArrayList<JobOffer> jobOffersList = new ArrayList<>();
+
         int rank = 0;
-        if (cursor != null) {
-            cursor.moveToFirst();
-            while (cursor != null) {
-                String title = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_TITLE));
-                String company = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_COMPANY));
-                int jobType = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_JOB_TYPE));
-                jobOffersList.add(new JobOffer(title, company, rank++, jobType==0));
-                cursor.moveToNext();
-            }
-
-//        TODO: Right now there's no indication for current job. How do we achieve that via UI?
-            JobOfferListAdapter adapter = new JobOfferListAdapter(this, R.layout.adapter_view_ranking_table_layout, jobOffersList);
-            listView.setAdapter(adapter);
-
-            cursor.close();
+        while (cursor.moveToNext()) {
+            String title = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_TITLE));
+            String company = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_COMPANY));
+            int jobType = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_JOB_TYPE));
+            jobOffersList.add(new JobOffer(title, company, ++rank, jobType==0));
         }
+
+        JobOfferListAdapter adapter = new JobOfferListAdapter(this, R.layout.adapter_view_ranking_table_layout, jobOffersList);
+        listView.setAdapter(adapter);
+
+        cursor.close();
     }
 
     public void handleClickBackToMainMenu(View view) {

@@ -1,6 +1,7 @@
 package edu.gatech.seclass.jobcompare6300;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,9 +28,9 @@ public class JobOfferListAdapter extends ArrayAdapter<JobOffer> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         String title = getItem(position).getTitle();
         String company = getItem(position).getCompany();
-//        TODO: uncomment this line once comparison setting is hooked up to calculate score correctly
-//        int score = getItem(position).getScore();
-        int score = 100;
+        int rank = getItem(position).getRank();
+        boolean isCurrentJob = getItem(position).isCurrentJob();
+
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
 
@@ -37,7 +38,13 @@ public class JobOfferListAdapter extends ArrayAdapter<JobOffer> {
         TextView titleView = convertView.findViewById(R.id.title);
         TextView companyView = convertView.findViewById(R.id.company);
 
-        rankView.setText(String.format("%d", score));
+        if (isCurrentJob) {
+            rankView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
+            titleView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
+            companyView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
+        }
+
+        rankView.setText(String.format("%d", rank));
         titleView.setText(title);
         companyView.setText(company);
 
