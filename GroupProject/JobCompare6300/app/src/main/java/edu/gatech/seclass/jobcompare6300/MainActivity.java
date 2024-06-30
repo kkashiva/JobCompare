@@ -23,11 +23,37 @@ public class MainActivity extends AppCompatActivity {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         /*
+         * Query Job table for any existing current job (jobType == 0).
+         * current job = 1, disable enter current job details.
+         * current job = 0, disable edit current job details.
+         */
+        String query = "SELECT * FROM Job WHERE jobType = 0";
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.getCount() == 1) {
+            Button enterCurrentJobButton = findViewById(R.id.enterCurrentJobDetailsButtonID);
+            enterCurrentJobButton.setEnabled(false);
+
+            Button editCurrentJobButton = findViewById(R.id.editCurrentJobDetailsButtonID);
+            editCurrentJobButton.setEnabled(true);
+        }
+        if (cursor.getCount() == 0) {
+            Button editCurrentJobButton = findViewById(R.id.editCurrentJobDetailsButtonID);
+            editCurrentJobButton.setEnabled(false);
+
+            Button enterCurrentJobButton = findViewById(R.id.enterCurrentJobDetailsButtonID);
+            enterCurrentJobButton.setEnabled(true);
+        }
+        else {
+            cursor.close();
+        }
+
+        /*
          * Query Job table for any existing jobOffer (jobType == 1).
          * If there's no job offer, disable Compare Job Offer button.
          */
-        String query = "SELECT * FROM Job WHERE jobType = 1";
-        Cursor cursor = db.rawQuery(query, null);
+        query = "SELECT * FROM Job WHERE jobType = 1";
+        cursor = db.rawQuery(query, null);
 
         if (cursor == null || cursor.getCount() == 0) {
             Button compareJobOfferButton = findViewById(R.id.compareJobOffersButtonID);

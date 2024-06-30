@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.View;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.os.Handler;
 
 public class EditCurrentJobDetails extends AppCompatActivity {
 
@@ -146,13 +148,14 @@ public class EditCurrentJobDetails extends AppCompatActivity {
         db.execSQL("DELETE FROM " + DatabaseContract.Jobs.TABLE_NAME + " WHERE " + DatabaseContract.Jobs.COLUMN_NAME_JOB_TYPE + " = 0 AND " + DatabaseContract.Jobs._ID + " NOT IN (SELECT MAX(" + DatabaseContract.Jobs._ID + ") FROM " + DatabaseContract.Jobs.TABLE_NAME + " WHERE " + DatabaseContract.Jobs.COLUMN_NAME_JOB_TYPE + " = 0)");
 
         Toast.makeText(this, "Current job details updated.", Toast.LENGTH_LONG).show();
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(EditCurrentJobDetails.this, MainActivity.class));
+            }
+        }, 1000);
+
     }
 
-    // close the database in onDestroy()
-    // @Override
-    // protected void onDestroy() {
-    // dbHelper.close();
-    // super.onDestroy();
-    // }
 
 }

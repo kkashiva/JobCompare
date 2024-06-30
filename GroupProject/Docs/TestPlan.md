@@ -70,32 +70,48 @@ Others will be determined as we continue with the development.
 For this deliverable, we attempt manual testing to test the app's functionality.
 
 #### Main Menu:
-- **Test case 1**: *Enter Current Job Details* button is disabled when the current job exists.
-  - Manual Steps:
-    - From main menu, select *Enter Current Job Details*.
-  - Expected Result:
-    - The button is disabled.
-  - Actual Result:
-
-- **Test case 2**: *Edit Current Job Details* button is disabled when no job offer exists.
+- **Test case 1**: *Edit Current Job Details* button is disabled when no current job exists.
   - Manual Steps:
     - From main menu, select *Edit Current Job Details*.
   - Expected Result:
     - The button is disabled.
-  - Actual Result:
+  - Actual Result:\
+    ![mainMenuTesting1.PNG](images/mainMenuTesting1.PNG)
+
+- **Test case 2**: *Enter Current Job Details* button is disabled when the current job exists.
+  - Manual Steps:
+    - From main menu, select *Enter Current Job Details*.
+  - Expected Result:
+    - The button is disabled.
+  - Actual Result:\
+  ![mainMenuTesting2.PNG](images/mainMenuTesting2.PNG)
+
+
 
 - **Test case 3**: *Compare Job Offers* button is disabled when current job + job offer is less than 2.
   - Manual Steps:
     - From main menu, select Compare Job Offers.
   - Expected Result:
     - The button is disabled.
-  - Actual Result:
-    ![compareJobOffers_tc3.png](images/compareJobOffers_tc3.png)
+  - Actual Result:\
+    ![mainMenuTesting2.PNG](images/mainMenuTesting2.PNG)
 
 #### Enter Current Job Details
-- **Test case 4**: Previously entered current job details should be displayed in EditText input fields and persist after app restart
+- **Test case 4**: User enters current job details.
   - Manual Steps:
-    - Click on Enter Current Job Details from MainActivity
+    - Click on *Enter Current Job Details* from main menu
+    - Input the details as hinted and click Save Current Job, then go back to Main Menu
+  - Expected Result:
+    - A toast will be main to notify the user with successful saving, then the user will be directed back to the main menu. 
+    - *Enter Current Job Details* button is disabled
+    - *Edit Current Job Details* button is enabled
+  - Actual Result:
+  - ![enterCurrentJob1.PNG](images/enterCurrentJob1.PNG)
+  - ![mainMenuTesting2.PNG](images/mainMenuTesting2.PNG)
+- 
+- **Test case 5**: Previously entered current job details should be displayed in EditText input fields and persist after app restart
+  - Manual Steps:
+    - Click on *Enter Current Job Details* from MainActivity
     - Input the details and click Save Current Job, then go back to Main Menu
     - Close app and restart
     - Click on Edit Current Job Details from MainActivity
@@ -108,10 +124,7 @@ For this deliverable, we attempt manual testing to test the app's functionality.
     - Database also shows the saved current job details
       ![image](images/editcurrentjobdetails_tc1b.png)
     
-- **Test case 5**: User enters current job details.
-  - Manual Steps:
-  - Expected Result:
-  - Actual Result:
+
   
 - **Test case 6**: User fails to enter one field in the current job details
   - Manual Steps:
