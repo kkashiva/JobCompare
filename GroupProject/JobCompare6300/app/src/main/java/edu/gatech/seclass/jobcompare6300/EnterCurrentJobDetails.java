@@ -154,11 +154,12 @@ public class EnterCurrentJobDetails extends AppCompatActivity {
             // Insert the new row, returning the primary key value of the new row
             long jobId = db.insert(DatabaseContract.Jobs.TABLE_NAME, null, values);
 
-            // show the jobId in a toast
-            Toast.makeText(this, "Job ID: " + jobId, Toast.LENGTH_SHORT).show();
+            // show the message in a toast
+            Toast.makeText(this, "Successfully saved current job!", Toast.LENGTH_SHORT).show();
         }
         else{
-            Toast.makeText(this, "Please adjust your inputs", Toast.LENGTH_SHORT).show();
+            // show the failing message in a toast
+            Toast.makeText(this, "Please adjust your inputs. ", Toast.LENGTH_SHORT).show();
         }
 
     }

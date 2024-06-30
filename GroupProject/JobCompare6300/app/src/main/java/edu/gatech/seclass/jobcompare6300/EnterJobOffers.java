@@ -154,8 +154,8 @@ public class EnterJobOffers extends AppCompatActivity {
         // Insert the new row, returning the primary key value of the new row
         long jobId = db.insert(DatabaseContract.Jobs.TABLE_NAME, null, values);
 
-        // show the jobId in a toast
-        Toast.makeText(this, "Job ID: " + jobId, Toast.LENGTH_SHORT).show();
+        // show message in a toast
+        Toast.makeText(this, "Successfully saved new job offer!", Toast.LENGTH_SHORT).show();
 
     }
 
