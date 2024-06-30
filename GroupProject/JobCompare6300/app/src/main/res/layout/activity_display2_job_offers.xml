@@ -6,4 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".Display2JobOffers">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/titleLabel"
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:outlineSpotShadowColor="#232F72"
+        android:text="Display Table Screen"
+        android:textAlignment="center"
+        android:textFontWeight="800"
+        android:textSize="24sp" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
