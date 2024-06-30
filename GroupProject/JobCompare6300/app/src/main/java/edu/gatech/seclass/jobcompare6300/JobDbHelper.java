@@ -60,7 +60,7 @@ public class JobDbHelper extends SQLiteOpenHelper {
 
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_JOB_ENTRIES);
-//        db.execSQL(SQL_CREATE_COMPARISON_SETTING_ENTRIES);
+        db.execSQL(SQL_CREATE_COMPARISON_SETTING_ENTRIES);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

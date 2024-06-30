@@ -26,23 +26,10 @@ public class MainActivity extends AppCompatActivity {
          * Query Job table for any existing jobOffer (jobType == 1).
          * If there's no job offer, disable Compare Job Offer button.
          */
-        String[] projection = {
-                DatabaseContract.Jobs._ID,
-        };
+        String query = "SELECT * FROM Job WHERE jobType = 1";
+        Cursor cursor = db.rawQuery(query, null);
 
-        String selection = DatabaseContract.Jobs.COLUMN_NAME_JOB_TYPE + " = 1";
-
-        Cursor cursor = db.query(
-                DatabaseContract.Jobs.TABLE_NAME, // FROM
-                projection, // SELECT
-                selection, // WHERE columns
-                null, // WHERE values
-                null, // GROUP BY
-                null, // filter by row groups
-                null // SORT BY
-        );
-
-        if (cursor == null) {
+        if (cursor == null || cursor.getCount() == 0) {
             Button compareJobOfferButton = findViewById(R.id.compareJobOffersButtonID);
             compareJobOfferButton.setEnabled(false);
         } else {

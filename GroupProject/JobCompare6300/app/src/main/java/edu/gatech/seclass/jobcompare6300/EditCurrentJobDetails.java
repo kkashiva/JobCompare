@@ -155,6 +155,4 @@ public class EditCurrentJobDetails extends AppCompatActivity {
     // super.onDestroy();
     // }
 
-    public void handleClickSaveJob(View view) {
-    }
 }
