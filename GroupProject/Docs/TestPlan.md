@@ -110,6 +110,34 @@ For this deliverable, we attempt manual testing to test the app's functionality.
     - TODO
   - Actual Result:
 
+- **Test case 5**: Verify that Input for comparison settings are integers.
+  - Manual Steps:
+    - From main menu, select Adjust comparison settings.
+    - Select any edittext to input a weight.
+  - Expected Result:
+    - The keyboard that appears to input values is a numbers-only keyboard.
+  - Actual Result:
+    ![comparisonsettings_tc1.png](images/comparisonsettings_tc1.png)
+
+- **Test case 6**: Retrive and show the existing comparison settings.
+  - Manual Steps:
+    - From main menu, select Adjust comparison settings.
+  - Expected Result:
+    - The comparison settings screen shows the currently saved weights for each setting.
+  - Actual Result:
+    ![comparisonsettings_tc2.png](images/comparisonsettings_tc2.png)
+
+- **Test case 7**: Update the yearly bonus weight to 7.
+  - Manual Steps:
+    - From main menu, select Adjust comparison settings.
+    - In the comparison settings screen, select the yearly bonus text and change the value to 7.
+    - Click on the Save Weights Button.
+  - Expected Result:
+    - The comparison settings screen shows weight for yearly bonus as 7.
+    - A toast message showing Weights updated is displayed at the botton of the screen.
+  - Actual Result:
+    ![comparisonsettings_tc3.png](images/comparisonsettings_tc3.png)
+
 TODO: template - feel free to remove this below
 
 | Test Case Step to perform:  | Expected Result  | Actual Result  | Pass/Fail Information:  | 
