@@ -23,6 +23,13 @@ public class MainActivity extends AppCompatActivity {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         /*
+         * Query Job table for any existing current job (jobType == 0).
+         * current job = 1, disable enter current job details.
+         * current job = 0, disable edit current job details.
+         */
+
+
+        /*
          * Query Job table for any existing jobOffer (jobType == 1).
          * If there's no job offer, disable Compare Job Offer button.
          */
