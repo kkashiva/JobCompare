@@ -167,6 +167,6 @@ public class Job {
 //        return (double) AYSParam * AYS + AYBParam * AYB + TDFParam * trainDevFund +
 //                LTParam * leaveDay * valueOfEmpHour * 8 - commuteCostParam * travelTimeCost;
         // put the non-weighted version as of now. Need more changes
-        return (double) AYS + AYB + TDFParam * trainDevFund + leaveDay * valueOfEmpHour * 8 - travelTimeCost;
+        return (double) AYS + AYB + trainDevFund + leaveDay * valueOfEmpHour * 8 - travelTimeCost;
     }
 }
