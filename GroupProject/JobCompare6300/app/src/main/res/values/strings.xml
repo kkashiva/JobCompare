@@ -23,7 +23,7 @@
 
 <!--    Compare Job Offers-->
     <string name="compare_job_offers">Compare Job Offers</string>
-    <string name="compare_job_offers_screen">Compare Job Offers Screen</string>
+    <string name="compare_job_offers_screen">Job Offers Ranking</string>
 
 
     <string name="adjust_the_comparison_settings">Adjust the Comparison Settings</string>
@@ -41,4 +41,5 @@
     <string name="save_job_offer">Save Job Offer</string>
     <string name="update_current_job">Update Current Job</string>
     <string name="telework_day_per_week">Telework Day per Week</string>
+    <string name="save_comparison_settings">Save Weights</string>
 </resources>

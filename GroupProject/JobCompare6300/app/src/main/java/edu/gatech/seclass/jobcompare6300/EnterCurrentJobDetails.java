@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 public class EnterCurrentJobDetails extends AppCompatActivity {
+
+    private JobDbHelper dbHelper;
     private EditText inputTitle, inputCompany, inputState, inputCity, inputLivingCost,
             inputYearlySalary, inputYearlyBonus, inputTrainingDevelopment, inputLeaveTime, inputTelework;
 
@@ -159,7 +161,12 @@ public class EnterCurrentJobDetails extends AppCompatActivity {
             Toast.makeText(this, "Please adjust your inputs", Toast.LENGTH_SHORT).show();
         }
 
-
-
     }
+
+    // close the database in onDestroy()
+    // @Override
+    // protected void onDestroy() {
+    //     dbHelper.close();
+    //     super.onDestroy();
+    // }
 }
