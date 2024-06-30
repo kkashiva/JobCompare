@@ -118,15 +118,13 @@ public class EnterComparisonSettings extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
 
         } else {
-            // no saved weights found in db so set default weight 1
-            // TODO: this should be created as a db ComparisonSetting row from MainActivity
+            // no saved weights found in db so display default weight 1
             int defaultWeight = 1;
             yearlySalaryEditText.setText(String.valueOf(defaultWeight));
             yearlyBonusEditText.setText(String.valueOf(defaultWeight));
             trainingAndDevEditText.setText(String.valueOf(defaultWeight));
             leaveTimeEditText.setText(String.valueOf(defaultWeight));
             teleworkDaysEditText.setText(String.valueOf(defaultWeight));
-            Toast.makeText(getApplicationContext(), "Set default. No saved comparison settings.", Toast.LENGTH_LONG).show();
         }
         if (cursor != null) {
             cursor.close();
