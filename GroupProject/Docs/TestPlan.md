@@ -172,11 +172,13 @@ For this deliverable, we attempt manual testing to test the app's functionality.
 
 - **Test case 10**: Disable Edit Current Job Details button if no current job has been saved yet
   - Manual Steps:
-    - 
+    - Increment the database version to delete all entries
+    - Start the app and verify the Job table has no records
   - Expected Result:
-    - 
+    - The Edit Current Job Details button in MainActivity should be disabled
   - Actual Result:
-    - 
+    - button disabled as expected
+    ![image](images/editcurrentjobdetails_tc10.png)
     
 
 

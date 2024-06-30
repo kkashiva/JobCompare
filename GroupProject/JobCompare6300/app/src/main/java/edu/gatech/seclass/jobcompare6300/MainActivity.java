@@ -58,6 +58,26 @@ public class MainActivity extends AppCompatActivity {
         } else {
             cursor2.close();
         }
+
+        /*
+         * Query Job table for saved current jobs (jobType == 0).
+         * If there's no current job, disable Edit Current Job Details button.
+         * If there's a current job, disable Enter Current Job Details button.
+         */
+        String query3 = "SELECT * FROM Job WHERE jobType = 0";
+        Cursor cursor3 = db.rawQuery(query3, null);
+
+        if(cursor3 == null || cursor3.getCount() == 0) {
+            Button editCurrentJobDetailsButton = findViewById(R.id.editCurrentJobDetailsButtonID);
+            editCurrentJobDetailsButton.setEnabled(false);
+        } else {
+            Button enterCurrentJobDetailsButton = findViewById(R.id.enterCurrentJobDetailsButtonID);
+            enterCurrentJobDetailsButton.setEnabled(false);
+        }
+        if(cursor3 != null){
+            cursor3.close();
+        }
+
     }
 
     public void saveDefaultComparisonSettings() {
@@ -67,7 +87,8 @@ public class MainActivity extends AppCompatActivity {
         ContentValues defaultWeightValues = new ContentValues();
         defaultWeightValues.put(DatabaseContract.ComparisonSetting.COLUMN_NAME_YEARLY_SALARY_WEIGHT, "1");
         defaultWeightValues.put(DatabaseContract.ComparisonSetting.COLUMN_NAME_YEARLY_BONUS_WEIGHT, "1");
-        defaultWeightValues.put(DatabaseContract.ComparisonSetting.COLUMN_NAME_TRAINING_AND_DEVELOPMENT_FUND_WEIGHT, "1");
+        defaultWeightValues.put(DatabaseContract.ComparisonSetting.COLUMN_NAME_TRAINING_AND_DEVELOPMENT_FUND_WEIGHT,
+                "1");
         defaultWeightValues.put(DatabaseContract.ComparisonSetting.COLUMN_NAME_LEAVE_TIME_WEIGHT, "1");
         defaultWeightValues.put(DatabaseContract.ComparisonSetting.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK_WEIGHT, "1");
 
