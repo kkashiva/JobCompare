@@ -124,22 +124,46 @@ For this deliverable, we attempt manual testing to test the app's functionality.
   - Actual Result:
 
 #### Edit Current Job Details
-- **Test case 8**: User edits current job details
+- **Test case 8**: Previously entered current job details should be displayed in EditText input fields and persist after app restart
   - Manual Steps:
+    - Click on Enter Current Job Details from MainActivity
+    - Input the details and click Save Current Job, then go back to Main Menu
+    - Close app and restart
+    - Click on Edit Current Job Details from MainActivity
   - Expected Result:
+    - All the EditText input fields should have text set to the previously entered values
+    - These should be editable
   - Actual Result:
+    - UI has input fields pre-filled with saved current job details as per expectations
+    ![image](images/editcurrentjobdetails_tc8a.png)
+    - Database also shows the saved current job details
+    ![image](images/editcurrentjobdetails_tc8b.png)
 
 - **Test case 9**: Edit Current Job Details should update the exiting current job in the database instead of creating another current job
   - Manual Steps:
+    - Ensure there is a saved current job, if not enter one
+    - Click on Edit Current Job Details from MainActivity
+    - Edit the pre-filled details from the previously saved job, click Update Current Job
   - Expected Result:
+    - Toast to confirm successful update
+    - Database Job table should have the updated values for the current job row (indicated by jobType = 0)
   - Actual Result:
+    - Toast "Current job details updated"
+    ![image](images/editcurrentjobdetails_tc9a.png)
+    - Job table row for current job updated with the edited values
+    ![image](images/editcurrentjobdetails_tc9b.png)
+
+- **Test case 10**: Disable Edit Current Job Details button if no current job has been saved yet
+  - Manual Steps:
+    - Increment the database version to delete all entries
+    - Start the app and verify the Job table has no records
+  - Expected Result:
+    - The Edit Current Job Details button in MainActivity should be disabled
+  - Actual Result:
+    - button disabled as expected
+    ![image](images/editcurrentjobdetails_tc10.png)
 
 - **Test case 10**: User enters an incorrect data input type in the edit current job details
-  - Manual Steps:
-  - Expected Result:
-  - Actual Result:
-
-- **Test case 11**: User enters an input outside the allowed value range in the edit current job details
   - Manual Steps:
   - Expected Result:
   - Actual Result:
