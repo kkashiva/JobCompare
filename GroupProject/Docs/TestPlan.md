@@ -152,20 +152,31 @@ For this deliverable, we attempt manual testing to test the app's functionality.
     - These should be editable
   - Actual Result:
     - UI has input fields pre-filled with saved current job details as per expectations
-    ![image](images/editcurrentjobdetails_tc1a.png)
+    ![image](images/editcurrentjobdetails_tc8a.png)
     - Database also shows the saved current job details
-    ![image](images/editcurrentjobdetails_tc1b.png)
+    ![image](images/editcurrentjobdetails_tc8b.png)
 
-- **Test case 9**: Disable Edit Current Job Details button if no current job has been saved yet
+- **Test case 9**: Edit Current Job Details should update the exiting current job in the database instead of creating another current job
+  - Manual Steps:
+    - Ensure there is a saved current job, if not enter one
+    - Click on Edit Current Job Details from MainActivity
+    - Edit the pre-filled details from the previously saved job, click Update Current Job
+  - Expected Result:
+    - Toast to confirm successful update
+    - Database Job table should have the updated values for the current job row (indicated by jobType = 0)
+  - Actual Result:
+    - Toast "Current job details updated"
+    ![image](images/editcurrentjobdetails_tc9a.png)
+    - Job table row for current job updated with the edited values
+    ![image](images/editcurrentjobdetails_tc9b.png)
+
+- **Test case 10**: Disable Edit Current Job Details button if no current job has been saved yet
   - Manual Steps:
     - 
   - Expected Result:
+    - 
   - Actual Result:
-
-- **Test case 10**: Edit Current Job Details should update the exiting current job in the database instead of creating another current job
-  - Manual Steps:
-  - Expected Result:
-  - Actual Result:
+    - 
     
 
 
