@@ -30,7 +30,7 @@
 * Programming language: Java 17
 * Build configuration: Groovy DSL (build.gradle)
 * The user interface must be intuitive and responsive. Our design will be limited to default Android widgets for buttons, input text elements, etc
-* Our choice of the database SQL-based vs NoSQL like MongoDB will affect how the data is stored and queried in the app
+* Our choice of the database SQL-based vs NoSQL like MongoDB will affect how the data is stored and queried in the app. We finally decided to use **SQLite**. The DatabaseContract and SQLiteOpenHelper class impacted the design eg. ensuring that we only have one instance of the database in the app and are not re-instantiating. Later we might consider migrating to Room
 
 
 ### 1.3 System Environment
@@ -75,3 +75,68 @@
 ## 4 User Interface Design
 *For GUI-based systems, this section should provide the specific format/layout of the user interface of the system (e.g., in the form of graphical mockups).*
 
+Below are the design layout description and the beta version UI screenshots of each activity/screen in the app
+
+### Main Menu
+- This is the entry point of the app and the first activity that is created on launch
+- This screen will have a title to show the app title "Job Offer Comparison"
+- This screens will have 5 buttons to start other activities for:
+    - Enter Current Job Details: disabled if current job already saved
+    - Edit Current Job Details: disabled if no current job saved yet
+    - Enter Job Offer Detail
+    - Adjust Comparison Settings
+    - Compare Job Offers: disabled if less than 2 total jobs saved
+![image](images/ui_main_menu.png)
+
+### Enter Current Job Details
+- This screen will have TextView labels and EditText input fields:
+    - Title
+    - Company
+    - Location
+    - Cost of Living
+    - Yearly Salary
+    - Yearly Bonus
+    - Training & Dev Fund
+    - Leave Time (days per year)
+    - Telework Days per week
+- 2 buttons:
+    - Save Current Job
+    - Back to Main Menu
+![image](images/ui_edit_current_job.png)
+
+### Edit Current Job Details
+- This screen will have the same input fields as Enter Current Job Details screen
+- The input fields will be pre-filled with data from the saved current job, and the user can choose to edit any field
+- 2 buttons:
+    - Update Current Job
+    - Back to Main Menu
+
+### Enter Job Offer Detail
+- This screen will have the same input fields as Enter Current Job Details screen
+- 2 buttons:
+    - Save Job Offer
+    - Back to Main Menu
+
+### Adjust Comparison Settings
+- This screen will have 5 EditText input fields to take integer values as weights for:
+    - Yearly Salary
+    - Yearly Bonus
+    - Training & Dev Fund
+    - Leave Time (Day per year)
+    - Telework Days per week
+- These fields should be pre-filled with the saved weights in the ComparisonSetting db table. If no weights saved previously, show default value of 1
+- 2 buttons:
+    - Save Weights
+    - Back to Main Menu
+![image](images/ui_adjust_comparison_settings.png)
+
+### Compare Job Offers
+- This screen will have a tabluar layout to show all the saved jobs with these columns:
+     - Rank : sorter based on score
+     - Title
+     - Company
+     - Selected : checkbox
+- 2 buttons:
+    - Compare Offers
+    - Back to Main Menu
+![image](images/ui_compare_job.png)
