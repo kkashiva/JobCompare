@@ -9,7 +9,6 @@ public final class DatabaseContract {
     /* Inner class that defines the table contents */
     public static class Jobs implements BaseColumns {
         public static final String TABLE_NAME = "Job";
-        public static final String COLUMN_NAME_JOB_ID = "jobID";
         public static final String COLUMN_NAME_TITLE = "title";
         public static final String COLUMN_NAME_COMPANY = "company";
         public static final String COLUMN_NAME_LOCATION_STATE = "locationState";

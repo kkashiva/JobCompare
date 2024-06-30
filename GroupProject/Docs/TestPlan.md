@@ -67,7 +67,50 @@ Others will be determined as we continue with the development.
 
 
 ## 2 Test Cases
-The table below shows a list of test cases that we will use
+For this deliverable, we attempt manual testing to test the app's functionality.
+
+#### Compare Job Offers
+
+- **Test case 1**: show a table of ranking of job offers with no current job 
+  - Manual Steps:
+    - Enter 3 job offers via Enter Job Offers button.
+    -From main menu, selects Compare Job Offers.
+  - Expected Result:
+    - A table of 3 job offers with ranking from high to low.
+    - No entry is indicated as current job.
+  - Actual Result:
+    - Show picture here
+
+
+- **Test case 2**: show a table of ranking of job offers with current job 
+  - Manual Steps:
+    - Enter 3 job offers via Enter Job Offers button.
+    - Enter a current job via Enter Current Job Details button.
+    - From main menu, selects Compare Job Offers.
+  - Expected Result:
+    - A table of 4 job offers with ranking from high to low.
+    - The current job entry is marked bold and italic to indicate as current job.
+  - Actual Result:
+    - Show picture here
+
+
+- **Test case 3**: Compare Job Offers button is disabled when no job offer exists.
+  - Manual Steps:
+    - From main menu, selects Compare Job Offers.
+  - Expected Result:
+    - The button is disabled.
+  - Actual Result:
+    ![compareJobOffers_tc3.png](images/compareJobOffers_tc3.png)
+
+
+- **Test case 4**: Select 2 offers and compare
+  - Manual Steps:
+    - TODO
+  - Expected Result:
+    - TODO
+  - Actual Result:
+
+TODO: template - feel free to remove this below
 
 | Test Case Step to perform:  | Expected Result  | Actual Result  | Pass/Fail Information:  | 
 |-----------|-----------|-----------|-----------|
@@ -80,10 +123,5 @@ The table below shows a list of test cases that we will use
 | User Inputs comparison settings |  Comparison settings successfully saved |  |  |
 | User inputs an invalid weight in one field of comparison settings |  An error is given showing input is invalid |  |  |
 | User edits/updates comparison settings |  Comparison settings successfully updated saved |  |  |
-| User retrieves a job offer by id/name |  Job offer is retrieved and successfully returned |  |  |
-| User retrieves a job offer that does not exist | A response showing that job offer does not exist is returned |  |  |
 | User retrieves the current job details |  Current Job is retrieved and successfully returned |  |  |
 | User retrieves the comparison settings | Comparison settings are retrieved and successfully returned |  |  |
-| Perform Job ranking computation | The correct job score is computed and returned |  |  |
-| Retrive a job score for a specific job offer | The correct job score is returned |  |  |
-| Retrive a job score for a non-existent job offer | A response showing that that job offer and score does not exist |  |  |

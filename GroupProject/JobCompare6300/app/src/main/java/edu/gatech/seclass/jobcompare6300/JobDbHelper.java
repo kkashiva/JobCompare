@@ -30,7 +30,6 @@ public class JobDbHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_JOB_ENTRIES =
             "CREATE TABLE " + DatabaseContract.Jobs.TABLE_NAME + " (" +
                     DatabaseContract.Jobs._ID + " INTEGER PRIMARY KEY," +
-                    DatabaseContract.Jobs.COLUMN_NAME_JOB_ID + " TEXT," +
                     DatabaseContract.Jobs.COLUMN_NAME_TITLE + " TEXT," +
                     DatabaseContract.Jobs.COLUMN_NAME_COMPANY + " TEXT," +
                     DatabaseContract.Jobs.COLUMN_NAME_LOCATION_STATE + " TEXT," +
