@@ -7,13 +7,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class JobDbHelper extends SQLiteOpenHelper {
 
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "JobDatabase.db";
 
     // Singleton pattern
     private static JobDbHelper instance;
     // making the constructor private to ensure singleton; only one instance of JobDbHelper
-    JobDbHelper(Context context) {
+    private JobDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
     // public method to get the instance of JobDbHelper
@@ -55,8 +55,11 @@ public class JobDbHelper extends SQLiteOpenHelper {
                     DatabaseContract.ComparisonSetting.COLUMN_NAME_LEAVE_TIME_WEIGHT + " INTEGER," +
                     DatabaseContract.ComparisonSetting.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK_WEIGHT + " INTEGER)";
 
-    private static final String SQL_DELETE_ENTRIES =
+    private static final String SQL_DELETE_JOB =
             "DROP TABLE IF EXISTS " + DatabaseContract.Jobs.TABLE_NAME;
+
+    private  static final String SQL_DELETE_COMPARISON_SETTING =
+            "DROP TABLE IF EXISTS " + DatabaseContract.ComparisonSetting.TABLE_NAME;
 
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_JOB_ENTRIES);
@@ -65,7 +68,8 @@ public class JobDbHelper extends SQLiteOpenHelper {
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // This database's upgrade policy to simply discard the data and start over
-        db.execSQL(SQL_DELETE_ENTRIES);
+        db.execSQL(SQL_DELETE_JOB);
+        db.execSQL(SQL_DELETE_COMPARISON_SETTING);
         onCreate(db);
     }
 

@@ -110,6 +110,8 @@ For this deliverable, we attempt manual testing to test the app's functionality.
     - TODO
   - Actual Result:
 
+#### Adjust Comparison Settings
+
 - **Test case 5**: Verify that Input for comparison settings are integers.
   - Manual Steps:
     - From main menu, select Adjust comparison settings.
@@ -137,6 +139,35 @@ For this deliverable, we attempt manual testing to test the app's functionality.
     - A toast message showing Weights updated is displayed at the botton of the screen.
   - Actual Result:
     ![comparisonsettings_tc3.png](images/comparisonsettings_tc3.png)
+
+#### Edit Current Job
+- **Test case 8**: Previously entered current job details should be displayed in EditText input fields and persist after app restart
+  - Manual Steps:
+    - Click on Enter Current Job Details from MainActivity
+    - Input the details and click Save Current Job, then go back to Main Menu
+    - Close app and restart
+    - Click on Edit Current Job Details from MainActivity
+  - Expected Result:
+    - All the EditText input fields should have text set to the previously entered values
+    - These should be editable
+  - Actual Result:
+    - UI has input fields pre-filled with saved current job details as per expectations
+    ![image](images/editcurrentjobdetails_tc1a.png)
+    - Database also shows the saved current job details
+    ![image](images/editcurrentjobdetails_tc1b.png)
+
+- **Test case 9**: Disable Edit Current Job Details button if no current job has been saved yet
+  - Manual Steps:
+    - 
+  - Expected Result:
+  - Actual Result:
+
+- **Test case 10**: Edit Current Job Details should update the exiting current job in the database instead of creating another current job
+  - Manual Steps:
+  - Expected Result:
+  - Actual Result:
+    
+
 
 TODO: template - feel free to remove this below
 
