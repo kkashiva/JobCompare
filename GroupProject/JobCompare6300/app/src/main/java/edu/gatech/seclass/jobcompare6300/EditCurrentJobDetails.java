@@ -14,8 +14,8 @@ import android.widget.Toast;
 public class EditCurrentJobDetails extends AppCompatActivity {
 
     private JobDbHelper dbHelper;
-    private EditText inputTitle, inputCompany, inputState, inputCity,inputLivingCost,
-            inputYearlySalary,inputYearlyBonus,inputTrainingDevelopment,inputLeaveTime, inputTelework;
+    private EditText inputTitle, inputCompany, inputState, inputCity, inputLivingCost,
+            inputYearlySalary, inputYearlyBonus, inputTrainingDevelopment, inputLeaveTime, inputTelework;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,95 +44,115 @@ public class EditCurrentJobDetails extends AppCompatActivity {
     }
 
     private void displayCurrentJobDetails() {
-        dbHelper = JobDbHelper.getInstance(this); //get singleton instance
+        dbHelper = JobDbHelper.getInstance(this); // get singleton instance
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-    
+
         String[] projection = {
-            DatabaseContract.Jobs.COLUMN_NAME_TITLE,
-            DatabaseContract.Jobs.COLUMN_NAME_COMPANY,
-            DatabaseContract.Jobs.COLUMN_NAME_LOCATION_CITY,
-            DatabaseContract.Jobs.COLUMN_NAME_LOCATION_STATE,
-            DatabaseContract.Jobs.COLUMN_NAME_COST_OF_LIVING,
-            DatabaseContract.Jobs.COLUMN_NAME_YEARLY_SALARY,
-            DatabaseContract.Jobs.COLUMN_NAME_YEARLY_BONUS,
-            DatabaseContract.Jobs.COLUMN_NAME_TRAINING_DEVELOPMENT_FUND,
-            DatabaseContract.Jobs.COLUMN_NAME_LEAVE_TIME,
-            DatabaseContract.Jobs.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK
+                DatabaseContract.Jobs.COLUMN_NAME_TITLE,
+                DatabaseContract.Jobs.COLUMN_NAME_COMPANY,
+                DatabaseContract.Jobs.COLUMN_NAME_LOCATION_CITY,
+                DatabaseContract.Jobs.COLUMN_NAME_LOCATION_STATE,
+                DatabaseContract.Jobs.COLUMN_NAME_COST_OF_LIVING,
+                DatabaseContract.Jobs.COLUMN_NAME_YEARLY_SALARY,
+                DatabaseContract.Jobs.COLUMN_NAME_YEARLY_BONUS,
+                DatabaseContract.Jobs.COLUMN_NAME_TRAINING_DEVELOPMENT_FUND,
+                DatabaseContract.Jobs.COLUMN_NAME_LEAVE_TIME,
+                DatabaseContract.Jobs.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK
         };
-    
+
         String selection = DatabaseContract.Jobs.COLUMN_NAME_JOB_TYPE + " = ?";
         String[] selectionArgs = { "0" };
-    
+
         Cursor cursor = db.query(
-                DatabaseContract.Jobs.TABLE_NAME,   // FROM
-                projection,                         // SELECT
-                selection,                          // WHERE columns
-                selectionArgs,                      // WHERE values
-                null,                       // GROUP BY
-                null,                        // filter by row groups
-                null                        // SORT BY
+                DatabaseContract.Jobs.TABLE_NAME, // FROM
+                projection, // SELECT
+                selection, // WHERE columns
+                selectionArgs, // WHERE values
+                null, // GROUP BY
+                null, // filter by row groups
+                null // SORT BY
         );
-    
+
         if (cursor != null && cursor.moveToFirst()) {
             String title = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_TITLE));
             String company = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_COMPANY));
-            String city = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_LOCATION_CITY));
-            String state = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_LOCATION_STATE));
-            int costOfLiving = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_COST_OF_LIVING));
-            int yearlySalary = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_YEARLY_SALARY));
-            int yearlyBonus = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_YEARLY_BONUS));
-            int trainingDevelopmentFund = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_TRAINING_DEVELOPMENT_FUND));
+            String city = cursor
+                    .getString(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_LOCATION_CITY));
+            String state = cursor
+                    .getString(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_LOCATION_STATE));
+            int costOfLiving = cursor
+                    .getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_COST_OF_LIVING));
+            int yearlySalary = cursor
+                    .getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_YEARLY_SALARY));
+            int yearlyBonus = cursor
+                    .getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_YEARLY_BONUS));
+            int trainingDevelopmentFund = cursor
+                    .getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_TRAINING_DEVELOPMENT_FUND));
             int leaveTime = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_LEAVE_TIME));
-            int teleworkDaysPerWeek = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK));
+            int teleworkDaysPerWeek = cursor
+                    .getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK));
 
-            cursor.close();
-            inputTitle.setText(title);
-            inputCompany.setText(company);
-            inputCity.setText(city);
-            inputState.setText(state);
-            inputLivingCost.setText(costOfLiving);
-            inputYearlySalary.setText(yearlySalary);
-            inputYearlyBonus.setText(yearlyBonus);
-            inputTrainingDevelopment.setText(trainingDevelopmentFund);
-            inputLeaveTime.setText(leaveTime);
-            inputTelework.setText(teleworkDaysPerWeek);
+            inputTitle.setText(String.valueOf(title));
+            inputCompany.setText(String.valueOf(company));
+            inputCity.setText(String.valueOf(city));
+            inputState.setText(String.valueOf(state));
+            inputLivingCost.setText(String.valueOf(costOfLiving));
+            inputYearlySalary.setText(String.valueOf(yearlySalary));
+            inputYearlyBonus.setText(String.valueOf(yearlyBonus));
+            inputTrainingDevelopment.setText(String.valueOf(trainingDevelopmentFund));
+            inputLeaveTime.setText(String.valueOf(leaveTime));
+            inputTelework.setText(String.valueOf(teleworkDaysPerWeek));
 
         } else {
             Toast.makeText(this, "No current job details found.", Toast.LENGTH_LONG).show();
         }
+
+        if (cursor != null) {
+            cursor.close();
+        }
     }
 
     public void handleClickEditJob(View view) {
-        dbHelper = JobDbHelper.getInstance(this); //get singleton instance
+        dbHelper = JobDbHelper.getInstance(this); // get singleton instance
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-    
+
         ContentValues values = new ContentValues();
         values.put(DatabaseContract.Jobs.COLUMN_NAME_TITLE, inputTitle.getText().toString());
         values.put(DatabaseContract.Jobs.COLUMN_NAME_COMPANY, inputCompany.getText().toString());
         values.put(DatabaseContract.Jobs.COLUMN_NAME_LOCATION_STATE, inputState.getText().toString());
         values.put(DatabaseContract.Jobs.COLUMN_NAME_LOCATION_CITY, inputCity.getText().toString());
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_COST_OF_LIVING, Integer.parseInt(inputLivingCost.getText().toString()));
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_YEARLY_SALARY, Integer.parseInt(inputYearlySalary.getText().toString()));
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_YEARLY_BONUS, Integer.parseInt(inputYearlyBonus.getText().toString()));
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_TRAINING_DEVELOPMENT_FUND, Integer.parseInt(inputTrainingDevelopment.getText().toString()));
+        values.put(DatabaseContract.Jobs.COLUMN_NAME_COST_OF_LIVING,
+                Integer.parseInt(inputLivingCost.getText().toString()));
+        values.put(DatabaseContract.Jobs.COLUMN_NAME_YEARLY_SALARY,
+                Integer.parseInt(inputYearlySalary.getText().toString()));
+        values.put(DatabaseContract.Jobs.COLUMN_NAME_YEARLY_BONUS,
+                Integer.parseInt(inputYearlyBonus.getText().toString()));
+        values.put(DatabaseContract.Jobs.COLUMN_NAME_TRAINING_DEVELOPMENT_FUND,
+                Integer.parseInt(inputTrainingDevelopment.getText().toString()));
         values.put(DatabaseContract.Jobs.COLUMN_NAME_LEAVE_TIME, Integer.parseInt(inputLeaveTime.getText().toString()));
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK, Integer.parseInt(inputTelework.getText().toString()));
-    
+        values.put(DatabaseContract.Jobs.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK,
+                Integer.parseInt(inputTelework.getText().toString()));
+
         String selection = DatabaseContract.Jobs.COLUMN_NAME_JOB_TYPE + " = ?";
         String[] selectionArgs = { "0" };
-    
+
         db.update(
                 DatabaseContract.Jobs.TABLE_NAME,
                 values,
                 selection,
                 selectionArgs);
+
+        // if more than one row has jobType = 0, they will be deleted except the most recent one (highest _ID)
+        db.execSQL("DELETE FROM " + DatabaseContract.Jobs.TABLE_NAME + " WHERE " + DatabaseContract.Jobs.COLUMN_NAME_JOB_TYPE + " = 0 AND " + DatabaseContract.Jobs._ID + " NOT IN (SELECT MAX(" + DatabaseContract.Jobs._ID + ") FROM " + DatabaseContract.Jobs.TABLE_NAME + " WHERE " + DatabaseContract.Jobs.COLUMN_NAME_JOB_TYPE + " = 0)");
+
+        Toast.makeText(this, "Current job details updated.", Toast.LENGTH_LONG).show();
     }
 
     // close the database in onDestroy()
     // @Override
     // protected void onDestroy() {
-    //     dbHelper.close();
-    //     super.onDestroy();
+    // dbHelper.close();
+    // super.onDestroy();
     // }
 
 }
