@@ -13,7 +13,7 @@ public class JobDbHelper extends SQLiteOpenHelper {
     // Singleton pattern
     private static JobDbHelper instance;
     // making the constructor private to ensure singleton; only one instance of JobDbHelper
-    private JobDbHelper(Context context) {
+    JobDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
     // public method to get the instance of JobDbHelper

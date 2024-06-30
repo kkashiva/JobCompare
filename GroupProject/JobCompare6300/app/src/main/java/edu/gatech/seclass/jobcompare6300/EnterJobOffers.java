@@ -127,8 +127,9 @@ public class EnterJobOffers extends AppCompatActivity {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         //Create a new job object
+        Integer jobType = 1;
         Job job = new Job(title, company, locationState, locationCity, costOfLivingInt,
-                yearlySalaryInt, yearlyBonusInt, trainDevFundInt, leaveTimeInt, teleworkDayInt);
+                yearlySalaryInt, yearlyBonusInt, trainDevFundInt, leaveTimeInt, teleworkDayInt, jobType); //jobScore = 1 for job offers
 
         // Create a new map of values, where column names are the keys
         // hardcoding values to test, once input fields are added these values will be dynamic based on user input
@@ -143,7 +144,7 @@ public class EnterJobOffers extends AppCompatActivity {
         values.put(DatabaseContract.Jobs.COLUMN_NAME_TRAINING_DEVELOPMENT_FUND, job.getTrainingDevelopmentFund());
         values.put(DatabaseContract.Jobs.COLUMN_NAME_LEAVE_TIME, job.getLeaveTime());
         values.put(DatabaseContract.Jobs.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK, job.getTeleworkDaysPerWeek());
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_JOB_TYPE, 1); // 0 for CurrentJob, 1 for JobOffer
+        values.put(DatabaseContract.Jobs.COLUMN_NAME_JOB_TYPE, job.getJobType()); // 0 for CurrentJob, 1 for JobOffer
 
         // some derived variables
         values.put(DatabaseContract.Jobs.COLUMN_NAME_AYS, job.getAYS());
@@ -153,8 +154,8 @@ public class EnterJobOffers extends AppCompatActivity {
         // Insert the new row, returning the primary key value of the new row
         long jobId = db.insert(DatabaseContract.Jobs.TABLE_NAME, null, values);
 
-        // show the jobId in a toast
-        Toast.makeText(this, "Job ID: " + jobId, Toast.LENGTH_SHORT).show();
+        // show message in a toast
+        Toast.makeText(this, "Successfully saved new job offer!", Toast.LENGTH_SHORT).show();
 
     }
 

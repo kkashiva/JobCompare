@@ -43,11 +43,11 @@ public class CompareJobOffers extends AppCompatActivity {
                 DatabaseContract.Jobs.COLUMN_NAME_SCORE  // SORT BY
         );
 
-        JobOffer jobOffer1 = new JobOffer("title1", "company1", "San Jose", "CA", 1, 1, 1,1, 1, 1);
-        JobOffer jobOffer2 = new JobOffer("title2", "company2", "San Jose", "CA", 1, 1,1, 1, 1, 1);
-        JobOffer jobOffer3 = new JobOffer("title3", "company4", "San Jose", "CA", 1, 1,1, 1, 1, 1);
-        JobOffer jobOffer4 = new JobOffer("title4", "company3", "San Jose", "CA", 1, 1,1, 1, 1, 1);
-        JobOffer jobOffer5 = new JobOffer("title5", "company5", "San Jose", "CA", 1, 1,1, 1, 1, 1);
+        JobOffer jobOffer1 = new JobOffer("title1", "company1", "San Jose", "CA", 1, 1, 1,1, 1, 1,1);
+        JobOffer jobOffer2 = new JobOffer("title2", "company2", "San Jose", "CA", 1, 1,1, 1, 1, 1,1);
+        JobOffer jobOffer3 = new JobOffer("title3", "company4", "San Jose", "CA", 1, 1,1, 1, 1, 1,1);
+        JobOffer jobOffer4 = new JobOffer("title4", "company3", "San Jose", "CA", 1, 1,1, 1, 1, 1,1);
+        JobOffer jobOffer5 = new JobOffer("title5", "company5", "San Jose", "CA", 1, 1,1, 1, 1, 1,1);
 
         ArrayList<JobOffer> jobOffersList = new ArrayList<>();
         jobOffersList.add(jobOffer1);
