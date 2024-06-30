@@ -69,79 +69,31 @@ Others will be determined as we continue with the development.
 ## 2 Test Cases
 For this deliverable, we attempt manual testing to test the app's functionality.
 
-#### Compare Job Offers
-
-- **Test case 1**: show a table of ranking of job offers with no current job 
+#### Main Menu:
+- **Test case 1**: *Enter Current Job Details* button is disabled when the current job exists.
   - Manual Steps:
-    - Enter 3 job offers via Enter Job Offers button.
-    -From main menu, selects Compare Job Offers.
+    - From main menu, select *Enter Current Job Details*.
   - Expected Result:
-    - A table of 3 job offers with ranking from high to low.
-    - No entry is indicated as current job.
+    - The button is disabled.
   - Actual Result:
-    - Show picture here
 
-
-- **Test case 2**: show a table of ranking of job offers with current job 
+- **Test case 2**: *Edit Current Job Details* button is disabled when no job offer exists.
   - Manual Steps:
-    - Enter 3 job offers via Enter Job Offers button.
-    - Enter a current job via Enter Current Job Details button.
-    - From main menu, selects Compare Job Offers.
+    - From main menu, select *Edit Current Job Details*.
   - Expected Result:
-    - A table of 4 job offers with ranking from high to low.
-    - The current job entry is marked bold and italic to indicate as current job.
+    - The button is disabled.
   - Actual Result:
-    - Show picture here
 
-
-- **Test case 3**: Compare Job Offers button is disabled when no job offer exists.
+- **Test case 3**: *Compare Job Offers* button is disabled when current job + job offer is less than 2.
   - Manual Steps:
-    - From main menu, selects Compare Job Offers.
+    - From main menu, select Compare Job Offers.
   - Expected Result:
     - The button is disabled.
   - Actual Result:
     ![compareJobOffers_tc3.png](images/compareJobOffers_tc3.png)
 
-
-- **Test case 4**: Select 2 offers and compare
-  - Manual Steps:
-    - TODO
-  - Expected Result:
-    - TODO
-  - Actual Result:
-
-#### Adjust Comparison Settings
-
-- **Test case 5**: Verify that Input for comparison settings are integers.
-  - Manual Steps:
-    - From main menu, select Adjust comparison settings.
-    - Select any edittext to input a weight.
-  - Expected Result:
-    - The keyboard that appears to input values is a numbers-only keyboard.
-  - Actual Result:
-    ![comparisonsettings_tc1.png](images/comparisonsettings_tc1.png)
-
-- **Test case 6**: Retrive and show the existing comparison settings.
-  - Manual Steps:
-    - From main menu, select Adjust comparison settings.
-  - Expected Result:
-    - The comparison settings screen shows the currently saved weights for each setting.
-  - Actual Result:
-    ![comparisonsettings_tc2.png](images/comparisonsettings_tc2.png)
-
-- **Test case 7**: Update the yearly bonus weight to 7.
-  - Manual Steps:
-    - From main menu, select Adjust comparison settings.
-    - In the comparison settings screen, select the yearly bonus text and change the value to 7.
-    - Click on the Save Weights Button.
-  - Expected Result:
-    - The comparison settings screen shows weight for yearly bonus as 7.
-    - A toast message showing Weights updated is displayed at the botton of the screen.
-  - Actual Result:
-    ![comparisonsettings_tc3.png](images/comparisonsettings_tc3.png)
-
-#### Edit Current Job
-- **Test case 8**: Previously entered current job details should be displayed in EditText input fields and persist after app restart
+#### Enter Current Job Details
+- **Test case 4**: Previously entered current job details should be displayed in EditText input fields and persist after app restart
   - Manual Steps:
     - Click on Enter Current Job Details from MainActivity
     - Input the details and click Save Current Job, then go back to Main Menu
@@ -152,35 +104,117 @@ For this deliverable, we attempt manual testing to test the app's functionality.
     - These should be editable
   - Actual Result:
     - UI has input fields pre-filled with saved current job details as per expectations
-    ![image](images/editcurrentjobdetails_tc1a.png)
+      ![image](images/editcurrentjobdetails_tc1a.png)
     - Database also shows the saved current job details
-    ![image](images/editcurrentjobdetails_tc1b.png)
-
-- **Test case 9**: Disable Edit Current Job Details button if no current job has been saved yet
-  - Manual Steps:
-    - 
-  - Expected Result:
-  - Actual Result:
-
-- **Test case 10**: Edit Current Job Details should update the exiting current job in the database instead of creating another current job
-  - Manual Steps:
-  - Expected Result:
-  - Actual Result:
+      ![image](images/editcurrentjobdetails_tc1b.png)
     
+- **Test case 5**: User enters current job details.
+  - Manual Steps:
+  - Expected Result:
+  - Actual Result:
+  
+- **Test case 6**: User fails to enter one field in the current job details
+  - Manual Steps:
+  - Expected Result:
+  - Actual Result:
 
+- **Test case 7**: User edits/updates current job details
+  - Manual Steps:
+  - Expected Result:
+  - Actual Result:
 
-TODO: template - feel free to remove this below
+#### Edit Current Job Details
+- **Test case 8**: User edits current job details
+  - Manual Steps:
+  - Expected Result:
+  - Actual Result:
 
-| Test Case Step to perform:  | Expected Result  | Actual Result  | Pass/Fail Information:  | 
-|-----------|-----------|-----------|-----------|
-| User Enters current job details | Current Job details successfully saved |  |  |
-| User fails to enter one field in the current job details | An error is given showing input is empty |  |  |
-| User Edits/Updates current job details | Updated current Job details successfully saved |  |  |
-| User enters an incorrect datatype input field in the edit current job details | An error is given showing given field is invalid |  |  |
-| User Enters job offer details |  Job offer details successfully saved |  |  |
-| User inputs an invalid value in one field of job offer details |  An error is given showing input is invalid |  |  |
-| User Inputs comparison settings |  Comparison settings successfully saved |  |  |
-| User inputs an invalid weight in one field of comparison settings |  An error is given showing input is invalid |  |  |
-| User edits/updates comparison settings |  Comparison settings successfully updated saved |  |  |
-| User retrieves the current job details |  Current Job is retrieved and successfully returned |  |  |
-| User retrieves the comparison settings | Comparison settings are retrieved and successfully returned |  |  |
+- **Test case 9**: Edit Current Job Details should update the exiting current job in the database instead of creating another current job
+  - Manual Steps:
+  - Expected Result:
+  - Actual Result:
+
+- **Test case 10**: User enters an incorrect data input type in the edit current job details
+  - Manual Steps:
+  - Expected Result:
+  - Actual Result:
+
+- **Test case 11**: User enters an input outside the allowed value range in the edit current job details
+  - Manual Steps:
+  - Expected Result:
+  - Actual Result:
+
+#### Enter Job offer
+- **Test case 12**: User enters job offer details
+  - Manual Steps:
+  - Expected Result:
+  - Actual Result:
+- **Test case 13**: User fails to enter one field in the job offer details
+  - Manual Steps:
+  - Expected Result:
+  - Actual Result:
+
+- **Test case 14**: User enters an incorrect datatype input field in the job offer details
+  - Manual Steps:
+  - Expected Result:
+  - Actual Result:
+
+#### Compare Job Offers
+- **Test case 15**: show a table of ranking of job offers with no current job 
+  - Manual Steps:
+    - Enter 3 job offers via Enter Job Offers button.
+    -From main menu, selects Compare Job Offers.
+  - Expected Result:
+    - A table of 3 job offers with ranking from high to low.
+    - No entry is indicated as current job.
+  - Actual Result:
+    - Show picture here
+
+- **Test case 16**: show a table of ranking of job offers with current job 
+  - Manual Steps:
+    - Enter 3 job offers via Enter Job Offers button.
+    - Enter a current job via Enter Current Job Details button.
+    - From main menu, selects Compare Job Offers.
+  - Expected Result:
+    - A table of 4 job offers with ranking from high to low.
+    - The current job entry is marked bold and italic to indicate as current job.
+  - Actual Result:
+    - Show picture here
+
+  
+- **Test case 17**: Select 2 offers and compare
+  - Manual Steps:
+    - TODO
+  - Expected Result:
+    - TODO
+  - Actual Result:
+
+#### Enter and Adjust Comparison Settings
+
+- **Test case 18**: Verify that Input for comparison settings are integers.
+  - Manual Steps:
+    - From main menu, select Adjust comparison settings.
+    - Select any edittext to input a weight.
+  - Expected Result:
+    - The keyboard that appears to input values is a numbers-only keyboard.
+  - Actual Result:
+    ![comparisonsettings_tc1.png](images/comparisonsettings_tc1.png)
+
+- **Test case 19**: Retrive and show the existing comparison settings.
+  - Manual Steps:
+    - From main menu, select Adjust comparison settings.
+  - Expected Result:
+    - The comparison settings screen shows the currently saved weights for each setting.
+  - Actual Result:
+    ![comparisonsettings_tc2.png](images/comparisonsettings_tc2.png)
+
+- **Test case 20**: Update the yearly bonus weight to 7.
+  - Manual Steps:
+    - From main menu, select Adjust comparison settings.
+    - In the comparison settings screen, select the yearly bonus text and change the value to 7.
+    - Click on the Save Weights Button.
+  - Expected Result:
+    - The comparison settings screen shows weight for yearly bonus as 7.
+    - A toast message showing Weights updated is displayed at the botton of the screen.
+  - Actual Result:
+    ![comparisonsettings_tc3.png](images/comparisonsettings_tc3.png)
