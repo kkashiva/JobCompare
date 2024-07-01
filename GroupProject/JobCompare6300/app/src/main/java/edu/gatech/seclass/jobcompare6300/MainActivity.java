@@ -23,17 +23,26 @@ public class MainActivity extends AppCompatActivity {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         /*
-         * Query Job table for any existing jobOffer (jobType == 1).
-         * If there's no job offer, disable Compare Job Offer button.
+         * Query Job table
+         * Disable condition: # of current job + # of job offer < 2.
          */
-        String query = "SELECT * FROM Job WHERE jobType = 1";
-        Cursor cursor = db.rawQuery(query, null);
+        Cursor cursorJobOffer = db.rawQuery("SELECT * FROM Job WHERE jobType = 1", null);
+        Cursor cursorCurrentJob = db.rawQuery("SELECT * FROM Job WHERE jobType = 0", null);
 
-        if (cursor == null || cursor.getCount() == 0) {
-            Button compareJobOfferButton = findViewById(R.id.compareJobOffersButtonID);
+        Button compareJobOfferButton = findViewById(R.id.compareJobOffersButtonID);
+        if (cursorJobOffer == null) {
             compareJobOfferButton.setEnabled(false);
-        } else {
-            cursor.close();
+        } else if (cursorCurrentJob == null && cursorJobOffer.getCount() < 2) {
+            compareJobOfferButton.setEnabled(false);
+        } else if (cursorCurrentJob != null && cursorCurrentJob.getCount() + cursorJobOffer.getCount() < 2) {
+            compareJobOfferButton.setEnabled(false);
+        }
+
+        if (cursorJobOffer != null) {
+            cursorJobOffer.close();
+        }
+        if (cursorCurrentJob != null) {
+            cursorCurrentJob.close();
         }
 
         /*
@@ -41,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
          * If no existing rows in table, then save new row with default weights 1
          */
         String[] projection2 = {
-                DatabaseContract.ComparisonSetting._ID };
+                DatabaseContract.ComparisonSetting._ID};
 
         Cursor cursor2 = db.query(
                 DatabaseContract.ComparisonSetting.TABLE_NAME, // FROM

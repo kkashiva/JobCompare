@@ -48,6 +48,9 @@ public class CompareJobOffers extends AppCompatActivity {
     }
 
     public void handleClickCompareActionButton(View view) {
+        ListView listView = findViewById(R.id.listViewId);
+
+
         startActivity(new Intent(CompareJobOffers.this, Display2JobOffers.class));
     }
 }

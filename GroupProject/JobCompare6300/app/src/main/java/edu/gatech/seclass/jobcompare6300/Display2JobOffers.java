@@ -18,4 +18,8 @@ public class Display2JobOffers extends AppCompatActivity {
     public void handleClickBackToCompareJobOffersScreen(View view) {
         startActivity(new Intent(Display2JobOffers.this, CompareJobOffers.class));
     }
+
+    public void handleClickBackToMainMenu(View view) {
+        startActivity(new Intent(Display2JobOffers.this, MainActivity.class));
+    }
 }

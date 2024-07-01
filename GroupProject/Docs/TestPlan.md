@@ -16,7 +16,7 @@ The objective of the test plan is to ensure that the JobComparison application m
 - Out-Of-Scope - The hardware used such as mobile phone or laptop.
 
 #### Strategy
-We will write tests to cover the different sections of code. 
+We will write tests to cover the different sections of code.
 The test cases will be written for each functionality once its development is done.
 We will then use the JUNIT testing framework to validate that our test cases succeed.
 We will then conduct manual tests such as usability and acceptance tests to ensure that the application meets all requirements.
@@ -57,7 +57,7 @@ To assess the quality of our test cases, we will use the Test metrics below:
 
 ### 1.4 Bug Tracking
 Whenever a bug is filed, the owner of the section of code where the bug is will be required to resolve and close the bug.
-Incase of any enhancement requests, the developer working on that feature will implement 
+In case of any enhancement requests, the developer working on that feature will implement
 
 
 ### 1.5 Technology
@@ -70,32 +70,50 @@ Others will be determined as we continue with the development.
 For this deliverable, we attempt manual testing to test the app's functionality.
 
 #### Main Menu:
-- **Test case 1**: *Enter Current Job Details* button is disabled when the current job exists.
-  - Manual Steps:
-    - From main menu, select *Enter Current Job Details*.
-  - Expected Result:
-    - The button is disabled.
-  - Actual Result:
-
-- **Test case 2**: *Edit Current Job Details* button is disabled when no job offer exists.
+- **Test case 1**: *Edit Current Job Details* button is disabled when no current job exists.
   - Manual Steps:
     - From main menu, select *Edit Current Job Details*.
   - Expected Result:
     - The button is disabled.
-  - Actual Result:
+  - Actual Result:\
+    ![mainMenuTesting1.PNG](images/mainMenuTesting1.PNG)
+
+
+- **Test case 2**: *Enter Current Job Details* button is disabled when the current job exists.
+  - Manual Steps:
+    - From main menu, select *Enter Current Job Details*.
+  - Expected Result:
+    - The button is disabled.
+  - Actual Result:\
+    ![mainMenuTesting2.PNG](images/mainMenuTesting2.PNG)
+
 
 - **Test case 3**: *Compare Job Offers* button is disabled when current job + job offer is less than 2.
   - Manual Steps:
     - From main menu, select Compare Job Offers.
   - Expected Result:
     - The button is disabled.
-  - Actual Result:
-    ![compareJobOffers_tc3.png](images/compareJobOffers_tc3.png)
+  - Actual Result:\
+    ![mainMenuTesting2.PNG](images/mainMenuTesting2.PNG)
+
 
 #### Enter Current Job Details
-- **Test case 4**: Previously entered current job details should be displayed in EditText input fields and persist after app restart
+- **Test case 4**: User enters current job details.
   - Manual Steps:
-    - Click on Enter Current Job Details from MainActivity
+    - Click on *Enter Current Job Details* from main menu
+    - Input the details as hinted and click Save Current Job, then go back to Main Menu
+  - Expected Result:
+    - A toast will be main to notify the user with successful saving, then the user will be directed back to the main menu.
+    - *Enter Current Job Details* button is disabled
+    - *Edit Current Job Details* button is enabled
+  - Actual Result:
+  - ![enterCurrentJob1.PNG](images/enterCurrentJob1.PNG)
+  - ![mainMenuTesting2.PNG](images/mainMenuTesting2.PNG)
+
+
+- **Test case 5**: Previously entered current job details should be displayed in EditText input fields and persist after app restart
+  - Manual Steps:
+    - Click on *Enter Current Job Details* from MainActivity
     - Input the details and click Save Current Job, then go back to Main Menu
     - Close app and restart
     - Click on Edit Current Job Details from MainActivity
@@ -107,16 +125,13 @@ For this deliverable, we attempt manual testing to test the app's functionality.
       ![image](images/editcurrentjobdetails_tc1a.png)
     - Database also shows the saved current job details
       ![image](images/editcurrentjobdetails_tc1b.png)
-    
-- **Test case 5**: User enters current job details.
-  - Manual Steps:
-  - Expected Result:
-  - Actual Result:
-  
+
+
 - **Test case 6**: User fails to enter one field in the current job details
   - Manual Steps:
   - Expected Result:
   - Actual Result:
+
 
 - **Test case 7**: User edits/updates current job details
   - Manual Steps:
@@ -135,9 +150,10 @@ For this deliverable, we attempt manual testing to test the app's functionality.
     - These should be editable
   - Actual Result:
     - UI has input fields pre-filled with saved current job details as per expectations
-    ![image](images/editcurrentjobdetails_tc8a.png)
+      ![image](images/editcurrentjobdetails_tc8a.png)
     - Database also shows the saved current job details
-    ![image](images/editcurrentjobdetails_tc8b.png)
+      ![image](images/editcurrentjobdetails_tc8b.png)
+
 
 - **Test case 9**: Edit Current Job Details should update the exiting current job in the database instead of creating another current job
   - Manual Steps:
@@ -149,9 +165,10 @@ For this deliverable, we attempt manual testing to test the app's functionality.
     - Database Job table should have the updated values for the current job row (indicated by jobType = 0)
   - Actual Result:
     - Toast "Current job details updated"
-    ![image](images/editcurrentjobdetails_tc9a.png)
+      ![image](images/editcurrentjobdetails_tc9a.png)
     - Job table row for current job updated with the edited values
-    ![image](images/editcurrentjobdetails_tc9b.png)
+      ![image](images/editcurrentjobdetails_tc9b.png)
+
 
 - **Test case 10**: Disable Edit Current Job Details button if no current job has been saved yet
   - Manual Steps:
@@ -161,7 +178,8 @@ For this deliverable, we attempt manual testing to test the app's functionality.
     - The Edit Current Job Details button in MainActivity should be disabled
   - Actual Result:
     - button disabled as expected
-    ![image](images/editcurrentjobdetails_tc10.png)
+      ![image](images/editcurrentjobdetails_tc10.png)
+
 
 - **Test case 10**: User enters an incorrect data input type in the edit current job details
   - Manual Steps:
@@ -173,6 +191,8 @@ For this deliverable, we attempt manual testing to test the app's functionality.
   - Manual Steps:
   - Expected Result:
   - Actual Result:
+
+
 - **Test case 13**: User fails to enter one field in the job offer details
   - Manual Steps:
   - Expected Result:
@@ -184,17 +204,17 @@ For this deliverable, we attempt manual testing to test the app's functionality.
   - Actual Result:
 
 #### Compare Job Offers
-- **Test case 15**: show a table of ranking of job offers with no current job 
+- **Test case 15**: show a table of ranking of job offers with no current job
   - Manual Steps:
     - Enter 3 job offers via Enter Job Offers button.
-    -From main menu, selects Compare Job Offers.
+      -From main menu, selects Compare Job Offers.
   - Expected Result:
     - A table of 3 job offers with ranking from high to low.
     - No entry is indicated as current job.
   - Actual Result:
     - Show picture here
 
-- **Test case 16**: show a table of ranking of job offers with current job 
+- **Test case 16**: show a table of ranking of job offers with current job
   - Manual Steps:
     - Enter 3 job offers via Enter Job Offers button.
     - Enter a current job via Enter Current Job Details button.
@@ -205,7 +225,7 @@ For this deliverable, we attempt manual testing to test the app's functionality.
   - Actual Result:
     - Show picture here
 
-  
+
 - **Test case 17**: Select 2 offers and compare
   - Manual Steps:
     - TODO
@@ -224,6 +244,7 @@ For this deliverable, we attempt manual testing to test the app's functionality.
   - Actual Result:
     ![comparisonsettings_tc1.png](images/comparisonsettings_tc1.png)
 
+
 - **Test case 19**: Retrive and show the existing comparison settings.
   - Manual Steps:
     - From main menu, select Adjust comparison settings.
@@ -231,6 +252,7 @@ For this deliverable, we attempt manual testing to test the app's functionality.
     - The comparison settings screen shows the currently saved weights for each setting.
   - Actual Result:
     ![comparisonsettings_tc2.png](images/comparisonsettings_tc2.png)
+
 
 - **Test case 20**: Update the yearly bonus weight to 7.
   - Manual Steps:

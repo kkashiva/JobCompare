@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -157,8 +159,15 @@ public class EnterCurrentJobDetails extends AppCompatActivity {
             // show the message in a toast
              Toast.makeText(this, "Successfully saved current job!", Toast.LENGTH_SHORT).show();
 
-            // show the score as a toast.
-            Toast.makeText(this, String.valueOf(score),Toast.LENGTH_LONG).show();
+//            // show the score as a toast.
+//            Toast.makeText(this, String.valueOf(score),Toast.LENGTH_LONG).show();
+
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(EnterCurrentJobDetails.this, MainActivity.class));
+                }
+            }, 1000);
         }
         else{
             // show the failing message in a toast
