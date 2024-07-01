@@ -86,12 +86,8 @@ Below are the design layout description and the beta version UI screenshots of e
     - Enter Job Offer Detail
     - Adjust Comparison Settings
     - Compare Job Offers: disabled if less than 2 total jobs saved
-<<<<<<< HEAD
-![image](images/ui_main_menu.png)
-=======
     ![image](images/ui_main_menu.png)
 
->>>>>>> main
 
 ### Enter Current Job Details
 - This screen will have TextView labels and EditText input fields:
@@ -109,10 +105,7 @@ Below are the design layout description and the beta version UI screenshots of e
     - Back to Main Menu
 ![image](images/ui_edit_current_job.png)
 
-<<<<<<< HEAD
-=======
 
->>>>>>> main
 ### Edit Current Job Details
 - This screen will have the same input fields as Enter Current Job Details screen
 - The input fields will be pre-filled with data from the saved current job, and the user can choose to edit any field
@@ -139,10 +132,7 @@ Below are the design layout description and the beta version UI screenshots of e
     - Back to Main Menu
 ![image](images/ui_adjust_comparison_settings.png)
 
-<<<<<<< HEAD
-=======
 
->>>>>>> main
 ### Compare Job Offers
 - This screen will have a tabluar layout to show all the saved jobs with these columns:
      - Rank : sorter based on score
