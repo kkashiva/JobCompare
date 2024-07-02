@@ -1,9 +1,10 @@
 package edu.gatech.seclass.jobcompare6300;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
-public class Job {
+public class Job implements Serializable {
     private String title;
     private String company;
     private String locationState;
