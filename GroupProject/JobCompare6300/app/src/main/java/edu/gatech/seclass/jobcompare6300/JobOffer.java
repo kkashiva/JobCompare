@@ -1,12 +1,14 @@
 package edu.gatech.seclass.jobcompare6300;
 
-public class JobOffer{
+public class JobOffer {
     private final String title;
     private final String company;
     private final int rank;
+    private final int id;
     private final boolean isCurrentJob;
 
-    public JobOffer(String title, String company, int rank, boolean isCurrentJob) {
+    public JobOffer(int id, String title, String company, int rank, boolean isCurrentJob) {
+        this.id = id;
         this.title = title;
         this.company = company;
         this.rank = rank;
@@ -23,6 +25,10 @@ public class JobOffer{
 
     public int getRank() {
         return rank;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public boolean isCurrentJob() {

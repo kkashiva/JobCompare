@@ -22,13 +22,253 @@
             android:textAlignment="center"
             android:textFontWeight="800"
             android:textSize="24sp" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="223dp">
+
+            <TableRow android:weightSum="100">
+
+                <TextView android:layout_weight="20" />
+
+                <TextView
+                    android:layout_weight="40"
+                    android:text="Offer 1"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:layout_weight="40"
+                    android:text="Offer 2"
+                    android:textAlignment="center" />
+            </TableRow>
+
+            <View
+                android:layout_height="1dip"
+                android:background="#FF909090" />
+
+            <TableRow>
+
+                <TextView
+                    android:layout_weight="20"
+                    android:paddingStart="5dp"
+                    android:text="Title" />
+
+                <TextView
+                    android:id="@+id/titleOffer1"
+                    android:layout_weight="40"
+                    android:text="Offer 1"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/titleOffer2"
+                    android:layout_weight="40"
+                    android:text="Offer 2"
+                    android:textAlignment="center" />
+            </TableRow>
+
+            <View
+                android:layout_height="1dip"
+                android:background="#FF909090" />
+
+            <TableRow>
+
+                <TextView
+                    android:layout_weight="20"
+                    android:paddingStart="5dp"
+                    android:text="Company" />
+
+                <TextView
+                    android:layout_weight="40"
+                    android:text="Offer 1"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:layout_weight="40"
+                    android:text="Offer 2"
+                    android:textAlignment="center" />
+            </TableRow>
+
+            <View
+                android:layout_height="1dip"
+                android:background="#FF909090" />
+
+            <TableRow>
+
+                <TextView
+                    android:layout_weight="20"
+                    android:paddingStart="5dp"
+                    android:text="Location" />
+
+                <TextView
+                    android:layout_weight="40"
+                    android:text="Offer 1"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:layout_weight="40"
+                    android:text="Offer 2"
+                    android:textAlignment="center" />
+            </TableRow>
+
+            <View
+                android:layout_height="1dip"
+                android:background="#FF909090" />
+
+            <TableRow>
+
+                <TextView
+                    android:layout_weight="20"
+                    android:paddingStart="5dp"
+                    android:text="Cost of living" />
+
+                <TextView
+                    android:layout_weight="40"
+                    android:text="Offer 1"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:layout_weight="40"
+                    android:text="Offer 2"
+                    android:textAlignment="center" />
+            </TableRow>
+
+            <View
+                android:layout_height="1dip"
+                android:background="#FF909090" />
+
+            <TableRow>
+
+                <TextView
+                    android:layout_weight="20"
+                    android:paddingStart="5dp"
+                    android:text="Yearly Salary" />
+
+                <TextView
+                    android:layout_weight="40"
+                    android:text="Offer 1"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:layout_weight="40"
+                    android:text="Offer 2"
+                    android:textAlignment="center" />
+            </TableRow>
+
+            <View
+                android:layout_height="1dip"
+                android:background="#FF909090" />
+
+            <TableRow>
+
+                <TextView
+                    android:layout_weight="20"
+                    android:paddingStart="5dp"
+                    android:text="Yearly Bonus" />
+
+                <TextView
+                    android:layout_weight="40"
+                    android:text="Offer 1"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:layout_weight="40"
+                    android:text="Offer 2"
+                    android:textAlignment="center" />
+            </TableRow>
+
+            <View
+                android:layout_height="1dip"
+                android:background="#FF909090" />
+
+            <TableRow>
+
+                <TextView
+                    android:layout_weight="20"
+                    android:paddingStart="5dp"
+                    android:text="Training and Development Fund" />
+
+                <TextView
+                    android:layout_weight="40"
+                    android:text="Offer 1"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:layout_weight="40"
+                    android:text="Offer 2"
+                    android:textAlignment="center" />
+            </TableRow>
+
+            <View
+                android:layout_height="1dip"
+                android:background="#FF909090" />
+
+            <TableRow>
+
+                <TextView
+                    android:layout_weight="20"
+                    android:paddingStart="5dp"
+                    android:text="Leave Time" />
+
+                <TextView
+                    android:layout_weight="40"
+                    android:text="Offer 1"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:layout_weight="40"
+                    android:text="Offer 2"
+                    android:textAlignment="center" />
+            </TableRow>
+
+            <View
+                android:layout_height="1dip"
+                android:background="#FF909090" />
+
+            <TableRow>
+
+                <TextView
+                    android:layout_weight="20"
+                    android:paddingStart="5dp"
+                    android:text="Telework Days per Week" />
+
+                <TextView
+                    android:layout_weight="40"
+                    android:text="Offer 1"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:layout_weight="40"
+                    android:text="Offer 2"
+                    android:textAlignment="center" />
+            </TableRow>
+        </TableLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="58dp"
+            android:layout_height="60dp"
             android:gravity="center"
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/compareActionButton"
+                android:layout_width="217dp"
+                android:layout_height="40dp"
+                android:background="#2196F3"
+                android:gravity="center"
+                android:maxLength="400"
+                android:onClick="handleClickCompareActionButton"
+                android:text="Compare Another Offer"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/backToMainMenuButtonID"
                 android:layout_width="217dp"
                 android:layout_height="40dp"
                 android:background="#2196F3"
@@ -36,23 +276,6 @@
                 android:maxLength="400"
                 android:onClick="handleClickBackToMainMenu"
                 android:text="@string/back_to_main_menu"
-                android:textAlignment="center" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="58dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <Button
-                android:layout_width="217dp"
-                android:layout_height="40dp"
-                android:background="#2196F3"
-                android:gravity="center"
-                android:maxLength="400"
-                android:onClick="handleClickBackToCompareJobOffersScreen"
-                android:text="@string/compare_another_offer"
                 android:textAlignment="center" />
         </LinearLayout>
 
