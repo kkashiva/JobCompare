@@ -64,11 +64,11 @@ public class CompareJobOffers extends AppCompatActivity {
     public void handleClickCompareActionButton(View view) {
         Intent intent = new Intent(CompareJobOffers.this, Display2JobOffers.class);
         // We are going to assume storeIds only contains 2 ids
-        System.out.println("handleClickCompareActionButton");
+
+        int count = 0;
         for (Integer storeId : storeIds) {
-            System.out.println(storeId);
             Cursor cursor = db.rawQuery("SELECT * FROM Job WHERE _id = " + storeId, null);
-            if (cursor != null){
+            if (cursor != null && cursor.moveToFirst()){
                 String title = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_TITLE));
                 String company = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_COMPANY));
                 String locationState = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_LOCATION_STATE));
@@ -79,9 +79,12 @@ public class CompareJobOffers extends AppCompatActivity {
                 int fund = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_TRAINING_DEVELOPMENT_FUND));
                 int leaveTime = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_LEAVE_TIME));
                 int tele = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK));
-                intent.putExtra("offer" + storeId, new Job(title, company, locationState, locationCity, costOfLiving, salary, bonus, fund, leaveTime, tele, 1));
+
+                Job job = new Job(title, company, locationState, locationCity, costOfLiving, salary, bonus, fund, leaveTime, tele, 1);
+                intent.putExtra("offer" + ++count, job);
                 cursor.close();
             }
+
         }
 
         startActivity(intent);

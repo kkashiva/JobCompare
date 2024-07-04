@@ -56,79 +56,65 @@
                 <TextView
                     android:id="@+id/titleOffer1"
                     android:layout_weight="40"
-                    android:text="Offer 1"
                     android:textAlignment="center" />
 
                 <TextView
                     android:id="@+id/titleOffer2"
                     android:layout_weight="40"
-                    android:text="Offer 2"
                     android:textAlignment="center" />
             </TableRow>
 
             <View
                 android:layout_height="1dip"
                 android:background="#FF909090" />
-
             <TableRow>
-
                 <TextView
                     android:layout_weight="20"
                     android:paddingStart="5dp"
                     android:text="Company" />
-
                 <TextView
+                    android:id="@+id/companyOffer1"
                     android:layout_weight="40"
-                    android:text="Offer 1"
                     android:textAlignment="center" />
-
                 <TextView
+                    android:id="@+id/companyOffer2"
                     android:layout_weight="40"
-                    android:text="Offer 2"
                     android:textAlignment="center" />
             </TableRow>
 
             <View
                 android:layout_height="1dip"
                 android:background="#FF909090" />
-
             <TableRow>
-
                 <TextView
                     android:layout_weight="20"
                     android:paddingStart="5dp"
                     android:text="Location" />
-
                 <TextView
+                    android:id="@+id/locationOffer1"
                     android:layout_weight="40"
-                    android:text="Offer 1"
                     android:textAlignment="center" />
-
                 <TextView
+                    android:id="@+id/locationOffer2"
                     android:layout_weight="40"
-                    android:text="Offer 2"
                     android:textAlignment="center" />
             </TableRow>
 
             <View
                 android:layout_height="1dip"
                 android:background="#FF909090" />
-
             <TableRow>
-
                 <TextView
                     android:layout_weight="20"
                     android:paddingStart="5dp"
                     android:text="Cost of living" />
-
                 <TextView
+                    android:id="@+id/costOfLivingOffer1"
                     android:layout_weight="40"
-                    android:text="Offer 1"
                     android:textAlignment="center" />
-
                 <TextView
+                    android:id="@+id/costOfLivingOffer2"
                     android:layout_weight="40"
-                    android:text="Offer 2"
                     android:textAlignment="center" />
             </TableRow>
 
@@ -144,13 +130,13 @@
                     android:text="Yearly Salary" />
 
                 <TextView
+                    android:id="@+id/salaryOffer1"
                     android:layout_weight="40"
-                    android:text="Offer 1"
                     android:textAlignment="center" />
 
                 <TextView
+                    android:id="@+id/salaryOffer2"
                     android:layout_weight="40"
-                    android:text="Offer 2"
                     android:textAlignment="center" />
             </TableRow>
 
@@ -166,13 +152,13 @@
                     android:text="Yearly Bonus" />
 
                 <TextView
+                    android:id="@+id/bonusOffer1"
                     android:layout_weight="40"
-                    android:text="Offer 1"
                     android:textAlignment="center" />
 
                 <TextView
+                    android:id="@+id/bonusOffer2"
                     android:layout_weight="40"
-                    android:text="Offer 2"
                     android:textAlignment="center" />
             </TableRow>
 
@@ -181,66 +167,60 @@
                 android:background="#FF909090" />
 
             <TableRow>
-
                 <TextView
                     android:layout_weight="20"
                     android:paddingStart="5dp"
-                    android:text="Training and Development Fund" />
-
+                    android:text="Training/Dev Fund" />
                 <TextView
+                    android:id="@+id/fundOffer1"
                     android:layout_weight="40"
-                    android:text="Offer 1"
                     android:textAlignment="center" />
-
                 <TextView
+                    android:id="@+id/fundOffer2"
                     android:layout_weight="40"
-                    android:text="Offer 2"
                     android:textAlignment="center" />
             </TableRow>
 
             <View
                 android:layout_height="1dip"
                 android:background="#FF909090" />
-
             <TableRow>
-
                 <TextView
                     android:layout_weight="20"
                     android:paddingStart="5dp"
                     android:text="Leave Time" />
-
                 <TextView
+                    android:id="@+id/leaveOffer1"
                     android:layout_weight="40"
-                    android:text="Offer 1"
                     android:textAlignment="center" />
-
                 <TextView
+                    android:id="@+id/leaveOffer2"
                     android:layout_weight="40"
-                    android:text="Offer 2"
                     android:textAlignment="center" />
             </TableRow>
 
             <View
                 android:layout_height="1dip"
                 android:background="#FF909090" />
-
             <TableRow>
-
                 <TextView
                     android:layout_weight="20"
                     android:paddingStart="5dp"
                     android:text="Telework Days per Week" />
 
                 <TextView
+                    android:id="@+id/teleOffer1"
                     android:layout_weight="40"
-                    android:text="Offer 1"
                     android:textAlignment="center" />
 
                 <TextView
+                    android:id="@+id/teleOffer2"
                     android:layout_weight="40"
-                    android:text="Offer 2"
                     android:textAlignment="center" />
             </TableRow>
+            <View
+                android:layout_height="1dip"
+                android:background="#FF909090" />
         </TableLayout>
 
         <LinearLayout
