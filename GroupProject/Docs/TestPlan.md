@@ -35,8 +35,7 @@ For our Test selection, we will use both the Black-box and White-box techniques 
 #### White-Box Testing:
 White-box testing involves testing the internal structures and working of the application.
 For this we will use the below:
-- Unit Testing: Automated Tests with JUnit to verify that the individual units of code work as expected.
-- Integration Testing: Automated Tests with JUnit to verify that the different modules in the application work together.
+- Testing: Automated Tests with JUnit to verify that the individual units of code work as expected.
 
 #### Black-Box Testing:
 This testing involves testing the funtionality of the appliiction without looking at internal code.
@@ -138,6 +137,7 @@ For this deliverable, we attempt manual testing to test the app's functionality.
   - Expected Result:
   - Actual Result:
 
+
 #### Edit Current Job Details
 - **Test case 8**: Previously entered current job details should be displayed in EditText input fields and persist after app restart
   - Manual Steps:
@@ -177,11 +177,11 @@ For this deliverable, we attempt manual testing to test the app's functionality.
   - Expected Result:
     - The Edit Current Job Details button in MainActivity should be disabled
   - Actual Result:
-    - button disabled as expected
+    - Button disabled as expected
       ![image](images/editcurrentjobdetails_tc10.png)
 
 
-- **Test case 10**: User enters an incorrect data input type in the edit current job details
+- **Test case 11**: User enters an incorrect data input type in the edit current job details
   - Manual Steps:
   - Expected Result:
   - Actual Result:
@@ -212,7 +212,7 @@ For this deliverable, we attempt manual testing to test the app's functionality.
     - A table of 3 job offers with ranking from high to low.
     - No entry is indicated as current job.
   - Actual Result:
-    - Show picture here
+    ![compareJobOffers_tc15a.png](images/compareJobOffers_tc15a.png)
 
 - **Test case 16**: show a table of ranking of job offers with current job
   - Manual Steps:
@@ -223,15 +223,21 @@ For this deliverable, we attempt manual testing to test the app's functionality.
     - A table of 4 job offers with ranking from high to low.
     - The current job entry is marked bold and italic to indicate as current job.
   - Actual Result:
-    - Show picture here
+    ![compareJobOffers_tc16.png](images/compareJobOffers_tc16.png)
 
 
 - **Test case 17**: Select 2 offers and compare
   - Manual Steps:
-    - TODO
+    - Enter 3 job offers via Enter Job Offers button.
+    - From main menu, selects Compare Job Offers.
+    - Select 2 offer checkboxes
+      ![compareJobOffers_tc15a.png](images/compareJobOffers_tc15a.png)
   - Expected Result:
-    - TODO
+    - A table showing information of 2 job offers
+    - A button for option to do another comparison (Compare Another Offer)
   - Actual Result:
+    ![compareJobOffers_tc15b.png](images/compareJobOffers_tc15b.png)
+
 
 #### Enter and Adjust Comparison Settings
 
