@@ -36,11 +36,10 @@ This class will serve as the **entry point** to the app that ties everything tog
 
 **Methods:**
 - `getJobCount()`: Allows the GUI to know the total of current job and job offer(s).
-- `showJob`: Allows the user to examine the existing job based on jobID.
-- `enterJob()`: Allows the user to enter current job or job offer.
+- `enterCurrentJob()`: Allows the user to enter current job.
+- `editJob()`: Allows the user to edit their existing current job.
+- `enterJobOffer()`: Allows the user to enter current job or job offer.
 - `saveJob()`: Allows the user to save the job that is currently being entered.
-- `editJob()`: Allows the user to edit their existing current job or job offer.
-- `deleteJob()`: Allows the user to delete their existing current job or job offer.
 - `compareJobs()`: Allows the user to compares two jobs that picked from the given list of job.
 - `adjustWeight()`: Allows the user to adjust comparison parameters (default = 1, more details in the latter part)
 - `rankJobs()`: Allows the user to rank all jobs (current job and job offer(s)) based on their scores, descending.
@@ -52,15 +51,16 @@ This class will serve as the **entry point** to the app that ties everything tog
 
 ### 2. Job
 **Attributes:**
-- `jobId` (Int): The unique identifier of the job.
+- `jobType` (Int): The indicator to distinguish between current job and job offer.
 - `title` (String): The title of the job.
 - `company` (String): The name of the company offering the job.
 - `locationState` (String): The working state of the job.
 - `locationCity` (String): The working city of the job.
+- `location` (String): The combined string of the working state and working city of the job.
 - `costOfLiving` (Int): The cost of living in the location of the job.
-- `yearlySalary` (Double): The annual salary offered for the job.
-- `yearlyBonus` (Double): The annual bonus offered for the job.
-- `trainingDevelopmentFund` (Double): The amount of money allocated to Training and Development Benefits provided with the job.
+- `yearlySalary` (Int): The annual salary offered for the job.
+- `yearlyBonus` (Int): The annual bonus offered for the job.
+- `trainingDevelopmentFund` (Int): The amount of money allocated to Training and Development Benefits provided with the job.
 - `leaveTime` (Int): The number of leave days allocated every year of the job.
 - `teleworkDaysPerWeek` (Int): The number of days per week assigned for telework in the job.
 - `AYS` (Double): Derived variable. The number of yearly Salary Adjusted for cost of living.
@@ -68,26 +68,39 @@ This class will serve as the **entry point** to the app that ties everything tog
 - `Score` (Double): Derived variable. The number of weighted scores based on default or user entered comparison parameter.
 
 **Methods:**
-- `setTitle()`: Enter the job title. 
-- `setCompany()`: Enter the job company.
-- `setLocation()`: Enter the state and city strings of the job.
-- `setCostOfLiving()`: Enter the index of cost of living for the job location.
-- `setYearlySalary()`: Enter the amount of yearly salary as integer.
-- `setYearlyBonus()`: Enter the amount of yearly bonus as integer.
-- `setTrainingDevelopmentFund()`: Enter the amount of training and development fund as integer.
-- `setLeaveTime()`: Enter the leave time per year as integer.
-- `setTeleworkDaysWeekly()`: Enter the number of permitted telework day per week.
-- `getTitle()`: Get the job title.
-- `getCompany()`: Get the job company.
-- `getLocation()`: Get the state and city strings of the job.
-- `getCostOfLiving()`: Get the index of cost of living for the job location.
-- `getAdjustedYearlySalary()`: Get the amount of adjusted (by the cost of living) yearly salary.
-- `getAdjustedYearlyBonus()`: Get the amount of adjusted (by the cost of living) yearly bonus.
-- `getTrainingDevelopmentFund()`: Get the amount of training and development fund.
-- `getLeaveTime()`: Get the leave time per year.
-- `getTeleworkDaysWeekly()`: Get the number of permitted telework day per week.
-- `calculateScore()`: Calculate job score based on comparison parameters.
-- `getJobScore()`: Get the calculated job score. 
+- `setJobType()`: Set the job type (0 = current job, 1 = job offer).
+- `setTitle()`: Set the job title. 
+- `setCompany()`: Set the job company.
+- `setCostOfLiving()`: Set the index of cost of living for the job location.
+- `setYearlySalary()`: Set the amount of yearly salary as integer.
+- `setYearlyBonus()`: Set the amount of yearly bonus as integer.
+- `setTrainingDevelopmentFund()`: Set the amount of training and development fund as integer (0 - 18,000, integer).
+- `setLeaveTime()`: Set the leave time per year as integer (0 - 100, integer).
+- `setTeleworkDaysWeekly()`: Set the number of permitted telework day per week (0 - 5, integer).
+- `setAYS()`: Set the annual salary adjusted by the cost of living index as double.
+- `setAYB()`: Set the annual bonus adjusted by the cost of living index as double.
+- `setJobScore()`: Set job score as double.
+
+- `getJobType()`: Get the job type (0 = current job, 1 = job offer) as integer.
+- `getTitle()`: Get the job title as string.
+- `getCompany()`: Get the job company as string.
+- `getState()`: Get the state string of the job as string.
+- `getCity()`: Get the city string of the job as string.
+- `getLocation()`: Get the state and city strings of the job as string.
+- `getCostOfLiving()`: Get the index of cost of living for the job location as integer.
+- `getYearlySalary()`: Get the amount of yearly salary as integer.
+- `getYearlySalary()`: Get the amount of yearly salary as integer.
+- `getTrainingDevelopmentFund()`: Get the amount of training and development fund as integer.
+- `getLeaveTime()`: Get the leave time per year as  integer.
+- `getTeleworkDaysWeekly()`: Get the number of permitted telework day per week as integer.
+- `getAYS()`: Get the amount of annual salary adjusted by the cost of living index as double.
+- `getAYB()`: Get the amount of annual bonus adjusted by the cost of living index as double.
+- `getJobScore()`: Get the calculated job score as double.
+
+- `updateLocation()`: Update the job location.
+- `calculateAdjustedYearlySalary()`: Calculate the amount of annual salary adjusted by the cost of living index as double.
+- `calculateAdjustedYearlyBonus()`: Calculate the amount of annual bonus adjusted by the cost of living index as double.
+- `calculateJobScore()`: Calculate job score based on comparison parameters and job characters as double.
 
 **Subclassees:**
 These two subclasses inherit all the attributes and methods from the Job superclass
@@ -129,20 +142,21 @@ For this relationship we defined a **ComparisonSetting** class with different at
 - `teleworkDaysPerWeekWeight` (Int): The weight assigned to the telework days per week. Default = 1.
 
 **Methods:**
-- `saveComparisonSetting()`: Set or update and save the comparison settings.
-- `getComparisonSetting()`: Retrieve the current comparison settings.
+- `checkIfValid()`: check if the input comparison settings are valid integers.
+- `saveWeights()`: save the input weights.
+- `displayCurrentComaprisonSettings()`: Retrieve the current comparison settings and display.
 
 **Relationships:**
-- A `ComparisonSetting` is associated with one `User`.
+- A `ComparisonSetting` is associated with one `User`. Default value is a list of 1. 
 
 > 5. When choosing to **compare job offers**, a user will:
 > - Be shown a list of job offers, displayed as Title and Company, ranked from best to worst (see below for details), and including the current job (if present), clearly indicated.
 
-Display of list and indication of current job will be handled via GUI. The job score computation will be handled by calculateScore() from class **Job**, and the ranking will be handled by rankJobs() in class **User**.
+Display of list and indication of current job will be handled via GUI. The job score computation will be handled by calculateJobScore() from class **Job**, and the ranking will be handled by rankJobs() in class **User**.
 
 > - Select two jobs to compare and trigger the comparison.
 
-Display will be implemented via GUI. To handle the comparison requirement, we will use compareJobs() from class **User**. The jobID of the two jobs selected to compare will pe passed as arguments to the compareJobs() method.
+Display will be implemented via GUI. To handle the comparison requirement, we will use compareJobs() from class **User**. The jobID of the two jobs selected to compare will be passed as arguments to the compareJobs() method, other unchecked boxes will be disabled.
 
 > - Be shown a table comparing the two jobs, displaying, for each job:\
 >  Title <br>
@@ -154,7 +168,7 @@ Display will be implemented via GUI. To handle the comparison requirement, we wi
    LT = Leave Time<br>
    RWT = Telework Days per Week<br>
 
-The series of display will be handled by functions getTitle(), getCompany(), getLocation(), getCostOfLiving(), getAdjustedYearlySalary(), getAdjustedYearlyBonus(), getTrainingDevelopmentFund(), getLeaveTime(), and getTeleworkDaysWeekly() from class **Job**.
+The series of display will be handled by functions getTitle(), getCompany(), getState(), getCity(), getCostOfLiving(), getAYS(), getAYB(), getTrainingDevelopmentFund(), getLeaveTime(), and getTeleworkDaysWeekly() from class **Job**.
 
 > - Be offered to perform another comparison or go back to the main menu.
 
@@ -174,7 +188,7 @@ NOTE: The rationale for the RWT subformula is:<br>
 For example, if the weights are 2 for the yearly salary, 2 for the yearly bonus, 2 for the Training and Development Fund, and 1 for all other factors, the score would be computed as:<br>
 2/8 * AYS + 2/8 * AYB + 2/8 * TDF + 1/8 * (LT * AYS / 260) - 1/8 * ((260 - 52 * RWT) * (AYS / 260) / 8)))
 
-The job score computation will be handled by calculateScore() from class **Job**. It will make use of the public method getComparisonSetting() from the ComparisonSetting class to get the weights for each attribute.
+The job score computation will be handled by calculateJobScore() from class **Job**. It will make use of the public method displayCurrentComparisonSettings() from the **ComparisonSetting** class to get the weights for each attribute.
   
 > 7. The user interface must be intuitive and responsive.
 

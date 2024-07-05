@@ -86,6 +86,10 @@ public class JobOfferListAdapter extends ArrayAdapter<JobOffer> {
         } else {
             checkBox.setChecked(checkedStates.get(position).isChecked());
         }
+
+        int checkedCount = getCheckedCount();
+        checkBox.setEnabled(checkedCount < 2 || (checkedStates.get(position) != null && checkedStates.get(position).isChecked()));
+
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -98,6 +102,15 @@ public class JobOfferListAdapter extends ArrayAdapter<JobOffer> {
 
         return view;
     }
+    private int getCheckedCount() {
+        int checkedCount = 0;
+        for (StateStore  state : checkedStates.values() ){
+            if  (state != null  && state.isChecked()){
+                checkedCount++;
+            }
+        }
+        return checkedCount;
+    }
 
     private void updateCheckBoxes() {
         int checkedCount = 0;
@@ -106,18 +119,6 @@ public class JobOfferListAdapter extends ArrayAdapter<JobOffer> {
                 checkedCount++;
             }
         }
-
-        System.out.println("CHECK COUNT " + checkedCount);
-//        for (int i = 0; i < getCount(); i++) {
-//            View view = getView(i, null, null);
-//            CheckBox checkBox = view.findViewById(R.id.checkBox);
-//            if (checkedCount >= 2 && !checkedStates.get(i).isChecked()) {
-//                System.out.println("GOTTA GO IN HERE TO DISABLE CHECK BOX");
-//                checkBox.setEnabled(false);
-//            } else {
-//                checkBox.setEnabled(true);
-//            }
-//        }
 
         notifyDataSetChanged();
     }

@@ -18,7 +18,7 @@ public class CompareJobOffers extends AppCompatActivity {
     private final JobDbHelper dbHelper = JobDbHelper.getInstance(this); //get singleton instance;
     private final SQLiteDatabase db = dbHelper.getReadableDatabase();
     private Set<Integer> storeIds; // store the ids of offer to query from table
-
+    private JobOfferListAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         storeIds = new HashSet<>();
@@ -41,13 +41,17 @@ public class CompareJobOffers extends AppCompatActivity {
             jobOffersList.add(new JobOffer(id, title, company, ++rank, jobType == 0));
         }
 
-        JobOfferListAdapter adapter = new JobOfferListAdapter(this, R.layout.adapter_view_ranking_table_layout, jobOffersList);
+        adapter = new JobOfferListAdapter(this, R.layout.adapter_view_ranking_table_layout, jobOffersList);
         adapter.registerDataSetObserver(new DataSetObserver() {
             @Override
             public void onChanged() {
                 for (int i = 0; i < adapter.getCheckedStates().size(); i++) {
-                    if (adapter.getCheckedStates().get(i).isChecked()) {
-                        storeIds.add(adapter.getCheckedStates().get(i).getId());
+                    StateStore state = adapter.getCheckedStates().get(i);
+                    if (state != null && state.isChecked()) {
+                        storeIds.add(state.getId());
+                    }
+                    else {
+                        storeIds.remove(state!=null ? state.getId():null);
                     }
                 }
             }
