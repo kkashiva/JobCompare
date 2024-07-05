@@ -134,7 +134,7 @@ Below are the design layout description and the beta version UI screenshots of e
 
 
 ### Compare Job Offers
-- This screen will have a tabluar layout to show all the saved jobs with these columns:
+- This screen will have a tabular layout to show all the saved jobs with these columns:
      - Rank : sorter based on score
      - Title
      - Company

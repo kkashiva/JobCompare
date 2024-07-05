@@ -35,7 +35,8 @@ For our Test selection, we will use both the Black-box and White-box techniques 
 #### White-Box Testing:
 White-box testing involves testing the internal structures and working of the application.
 For this we will use the below:
-- Testing: Automated Tests with JUnit to verify that the individual units of code work as expected.
+- Unit Testing: Automated Tests with JUnit to verify that the individual units of code work as expected.
+- Integration Testing: Automated Tests with JUnit to verify that the different modules in the application work together.
 
 #### Black-Box Testing:
 This testing involves testing the funtionality of the appliiction without looking at internal code.
@@ -132,13 +133,8 @@ For this deliverable, we attempt manual testing to test the app's functionality.
   - Actual Result:
 
 
-- **Test case 7**: User edits/updates current job details
-  - Manual Steps:
-  - Expected Result:
-  - Actual Result:
-
-
 #### Edit Current Job Details
+
 - **Test case 8**: Previously entered current job details should be displayed in EditText input fields and persist after app restart
   - Manual Steps:
     - Click on Enter Current Job Details from MainActivity
@@ -159,7 +155,7 @@ For this deliverable, we attempt manual testing to test the app's functionality.
   - Manual Steps:
     - Ensure there is a saved current job, if not enter one
     - Click on Edit Current Job Details from MainActivity
-    - Edit the pre-filled details from the previously saved job, click Update Current Job
+    - Edit the hinted details from the previously saved job, click Update Current Job
   - Expected Result:
     - Toast to confirm successful update
     - Database Job table should have the updated values for the current job row (indicated by jobType = 0)
@@ -177,68 +173,91 @@ For this deliverable, we attempt manual testing to test the app's functionality.
   - Expected Result:
     - The Edit Current Job Details button in MainActivity should be disabled
   - Actual Result:
-    - Button disabled as expected
+    - button disabled as expected
       ![image](images/editcurrentjobdetails_tc10.png)
 
 
+#### Enter Job offer
 - **Test case 11**: User enters an incorrect data input type in the edit current job details
   - Manual Steps:
+    - From main menu,select *Enter Job Offer Detail*
+    - Enter job offer details in hinted format, with telework day is 6 (falls outside the allowed range)
+    - Click save
   - Expected Result:
+    - An error message will indicate the input field is not valid and the updated current job cannot be saved
   - Actual Result:
-
-#### Enter Job offer
+    - image needed here
 - **Test case 12**: User enters job offer details
   - Manual Steps:
+    - From main menu,select *Enter Job Offer Detail*
+    - Enter job offer details in hinted format
+    - Click save
   - Expected Result:
+    - The new job offer is successfully saved
+    - A toast will indicate the job offer is successfully saved
+    - The enter job offer detail table is emptied
   - Actual Result:
+    - ![enterJobOffer_tc12.png](images/enterJobOffer_tc12.png)
 
 
 - **Test case 13**: User fails to enter one field in the job offer details
   - Manual Steps:
+    - From main menu,select *Enter Job Offer Details*
+    - Enter job offer details in hinted format, one is missing
+    - Click save
   - Expected Result:
-  - Actual Result:
+    - An error message will indicate the input field is not valid and the job offer cannot be saved
+  - Actual Result:\
+    ![enterJobOffer_tc13.png](images/enterJobOffer_tc13.png)
 
 - **Test case 14**: User enters an incorrect datatype input field in the job offer details
   - Manual Steps:
+    - From main menu,select *Enter Job Offer Details*
+    - Enter job offer details in hinted format, training and dev fund is 200,000 (falls outside the permitted range)
+    - Click save
   - Expected Result:
-  - Actual Result:
+    - An error message will indicate the input value is  not valid.
+  - Actual Result:\
+    ![enterJobOffer_tc14.png](images/enterJobOffer_tc14.png)
 
 #### Compare Job Offers
+
 - **Test case 15**: show a table of ranking of job offers with no current job
   - Manual Steps:
-    - Enter 3 job offers via Enter Job Offers button.
+    - Enter multiple (>2) offers via Enter Job Offers button.
       -From main menu, selects Compare Job Offers.
   - Expected Result:
-    - A table of 3 job offers with ranking from high to low.
+    - A table of offers with ranking from high to low.
     - No entry is indicated as current job.
   - Actual Result:
-    ![compareJobOffers_tc15a.png](images/compareJobOffers_tc15a.png)
+    - ![compareJobOffers_tc17_a.png](images/compareJobOffers_tc17_a.png)
+
 
 - **Test case 16**: show a table of ranking of job offers with current job
   - Manual Steps:
-    - Enter 3 job offers via Enter Job Offers button.
+    - Enter multiple (>2) offers via Enter Job Offers button.
     - Enter a current job via Enter Current Job Details button.
     - From main menu, selects Compare Job Offers.
   - Expected Result:
-    - A table of 4 job offers with ranking from high to low.
+    - A table of job offers and current job with ranking from high to low.
     - The current job entry is marked bold and italic to indicate as current job.
   - Actual Result:
-    ![compareJobOffers_tc16.png](images/compareJobOffers_tc16.png)
+    - ![compareJobOffers_tc16.png](images/compareJobOffers_tc16.png)
 
 
 - **Test case 17**: Select 2 offers and compare
   - Manual Steps:
-    - Enter 3 job offers via Enter Job Offers button.
-    - From main menu, selects Compare Job Offers.
-    - Select 2 offer checkboxes
-      ![compareJobOffers_tc15a.png](images/compareJobOffers_tc15a.png)
+    - Select 2 checkboxes from the list view
+    - Click button compare
   - Expected Result:
-    - A table showing information of 2 job offers
-    - A button for option to do another comparison (Compare Another Offer)
-  - Actual Result:
-    ![compareJobOffers_tc15b.png](images/compareJobOffers_tc15b.png)
+    - Two checkboxes successfully selected
+    - Other unselected boxes disabled
+    - Compare button is enabled
+  - Actual Result:\
+    ![compareJobOffers_tc17_a.png](images/compareJobOffers_tc17_a.png)
+    ![compareJobOffers_tc17_b.png](images/compareJobOffers_tc17_b.png)
 
-
+~~~~
 #### Enter and Adjust Comparison Settings
 
 - **Test case 18**: Verify that Input for comparison settings are integers.
