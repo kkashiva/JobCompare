@@ -2,9 +2,11 @@ package edu.gatech.seclass.jobcompare6300;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -95,6 +97,10 @@ public class EnterJobOffers extends AppCompatActivity {
         startActivity(new Intent(EnterJobOffers.this, MainActivity.class));
     }
 
+    public void handleCompareSavedJobOffer(View view) {
+        startActivity(new Intent(EnterJobOffers.this, MainActivity.class));
+    }
+
     public void handleClickSaveJob(View view) {
 
         String title = inputTitle.getText().toString().trim();
@@ -157,6 +163,78 @@ public class EnterJobOffers extends AppCompatActivity {
         // show message in a toast
         Toast.makeText(this, "Successfully saved new job offer!", Toast.LENGTH_SHORT).show();
 
+        //check if we have a current job.
+        checkIfCurrentJobExists(job);
+    }
+
+    private void checkIfCurrentJobExists(Job jobOfferSaved){
+        Intent intent = new Intent(EnterJobOffers.this, Display2JobOffers.class);
+        dbHelper = JobDbHelper.getInstance(this); // get singleton instance
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        String[] projection = {
+                DatabaseContract.Jobs.COLUMN_NAME_TITLE,
+                DatabaseContract.Jobs.COLUMN_NAME_COMPANY,
+                DatabaseContract.Jobs.COLUMN_NAME_LOCATION_CITY,
+                DatabaseContract.Jobs.COLUMN_NAME_LOCATION_STATE,
+                DatabaseContract.Jobs.COLUMN_NAME_COST_OF_LIVING,
+                DatabaseContract.Jobs.COLUMN_NAME_YEARLY_SALARY,
+                DatabaseContract.Jobs.COLUMN_NAME_YEARLY_BONUS,
+                DatabaseContract.Jobs.COLUMN_NAME_TRAINING_DEVELOPMENT_FUND,
+                DatabaseContract.Jobs.COLUMN_NAME_LEAVE_TIME,
+                DatabaseContract.Jobs.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK
+        };
+
+        String selection = DatabaseContract.Jobs.COLUMN_NAME_JOB_TYPE + " = ?";
+        String[] selectionArgs = { "0" };
+
+        Cursor cursor = db.query(
+                DatabaseContract.Jobs.TABLE_NAME, // FROM
+                projection, // SELECT
+                selection, // WHERE columns
+                selectionArgs, // WHERE values
+                null, // GROUP BY
+                null, // filter by row groups
+                null // SORT BY
+        );
+
+        if (cursor != null && cursor.moveToFirst()) {
+            String title = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_TITLE));
+            String company = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_COMPANY));
+            String city = cursor
+                    .getString(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_LOCATION_CITY));
+            String state = cursor
+                    .getString(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_LOCATION_STATE));
+            int costOfLiving = cursor
+                    .getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_COST_OF_LIVING));
+            int yearlySalary = cursor
+                    .getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_YEARLY_SALARY));
+            int yearlyBonus = cursor
+                    .getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_YEARLY_BONUS));
+            int trainingDevelopmentFund = cursor
+                    .getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_TRAINING_DEVELOPMENT_FUND));
+            int leaveTime = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_LEAVE_TIME));
+            int teleworkDaysPerWeek = cursor
+                    .getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK));
+
+            intent.putExtra("offer1", new Job(title, company, state, city, costOfLiving, yearlySalary, yearlyBonus, trainingDevelopmentFund, leaveTime, teleworkDaysPerWeek, 0));
+            intent.putExtra("offer2", jobOfferSaved);
+
+            //enable
+            Button myButton = findViewById(R.id.compareSavedJobOfferButtonID);
+            myButton.setEnabled(true);
+            myButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(intent);
+                }
+            });
+
+
+        }
+        else {
+
+        }
     }
 
     // close the database in onDestroy()
