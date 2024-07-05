@@ -86,9 +86,6 @@ public class JobOfferListAdapter extends ArrayAdapter<JobOffer> {
         } else {
             checkBox.setChecked(checkedStates.get(position).isChecked());
         }
-//        checkBox.setChecked(checkedStates.get(position, false));
-
-
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

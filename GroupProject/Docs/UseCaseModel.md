@@ -30,11 +30,12 @@
 - Post-conditions: A new job offer is saved for the given user.
 - Scenarios:
   - User enters job offer and selects Save. The new job offer is saved. The screen should show options to enter another job offers or return to main menu or compare job offers.
+    - If user selects on Compare Job Offers, if there a current job, the app will route user to Display 2 job offers screen.
   - User enters job offer and selects Cancel. The screen should show options to return to main menu, compare job offers.
 
 #### Compare Job Offers
-- Requirements: User is able to compare 2 job offers if they have a current job and a job offer saved.
-- Pre-conditions: A current job and at least one saved job offer are needed for comparison.
+- Requirements: User is able to compare 2 job offers if they have a current job and a job offer saved or if they have at least 2 job offers saved.
+- Pre-conditions: A current job and at least one saved job offer or at least 2 job offers are needed for comparison.
 - Post-conditions: A comparison between 2 selected jobs. A table of job offer rankings is showed. 
 - Scenarios:
   - User selects 2 jobs from the list and selects Compare. The table of comparison is showed.

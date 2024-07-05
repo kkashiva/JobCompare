@@ -41,7 +41,7 @@ public class Job implements Serializable {
         this.leaveDay = leaveDay;
         this.teleworkDaysPerWeek = teleworkDaysPerWeek;
 
-        this.location = locationState + ',' + locationCity;
+        this.location = locationCity + ", " + locationState;
         this.AYS = calculateAdjustedYearlySalary(this.yearlySalary, this.costOfLiving);
         this.AYB = calculateAdjustedYearlyBonus(this.yearlyBonus, this.costOfLiving);
         this.score = calculateJobScore(adjustedParameter, this.AYS, this.AYB, this.trainDevFund, this.leaveDay, this.teleworkDaysPerWeek);
