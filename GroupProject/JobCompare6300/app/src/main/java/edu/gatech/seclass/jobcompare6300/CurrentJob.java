@@ -1,7 +1,10 @@
 package edu.gatech.seclass.jobcompare6300;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import java.util.List;
 
 public class CurrentJob extends Job{
     
@@ -49,9 +52,6 @@ public class CurrentJob extends Job{
             values.put(DatabaseContract.Jobs.COLUMN_NAME_JOB_TYPE, jobType); // 0 for CurrentJob, 1 for JobOffer
 
             // some derived variables
-            values.put(DatabaseContract.Jobs.COLUMN_NAME_AYS, getAYS());
-            values.put(DatabaseContract.Jobs.COLUMN_NAME_AYB, getAYB());
-            values.put(DatabaseContract.Jobs.COLUMN_NAME_SCORE, getJobScore());
 
             // Insert the new row, returning the primary key value of the new row
             long jobId = db.insert(DatabaseContract.Jobs.TABLE_NAME, null, values);
@@ -79,9 +79,19 @@ public class CurrentJob extends Job{
             values.put(DatabaseContract.Jobs.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK, teleworkDaysPerWeek);
 
             // some derived variables
-            values.put(DatabaseContract.Jobs.COLUMN_NAME_AYS, getAYS());
-            values.put(DatabaseContract.Jobs.COLUMN_NAME_AYB, getAYB());
-            values.put(DatabaseContract.Jobs.COLUMN_NAME_SCORE, getJobScore());
+            double AYS = this.calculateAdjustedYearlySalary(yearlySalary, costOfLiving);
+            double AYB = this.calculateAdjustedYearlyBonus(yearlyBonus, costOfLiving);
+            List<Integer> adjustedParameter = super.getAdjustedParameter();
+            double score = this.calculateJobScore(adjustedParameter, AYS, AYB, trainDevFund, leaveDay, teleworkDaysPerWeek);
+
+            values.put(DatabaseContract.Jobs.COLUMN_NAME_AYS, AYS);
+            values.put(DatabaseContract.Jobs.COLUMN_NAME_AYB, AYB);
+            values.put(DatabaseContract.Jobs.COLUMN_NAME_SCORE, score);
+
+            // debug AYS, AYB, score
+            System.out.println("AYS: " + AYS);
+            System.out.println("AYB: " + AYB);
+            System.out.println("Score: " + score);
 
             // WHERE clause to filter jobType = 0, to only update the current jobs in Jobs table
             String selection = DatabaseContract.Jobs.COLUMN_NAME_JOB_TYPE + " = ?";
@@ -146,14 +156,14 @@ public class CurrentJob extends Job{
 
             this.setTitle(title);
             this.setCompany(company);
-            this.setLocationCity(city);
-            this.setLocationState(state);
+            this.setCity(city);
+            this.setState(state);
             this.setCostOfLiving(costOfLiving);
             this.setYearlySalary(yearlySalary);
             this.setYearlyBonus(yearlyBonus);
             this.setTrainingDevelopmentFund(trainingDevelopmentFund);
-            this.setLeaveDay(leaveTime);
-            this.setTeleworkDaysPerWeek(teleworkDaysPerWeek);
+            this.setLeaveTime(leaveTime);
+            this.setTeleworkDaysWeekly(teleworkDaysPerWeek);
             
         }
 

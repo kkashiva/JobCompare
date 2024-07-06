@@ -122,6 +122,12 @@ public class Job implements Serializable, Observer {
     public String getLocation() {
         return location;
     }
+    public String getLocationState() {
+        return locationState;
+    }
+    public String getLocationCity() {
+        return locationCity;
+    }
     public Integer getCostOfLiving() {
         return costOfLiving;
     }
@@ -153,6 +159,9 @@ public class Job implements Serializable, Observer {
     public Integer getJobType(){
         return jobType;
     }
+    public List<Integer> getAdjustedParameter(){
+        return adjustedParameter;
+    }
 
     // Derived Variable functions - Calculations
     private void updateLocation() {
@@ -160,9 +169,16 @@ public class Job implements Serializable, Observer {
     }
 
     public Double calculateAdjustedYearlySalary(Integer yearlySalary, Integer costOfLiving){
+        // check for divide by zero
+        if (costOfLiving == 0) {
+            return 0.0;
+        }
         return (double) ((yearlySalary * 100)/ costOfLiving);
     }
     public Double calculateAdjustedYearlyBonus(Integer yearlyBonus, Integer costOfLiving){
+        if (costOfLiving == 0) {
+            return 0.0;
+        }
         return (double) ((yearlyBonus * 100)/ costOfLiving);
     }
 

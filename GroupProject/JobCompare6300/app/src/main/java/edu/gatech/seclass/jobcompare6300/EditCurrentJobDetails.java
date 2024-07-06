@@ -60,8 +60,8 @@ public class EditCurrentJobDetails extends AppCompatActivity {
         inputLivingCost.setText(String.valueOf(currentJob.getCostOfLiving()));
         inputYearlySalary.setText(String.valueOf(currentJob.getYearlySalary()));
         inputYearlyBonus.setText(String.valueOf(currentJob.getYearlyBonus()));
-        inputTrainingDevelopment.setText(String.valueOf(currentJob.getTrainingDevelopment()));
-        inputLeaveTime.setText(String.valueOf(currentJob.getLeaveDay()));
+        inputTrainingDevelopment.setText(String.valueOf(currentJob.getTrainingDevelopmentFund()));
+        inputLeaveTime.setText(String.valueOf(currentJob.getLeaveTime()));
         inputTelework.setText(String.valueOf(currentJob.getTeleworkDaysPerWeek()));
 
     }
