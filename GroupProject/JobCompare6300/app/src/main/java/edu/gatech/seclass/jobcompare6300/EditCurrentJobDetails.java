@@ -115,37 +115,23 @@ public class EditCurrentJobDetails extends AppCompatActivity {
     }
 
     public void handleClickEditJob(View view) {
-        dbHelper = JobDbHelper.getInstance(this); // get singleton instance
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_TITLE, inputTitle.getText().toString());
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_COMPANY, inputCompany.getText().toString());
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_LOCATION_STATE, inputState.getText().toString());
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_LOCATION_CITY, inputCity.getText().toString());
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_COST_OF_LIVING,
-                Integer.parseInt(inputLivingCost.getText().toString()));
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_YEARLY_SALARY,
-                Integer.parseInt(inputYearlySalary.getText().toString()));
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_YEARLY_BONUS,
-                Integer.parseInt(inputYearlyBonus.getText().toString()));
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_TRAINING_DEVELOPMENT_FUND,
-                Integer.parseInt(inputTrainingDevelopment.getText().toString()));
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_LEAVE_TIME, Integer.parseInt(inputLeaveTime.getText().toString()));
-        values.put(DatabaseContract.Jobs.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK,
-                Integer.parseInt(inputTelework.getText().toString()));
+        String title = inputTitle.getText().toString();
+        String company = inputCompany.getText().toString();
+        String locationState = inputState.getText().toString();
+        String locationCity = inputCity.getText().toString();
+        Integer costOfLiving = Integer.parseInt(inputLivingCost.getText().toString());
+        Integer yearlySalary = Integer.parseInt(inputYearlySalary.getText().toString());
+        Integer yearlyBonus = Integer.parseInt(inputYearlyBonus.getText().toString());
+        Integer trainDevFund = Integer.parseInt(inputTrainingDevelopment.getText().toString());
+        Integer leaveDay = Integer.parseInt(inputLeaveTime.getText().toString());
+        Integer teleworkDaysPerWeek = Integer.parseInt(inputTelework.getText().toString());
+        
+        // get singleton instance of CurrentJob
+        CurrentJob currentJob = CurrentJob.getInstance(title, company, locationState, locationCity, costOfLiving, yearlySalary, yearlyBonus, trainDevFund, leaveDay, teleworkDaysPerWeek, 0);
 
-        String selection = DatabaseContract.Jobs.COLUMN_NAME_JOB_TYPE + " = ?";
-        String[] selectionArgs = { "0" };
-
-        db.update(
-                DatabaseContract.Jobs.TABLE_NAME,
-                values,
-                selection,
-                selectionArgs);
-
-        // if more than one row has jobType = 0, they will be deleted except the most recent one (highest _ID)
-        db.execSQL("DELETE FROM " + DatabaseContract.Jobs.TABLE_NAME + " WHERE " + DatabaseContract.Jobs.COLUMN_NAME_JOB_TYPE + " = 0 AND " + DatabaseContract.Jobs._ID + " NOT IN (SELECT MAX(" + DatabaseContract.Jobs._ID + ") FROM " + DatabaseContract.Jobs.TABLE_NAME + " WHERE " + DatabaseContract.Jobs.COLUMN_NAME_JOB_TYPE + " = 0)");
+        // update current job in DB
+        currentJob.updateCurrentJob(title, company, locationState, locationCity, costOfLiving, yearlySalary, yearlyBonus, trainDevFund, leaveDay, teleworkDaysPerWeek);
 
         Toast.makeText(this, "Current job details updated.", Toast.LENGTH_LONG).show();
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {

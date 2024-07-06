@@ -57,4 +57,40 @@ public class CurrentJob extends Job{
             long jobId = db.insert(DatabaseContract.Jobs.TABLE_NAME, null, values);
 
     }
+
+    // method to update current job in DB
+    public void updateCurrentJob(String title, String company, String locationState, String locationCity,
+                                 Integer costOfLiving, Integer yearlySalary, Integer yearlyBonus,
+                                 Integer trainDevFund, Integer leaveDay, Integer teleworkDaysPerWeek) {
+            
+            JobDbHelper dbHelper = JobDbHelper.getInstance(null);
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+            ContentValues values = new ContentValues();
+            values.put(DatabaseContract.Jobs.COLUMN_NAME_TITLE, title);
+            values.put(DatabaseContract.Jobs.COLUMN_NAME_LOCATION_STATE, locationState);
+            values.put(DatabaseContract.Jobs.COLUMN_NAME_LOCATION_CITY, locationCity);
+            values.put(DatabaseContract.Jobs.COLUMN_NAME_COMPANY, company);
+            values.put(DatabaseContract.Jobs.COLUMN_NAME_COST_OF_LIVING, costOfLiving);
+            values.put(DatabaseContract.Jobs.COLUMN_NAME_YEARLY_SALARY, yearlySalary);
+            values.put(DatabaseContract.Jobs.COLUMN_NAME_YEARLY_BONUS, yearlyBonus);
+            values.put(DatabaseContract.Jobs.COLUMN_NAME_TRAINING_DEVELOPMENT_FUND, trainDevFund);
+            values.put(DatabaseContract.Jobs.COLUMN_NAME_LEAVE_TIME, leaveDay);
+            values.put(DatabaseContract.Jobs.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK, teleworkDaysPerWeek);
+
+            // some derived variables
+            values.put(DatabaseContract.Jobs.COLUMN_NAME_AYS, getAYS());
+            values.put(DatabaseContract.Jobs.COLUMN_NAME_AYB, getAYB());
+            values.put(DatabaseContract.Jobs.COLUMN_NAME_SCORE, getJobScore());
+
+            // WHERE clause to filter jobType = 0, to only update the current jobs in Jobs table
+            String selection = DatabaseContract.Jobs.COLUMN_NAME_JOB_TYPE + " = ?";
+            String[] selectionArgs = { "0" };
+
+            db.update(
+                    DatabaseContract.Jobs.TABLE_NAME,
+                    values,
+                    selection,
+                    selectionArgs);
+    }
 }
