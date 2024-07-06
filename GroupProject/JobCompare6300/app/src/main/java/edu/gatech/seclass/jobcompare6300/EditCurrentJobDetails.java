@@ -46,72 +46,24 @@ public class EditCurrentJobDetails extends AppCompatActivity {
     }
 
     private void displayCurrentJobDetails() {
-        dbHelper = JobDbHelper.getInstance(this); // get singleton instance
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        String[] projection = {
-                DatabaseContract.Jobs.COLUMN_NAME_TITLE,
-                DatabaseContract.Jobs.COLUMN_NAME_COMPANY,
-                DatabaseContract.Jobs.COLUMN_NAME_LOCATION_CITY,
-                DatabaseContract.Jobs.COLUMN_NAME_LOCATION_STATE,
-                DatabaseContract.Jobs.COLUMN_NAME_COST_OF_LIVING,
-                DatabaseContract.Jobs.COLUMN_NAME_YEARLY_SALARY,
-                DatabaseContract.Jobs.COLUMN_NAME_YEARLY_BONUS,
-                DatabaseContract.Jobs.COLUMN_NAME_TRAINING_DEVELOPMENT_FUND,
-                DatabaseContract.Jobs.COLUMN_NAME_LEAVE_TIME,
-                DatabaseContract.Jobs.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK
-        };
+        // get singleton instance of CurrentJob
+        CurrentJob currentJob = CurrentJob.getInstance(null, null, null, null, 0, 0, 0, 0, 0, 0, 0);
 
-        String selection = DatabaseContract.Jobs.COLUMN_NAME_JOB_TYPE + " = ?";
-        String[] selectionArgs = { "0" };
+        // get current job details from DB
+        currentJob.getCurrentJobDetails();
+        
+        inputTitle.setText(String.valueOf(currentJob.getTitle()));
+        inputCompany.setText(String.valueOf(currentJob.getCompany()));
+        inputCity.setText(String.valueOf(currentJob.getLocationCity()));
+        inputState.setText(String.valueOf(currentJob.getLocationState()));
+        inputLivingCost.setText(String.valueOf(currentJob.getCostOfLiving()));
+        inputYearlySalary.setText(String.valueOf(currentJob.getYearlySalary()));
+        inputYearlyBonus.setText(String.valueOf(currentJob.getYearlyBonus()));
+        inputTrainingDevelopment.setText(String.valueOf(currentJob.getTrainingDevelopment()));
+        inputLeaveTime.setText(String.valueOf(currentJob.getLeaveDay()));
+        inputTelework.setText(String.valueOf(currentJob.getTeleworkDaysPerWeek()));
 
-        Cursor cursor = db.query(
-                DatabaseContract.Jobs.TABLE_NAME, // FROM
-                projection, // SELECT
-                selection, // WHERE columns
-                selectionArgs, // WHERE values
-                null, // GROUP BY
-                null, // filter by row groups
-                null // SORT BY
-        );
-
-        if (cursor != null && cursor.moveToFirst()) {
-            String title = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_TITLE));
-            String company = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_COMPANY));
-            String city = cursor
-                    .getString(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_LOCATION_CITY));
-            String state = cursor
-                    .getString(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_LOCATION_STATE));
-            int costOfLiving = cursor
-                    .getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_COST_OF_LIVING));
-            int yearlySalary = cursor
-                    .getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_YEARLY_SALARY));
-            int yearlyBonus = cursor
-                    .getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_YEARLY_BONUS));
-            int trainingDevelopmentFund = cursor
-                    .getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_TRAINING_DEVELOPMENT_FUND));
-            int leaveTime = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_LEAVE_TIME));
-            int teleworkDaysPerWeek = cursor
-                    .getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK));
-
-            inputTitle.setText(String.valueOf(title));
-            inputCompany.setText(String.valueOf(company));
-            inputCity.setText(String.valueOf(city));
-            inputState.setText(String.valueOf(state));
-            inputLivingCost.setText(String.valueOf(costOfLiving));
-            inputYearlySalary.setText(String.valueOf(yearlySalary));
-            inputYearlyBonus.setText(String.valueOf(yearlyBonus));
-            inputTrainingDevelopment.setText(String.valueOf(trainingDevelopmentFund));
-            inputLeaveTime.setText(String.valueOf(leaveTime));
-            inputTelework.setText(String.valueOf(teleworkDaysPerWeek));
-
-        } else {
-            Toast.makeText(this, "No current job details found.", Toast.LENGTH_LONG).show();
-        }
-
-        if (cursor != null) {
-            cursor.close();
-        }
     }
 
     public void handleClickEditJob(View view) {
