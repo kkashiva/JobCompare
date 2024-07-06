@@ -143,3 +143,20 @@ Below are the design layout description and the beta version UI screenshots of e
     - Compare Offers
     - Back to Main Menu
 ![image](images/ui_compare_job.png)
+
+### Display 2 Job Offers
+- This screen displays the 2 selected jobs' details side-by-side for easy comparison in 2 columns. Their attributes to compare are in rows
+Rows:
+- Title
+- Company
+- Location
+- Cost of living index
+- Yearly Salary
+- Yearly Bonus
+- Training/Dev Fund
+- Leave Time
+- Telework Days per Week
+Buttons:
+- Compare Another Offer
+- Back to Main Menu
+![image](images/ui_display2jobs.png)

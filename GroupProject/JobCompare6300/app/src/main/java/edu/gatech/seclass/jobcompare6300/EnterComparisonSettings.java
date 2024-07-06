@@ -118,6 +118,6 @@ public class EnterComparisonSettings extends AppCompatActivity {
         // notify observers
         updatedSettings.notifyObservers();
 
-        Toast.makeText(this, "Weights updated", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Weights updated, recalculating job scores...", Toast.LENGTH_LONG).show();
     }
 }
