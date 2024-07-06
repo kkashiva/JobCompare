@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -165,6 +167,16 @@ public class EnterJobOffers extends AppCompatActivity {
 
         //check if we have a current job.
         checkIfCurrentJobExists(job);
+
+        //Delay 1s and clear all inputs
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                clearEditTexts();
+            }
+        }, 1000);
+
+
     }
 
     private void checkIfCurrentJobExists(Job jobOfferSaved){
@@ -235,6 +247,19 @@ public class EnterJobOffers extends AppCompatActivity {
         else {
 
         }
+    }
+    // Method to clear all EditText fields
+    private void clearEditTexts() {
+        inputTitle.setText("");
+        inputCompany.setText("");
+        inputState.setText("");
+        inputCity.setText("");
+        inputLivingCost.setText("");
+        inputYearlySalary.setText("");
+        inputYearlyBonus.setText("");
+        inputTrainingDevelopment.setText("");
+        inputLeaveTime.setText("");
+        inputTelework.setText("");
     }
 
     // close the database in onDestroy()
