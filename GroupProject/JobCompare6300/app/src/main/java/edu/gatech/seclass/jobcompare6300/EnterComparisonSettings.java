@@ -1,18 +1,14 @@
 package edu.gatech.seclass.jobcompare6300;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.Cursor;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class EnterComparisonSettings extends AppCompatActivity {
-    private JobDbHelper dbHelper;
     private EditText yearlySalaryEditText, yearlyBonusEditText, trainingAndDevEditText, leaveTimeEditText,
             teleworkDaysEditText;
 
@@ -77,16 +73,6 @@ public class EnterComparisonSettings extends AppCompatActivity {
         trainingAndDevEditText.setText(String.valueOf(currentSettings.getTrainingAndDevWeight()));
         leaveTimeEditText.setText(String.valueOf(currentSettings.getLeaveTimeWeight()));
         teleworkDaysEditText.setText(String.valueOf(currentSettings.getTeleworkDaysWeight()));
-
-        // Toast to debug
-        Toast.makeText(EnterComparisonSettings.this,
-                "Yearly Salary Weight: " + currentSettings.getYearlySalaryWeight() + ", Yearly Bonus Weight: " + currentSettings.getYearlyBonusWeight()
-                        + ", Training and Development Fund Weight: " + currentSettings.getTrainingAndDevWeight()
-                        + ", Leave Time Weight: " + currentSettings.getLeaveTimeWeight() + ", Telework Days Per Week Weight: "
-                        + currentSettings.getTeleworkDaysWeight(),
-                Toast.LENGTH_SHORT).show();
-
-        
     }
 
     public void handleClickSaveWeights(View view) {
