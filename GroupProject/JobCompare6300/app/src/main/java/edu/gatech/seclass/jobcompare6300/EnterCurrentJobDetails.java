@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class EnterCurrentJobDetails extends AppCompatActivity {
 
-    private JobDbHelper dbHelper;
     private EditText inputTitle, inputCompany, inputState, inputCity, inputLivingCost,
             inputYearlySalary, inputYearlyBonus, inputTrainingDevelopment, inputLeaveTime, inputTelework;
 
@@ -121,47 +120,19 @@ public class EnterCurrentJobDetails extends AppCompatActivity {
             Integer leaveTimeInt = Integer.parseInt(leaveTime);
             Integer teleworkDayInt = Integer.parseInt(teleworkDay);
 
+            // get singleton instance of CurrentJob
+            int jobType = 0;
+            CurrentJob currentJob = CurrentJob.getInstance(title, company, locationState, locationCity, costOfLivingInt,
+                    yearlySalaryInt, yearlyBonusInt, trainDevFundInt, leaveTimeInt, teleworkDayInt, jobType); 
 
-            // Instantiate our subclass of SQLiteOpenHelper
-            JobDbHelper dbHelper = JobDbHelper.getInstance(this);
+            // save the current job in the database
+            currentJob.saveCurrentJob(title, company, locationState, locationCity, costOfLivingInt,
+                    yearlySalaryInt, yearlyBonusInt, trainDevFundInt, leaveTimeInt, teleworkDayInt);
 
-            // Gets the data repository in write mode
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-            //Create a new job object
-            Integer jobType = 0;
-            Job job = new Job(title, company, locationState, locationCity, costOfLivingInt,
-                    yearlySalaryInt, yearlyBonusInt, trainDevFundInt, leaveTimeInt, teleworkDayInt, jobType); //jobType=0 for current job
-
-            // Create a new map of values, where column names are the keys
-            // hardcoding values to test, once input fields are added these values will be dynamic based on user input
-            ContentValues values = new ContentValues();
-            values.put(DatabaseContract.Jobs.COLUMN_NAME_TITLE, job.getTitle());
-            values.put(DatabaseContract.Jobs.COLUMN_NAME_COMPANY, job.getCompany());
-            values.put(DatabaseContract.Jobs.COLUMN_NAME_LOCATION_CITY, job.getCity());
-            values.put(DatabaseContract.Jobs.COLUMN_NAME_LOCATION_STATE, job.getState());
-            values.put(DatabaseContract.Jobs.COLUMN_NAME_COST_OF_LIVING, job.getCostOfLiving());
-            values.put(DatabaseContract.Jobs.COLUMN_NAME_YEARLY_SALARY, job.getYearlySalary());
-            values.put(DatabaseContract.Jobs.COLUMN_NAME_YEARLY_BONUS, job.getYearlyBonus());
-            values.put(DatabaseContract.Jobs.COLUMN_NAME_TRAINING_DEVELOPMENT_FUND, job.getTrainingDevelopmentFund());
-            values.put(DatabaseContract.Jobs.COLUMN_NAME_LEAVE_TIME, job.getLeaveTime());
-            values.put(DatabaseContract.Jobs.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK, job.getTeleworkDaysPerWeek());
-            values.put(DatabaseContract.Jobs.COLUMN_NAME_JOB_TYPE, job.getJobType()); // 0 for CurrentJob, 1 for JobOffer
-
-            // some derived variables
-            values.put(DatabaseContract.Jobs.COLUMN_NAME_AYS, job.getAYS());
-            values.put(DatabaseContract.Jobs.COLUMN_NAME_AYB, job.getAYB());
-            values.put(DatabaseContract.Jobs.COLUMN_NAME_SCORE, job.getJobScore());
-
-            // Insert the new row, returning the primary key value of the new row
-            long jobId = db.insert(DatabaseContract.Jobs.TABLE_NAME, null, values);
-            double score = job.getJobScore();
             // show the message in a toast
              Toast.makeText(this, "Successfully saved current job!", Toast.LENGTH_SHORT).show();
 
-//            // show the score as a toast.
-//            Toast.makeText(this, String.valueOf(score),Toast.LENGTH_LONG).show();
-
+            // back to MainActivity after 1 second delay
             new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -176,10 +147,4 @@ public class EnterCurrentJobDetails extends AppCompatActivity {
 
     }
 
-    // close the database in onDestroy()
-    // @Override
-    // protected void onDestroy() {
-    //     dbHelper.close();
-    //     super.onDestroy();
-    // }
 }
