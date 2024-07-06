@@ -52,6 +52,14 @@ public class CurrentJob extends Job{
             values.put(DatabaseContract.Jobs.COLUMN_NAME_JOB_TYPE, jobType); // 0 for CurrentJob, 1 for JobOffer
 
             // some derived variables
+            double AYS = this.calculateAdjustedYearlySalary(yearlySalary, costOfLiving);
+            double AYB = this.calculateAdjustedYearlyBonus(yearlyBonus, costOfLiving);
+            List<Integer> adjustedParameter = super.getAdjustedParameter();
+            double score = this.calculateJobScore(adjustedParameter, AYS, AYB, trainDevFund, leaveDay, teleworkDaysPerWeek);
+
+            values.put(DatabaseContract.Jobs.COLUMN_NAME_AYS, AYS);
+            values.put(DatabaseContract.Jobs.COLUMN_NAME_AYB, AYB);
+            values.put(DatabaseContract.Jobs.COLUMN_NAME_SCORE, score);
 
             // Insert the new row, returning the primary key value of the new row
             long jobId = db.insert(DatabaseContract.Jobs.TABLE_NAME, null, values);
@@ -87,11 +95,6 @@ public class CurrentJob extends Job{
             values.put(DatabaseContract.Jobs.COLUMN_NAME_AYS, AYS);
             values.put(DatabaseContract.Jobs.COLUMN_NAME_AYB, AYB);
             values.put(DatabaseContract.Jobs.COLUMN_NAME_SCORE, score);
-
-            // debug AYS, AYB, score
-            System.out.println("AYS: " + AYS);
-            System.out.println("AYB: " + AYB);
-            System.out.println("Score: " + score);
 
             // WHERE clause to filter jobType = 0, to only update the current jobs in Jobs table
             String selection = DatabaseContract.Jobs.COLUMN_NAME_JOB_TYPE + " = ?";
