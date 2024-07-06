@@ -4,7 +4,10 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-public class ComparisonSettings {
+import java.util.ArrayList;
+import java.util.List;
+
+public class ComparisonSettings implements Subject{
     
     private static ComparisonSettings instance; // Singleton instance
     
@@ -14,8 +17,11 @@ public class ComparisonSettings {
     private int leaveTimeWeight;
     private int teleworkDaysWeight;
 
+    private List<Observer> observers; // list to store all observer (Jobs)
+
     // private constructor
     private ComparisonSettings() {
+        observers = new ArrayList<Observer>();
         getWeightsFromDB();
     }
 
@@ -92,6 +98,51 @@ public class ComparisonSettings {
         // Update the weights in the existing row in ComparisonSetting table
         db.update(DatabaseContract.ComparisonSetting.TABLE_NAME, values, null, null);
 
+        // push updated weights to all observers
+        notifyObservers();
+
+    }
+
+    // method to get all jobs from DB and register them as observers 
+    public void getObservers(){
+        JobDbHelper dbHelper = JobDbHelper.getInstance(null);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        String[] projection = {
+            DatabaseContract.Job._ID,
+            DatabaseContract.Job.COLUMN_NAME_AYS,
+            DatabaseContract.Job.COLUMN_NAME_AYB,
+            DatabaseContract.Job.COLUMN_NAME_TRAINING_DEVELOPMENT_FUND,
+            DatabaseContract.Job.COLUMN_NAME_LEAVE_TIME,
+            DatabaseContract.Job.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK
+        };
+
+        // Query to fetch all jobs from db
+        Cursor cursor = db.query(
+                DatabaseContract.Job.TABLE_NAME, // The table to query
+                projection, // The array of columns to return (pass null to get all)
+                null, // The columns for the WHERE clause
+                null, // The values for the WHERE clause
+                null, // don't group the rows
+                null, // don't filter by row groups
+                null // The sort order
+        );
+
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                int jobId = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Job._ID));
+                int AYS = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Job.COLUMN_NAME_AYS));
+                int AYB = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Job.COLUMN_NAME_AYB));
+                int trainDevFund = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Job.COLUMN_NAME_TRAINING_DEVELOPMENT_FUND));
+                int leaveDay = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Job.COLUMN_NAME_LEAVE_TIME));
+                int teleworkDaysPerWeek = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Job.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK));
+
+                // create job object and register it as observer
+                Job job = new Job(jobId, AYS, AYB, trainDevFund, leaveDay, teleworkDaysPerWeek);
+                registerObserver(job);
+            }
+            cursor.close();
+        }
     }
 
     // getters
@@ -115,4 +166,15 @@ public class ComparisonSettings {
         return teleworkDaysWeight;
     }
 
+    @Override
+    public void registerObserver(Observer o) {
+        observers.add(o);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer observer : observers){
+            observer.updateWeights(yearlySalaryWeight, yearlyBonusWeight, trainingAndDevWeight, leaveTimeWeight, teleworkDaysWeight);
+        }
+    }
 }

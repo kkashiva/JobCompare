@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Job implements Serializable {
+    
+    private int jobId;
     private String title;
     private String company;
     private String locationState;
