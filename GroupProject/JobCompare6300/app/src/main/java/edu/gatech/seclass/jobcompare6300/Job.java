@@ -1,10 +1,15 @@
 package edu.gatech.seclass.jobcompare6300;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
+
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
-public class Job implements Serializable {
+public class Job implements Serializable, Observer {
+    
+    private int jobId;
     private String title;
     private String company;
     private String locationState;
@@ -24,8 +29,8 @@ public class Job implements Serializable {
 
     private Integer jobType;
 
-    // Hardcoded parameters; need to change in next Phase
-    private final List<Integer> adjustedParameter = Arrays.asList(1, 1, 1, 1, 1);
+    // weights for the parameters of calculateJobScore function, initialized to 1, later fetched from DB
+    private final List<Integer> adjustedParameter = Arrays.asList(1, 1, 1, 1, 1);    
 
     public Job(String title, String company, String locationState, String locationCity, Integer costOfLiving,
                Integer yearlySalary, Integer yearlyBonus, Integer trainDevFund,
@@ -46,6 +51,18 @@ public class Job implements Serializable {
         this.AYB = calculateAdjustedYearlyBonus(this.yearlyBonus, this.costOfLiving);
         this.score = calculateJobScore(adjustedParameter, this.AYS, this.AYB, this.trainDevFund, this.leaveDay, this.teleworkDaysPerWeek);
         this.jobType = jobType;
+
+        getWeights(); // gets the weights from DB
+
+    }
+
+    public Job(int jobId, int AYS, int AYB, int trainDevFund, int leaveDay, int teleworkDaysPerWeek) {
+        this.jobId = jobId;
+        this.AYS = (double) AYS;
+        this.AYB = (double) AYB;
+        this.trainDevFund = trainDevFund;
+        this.leaveDay = leaveDay;
+        this.teleworkDaysPerWeek = teleworkDaysPerWeek;
     }
 
     // set functions
@@ -151,23 +168,80 @@ public class Job implements Serializable {
 
     public Double calculateJobScore(List<Integer> adjustedParameter, Double AYS, Double AYB,
                                     Integer trainDevFund, Integer leaveDay, Integer teleworkDaysPerWeek){
-        double valueOfEmpHour = (Double) (AYS / 260) / 8;
-        double yearlyCommuterHour = (260 - 52 * teleworkDaysPerWeek) * 1.0;
-        double travelTimeCost = (Double) valueOfEmpHour * yearlyCommuterHour;
+        double valueOfEmpHour = (double) ((AYS / 260) / 8);
+        double yearlyCommuterHour = (double) (260 - 52 * teleworkDaysPerWeek);
+        double travelTimeCost = (double) (valueOfEmpHour * yearlyCommuterHour);
 
         int totalParam = 0;
         for (int param: adjustedParameter){
             totalParam += param;
         }
-        double AYSParam = (double) (adjustedParameter.get(0)/totalParam);
-        double AYBParam = (double) (adjustedParameter.get(1)/totalParam);
-        double TDFParam = (double) (adjustedParameter.get(2)/totalParam);
-        double LTParam = (double) (adjustedParameter.get(3)/totalParam);
-        double commuteCostParam = (double) (adjustedParameter.get(4)/totalParam);
 
-//        return (double) AYSParam * AYS + AYBParam * AYB + TDFParam * trainDevFund +
-//                LTParam * leaveDay * valueOfEmpHour * 8 - commuteCostParam * travelTimeCost;
+        System.out.println("valueOfEmpHour: " + valueOfEmpHour);
+        System.out.println("yearlyCommuterHour: " + yearlyCommuterHour);
+        System.out.println("travelTimeCost: " + travelTimeCost);
+        System.out.println("totalParam: " + totalParam);
+
+        double AYSParam = (double) adjustedParameter.get(0)/totalParam;
+        double AYBParam = (double) adjustedParameter.get(1)/totalParam;
+        double TDFParam = (double) adjustedParameter.get(2)/totalParam;
+        double LTParam = (double) adjustedParameter.get(3)/totalParam;
+        double commuteCostParam = (double) adjustedParameter.get(4)/totalParam;
+
+        System.out.println("AYSParam: " + AYSParam);
+        System.out.println("AYBParam: " + AYBParam);
+        System.out.println("TDFParam: " + TDFParam);
+        System.out.println("LTParam: " + LTParam);
+        System.out.println("commuteCostParam: " + commuteCostParam);
+
+        double result = (double) (AYSParam * AYS) + (AYBParam * AYB) + (TDFParam * trainDevFund) +
+        (LTParam * leaveDay * (AYS / 260)) - (commuteCostParam * travelTimeCost);
+
+        System.out.println("Result: " + result);
+
+        return result;
         // put the non-weighted version as of now. Need more changes
-        return (double) AYS + AYB + trainDevFund + leaveDay * valueOfEmpHour * 8 - travelTimeCost;
+        // return (double) AYS + AYB + trainDevFund + leaveDay * valueOfEmpHour * 8 - travelTimeCost;
+    }
+
+    // update score in DB
+    public void updateScoreInDB(){
+    
+        JobDbHelper dbHelper = JobDbHelper.getInstance(null);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(DatabaseContract.Jobs.COLUMN_NAME_SCORE, this.score);
+
+        // Update the score in DB with for the existing row with _ID = jobId 
+        db.update(DatabaseContract.Jobs.TABLE_NAME, values, DatabaseContract.Jobs._ID + " = " + this.jobId, null);
+    }
+
+    @Override
+    public void updateWeights(int yearlySalaryWeight, int yearlyBonusWeight, int trainingAndDevWeight, int leaveTimeWeight, int teleworkDaysWeight) {
+        // update the adjusted parameters
+        adjustedParameter.set(0, yearlySalaryWeight);
+        adjustedParameter.set(1, yearlyBonusWeight);
+        adjustedParameter.set(2, trainingAndDevWeight);
+        adjustedParameter.set(3, leaveTimeWeight);
+        adjustedParameter.set(4, teleworkDaysWeight);
+        
+        // recalculating the score
+        this.score = calculateJobScore(adjustedParameter, this.AYS, this.AYB, this.trainDevFund, this.leaveDay, this.teleworkDaysPerWeek);
+
+        // update the score in DB
+        updateScoreInDB();
+    }
+
+    // method to get weights from DB and update adjustedParameter
+    public void getWeights(){
+        ComparisonSettings currentSettings = ComparisonSettings.getInstance();
+        currentSettings.getWeightsFromDB(); // get the saved weights from db
+
+        adjustedParameter.set(0, currentSettings.getYearlySalaryWeight());
+        adjustedParameter.set(1, currentSettings.getYearlyBonusWeight());
+        adjustedParameter.set(2, currentSettings.getTrainingAndDevWeight());
+        adjustedParameter.set(3, currentSettings.getLeaveTimeWeight());
+        adjustedParameter.set(4, currentSettings.getTeleworkDaysWeight());
     }
 }

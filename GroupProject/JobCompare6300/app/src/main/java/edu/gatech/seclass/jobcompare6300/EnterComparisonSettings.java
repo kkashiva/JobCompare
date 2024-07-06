@@ -67,68 +67,26 @@ public class EnterComparisonSettings extends AppCompatActivity {
     }
 
     private void displayCurrentComparisonSettings() {
-        dbHelper = JobDbHelper.getInstance(this);
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        
+        // get singleton instance of ComparisonSettings
+        ComparisonSettings currentSettings = ComparisonSettings.getInstance();
+        currentSettings.getWeightsFromDB(); // get the saved weights from db
 
-        String[] projection = {
-                DatabaseContract.ComparisonSetting.COLUMN_NAME_YEARLY_SALARY_WEIGHT,
-                DatabaseContract.ComparisonSetting.COLUMN_NAME_YEARLY_BONUS_WEIGHT,
-                DatabaseContract.ComparisonSetting.COLUMN_NAME_LEAVE_TIME_WEIGHT,
-                DatabaseContract.ComparisonSetting.COLUMN_NAME_TRAINING_AND_DEVELOPMENT_FUND_WEIGHT,
-                DatabaseContract.ComparisonSetting.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK_WEIGHT
+        yearlySalaryEditText.setText(String.valueOf(currentSettings.getYearlySalaryWeight()));
+        yearlyBonusEditText.setText(String.valueOf(currentSettings.getYearlyBonusWeight()));
+        trainingAndDevEditText.setText(String.valueOf(currentSettings.getTrainingAndDevWeight()));
+        leaveTimeEditText.setText(String.valueOf(currentSettings.getLeaveTimeWeight()));
+        teleworkDaysEditText.setText(String.valueOf(currentSettings.getTeleworkDaysWeight()));
 
-        };
+        // Toast to debug
+        Toast.makeText(EnterComparisonSettings.this,
+                "Yearly Salary Weight: " + currentSettings.getYearlySalaryWeight() + ", Yearly Bonus Weight: " + currentSettings.getYearlyBonusWeight()
+                        + ", Training and Development Fund Weight: " + currentSettings.getTrainingAndDevWeight()
+                        + ", Leave Time Weight: " + currentSettings.getLeaveTimeWeight() + ", Telework Days Per Week Weight: "
+                        + currentSettings.getTeleworkDaysWeight(),
+                Toast.LENGTH_SHORT).show();
 
-        // Query to fetch the latest comparison settings
-        Cursor cursor = db.query(
-                DatabaseContract.ComparisonSetting.TABLE_NAME, // The table to query
-                projection, // The array of columns to return (pass null to get all)
-                null, // The columns for the WHERE clause
-                null, // The values for the WHERE clause
-                null, // don't group the rows
-                null, // don't filter by row groups
-                DatabaseContract.ComparisonSetting._ID + " DESC", // The sort order
-                "1" // Limit to 1 row
-        );
-
-        if (cursor != null && cursor.moveToFirst()) {
-            int yearlySalaryWeight = cursor.getInt(
-                    cursor.getColumnIndexOrThrow(DatabaseContract.ComparisonSetting.COLUMN_NAME_YEARLY_SALARY_WEIGHT));
-            int yearlyBonusWeight = cursor.getInt(
-                    cursor.getColumnIndexOrThrow(DatabaseContract.ComparisonSetting.COLUMN_NAME_YEARLY_BONUS_WEIGHT));
-            int trainingDevelopmentFundWeight = cursor.getInt(cursor.getColumnIndexOrThrow(
-                    DatabaseContract.ComparisonSetting.COLUMN_NAME_TRAINING_AND_DEVELOPMENT_FUND_WEIGHT));
-            int leaveTimeWeight = cursor.getInt(
-                    cursor.getColumnIndexOrThrow(DatabaseContract.ComparisonSetting.COLUMN_NAME_LEAVE_TIME_WEIGHT));
-            int teleworkDaysPerWeekWeight = cursor.getInt(cursor.getColumnIndexOrThrow(
-                    DatabaseContract.ComparisonSetting.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK_WEIGHT));
-
-            yearlySalaryEditText.setText(String.valueOf(yearlySalaryWeight));
-            yearlyBonusEditText.setText(String.valueOf(yearlyBonusWeight));
-            trainingAndDevEditText.setText(String.valueOf(trainingDevelopmentFundWeight));
-            leaveTimeEditText.setText(String.valueOf(leaveTimeWeight));
-            teleworkDaysEditText.setText(String.valueOf(teleworkDaysPerWeekWeight));
-
-            // Toast to debug
-            Toast.makeText(EnterComparisonSettings.this,
-                    "Yearly Salary Weight: " + yearlySalaryWeight + ", Yearly Bonus Weight: " + yearlyBonusWeight
-                            + ", Training and Development Fund Weight: " + trainingDevelopmentFundWeight
-                            + ", Leave Time Weight: " + leaveTimeWeight + ", Telework Days Per Week Weight: "
-                            + teleworkDaysPerWeekWeight,
-                    Toast.LENGTH_SHORT).show();
-
-        } else {
-            // no saved weights found in db so display default weight 1
-            int defaultWeight = 1;
-            yearlySalaryEditText.setText(String.valueOf(defaultWeight));
-            yearlyBonusEditText.setText(String.valueOf(defaultWeight));
-            trainingAndDevEditText.setText(String.valueOf(defaultWeight));
-            leaveTimeEditText.setText(String.valueOf(defaultWeight));
-            teleworkDaysEditText.setText(String.valueOf(defaultWeight));
-        }
-        if (cursor != null) {
-            cursor.close();
-        }
+        
     }
 
     public void handleClickSaveWeights(View view) {
@@ -149,24 +107,16 @@ public class EnterComparisonSettings extends AppCompatActivity {
         int leaveTimeInt = Integer.parseInt(leaveTime);
         int teleworkDaysInt = Integer.parseInt(teleworkDays);
 
-        // get singleton instance
-        dbHelper = JobDbHelper.getInstance(this);
+        // get singleton instance of ComparisonSettings
+        ComparisonSettings updatedSettings = ComparisonSettings.getInstance();
 
-        // Gets the data repository in write mode
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        updatedSettings.getObservers(); // register all jobs from DB as observers to be notified of weight changes
 
-        ContentValues values = new ContentValues();
-        values.put(DatabaseContract.ComparisonSetting.COLUMN_NAME_YEARLY_SALARY_WEIGHT, yearlySalaryInt);
-        values.put(DatabaseContract.ComparisonSetting.COLUMN_NAME_YEARLY_BONUS_WEIGHT, yearlyBonusInt);
-        values.put(DatabaseContract.ComparisonSetting.COLUMN_NAME_LEAVE_TIME_WEIGHT, leaveTimeInt);
-        values.put(DatabaseContract.ComparisonSetting.COLUMN_NAME_TRAINING_AND_DEVELOPMENT_FUND_WEIGHT,
-                trainingFundInt);
-        values.put(DatabaseContract.ComparisonSetting.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK_WEIGHT,
-                teleworkDaysInt);
+        // call method to update weights in DB table ComparisonSettings
+        updatedSettings.updateWeightsInDB(yearlySalaryInt, yearlyBonusInt, trainingFundInt, leaveTimeInt, teleworkDaysInt);
 
-        // Update the weights in the existing row in ComparisonSetting table
-        db.update(DatabaseContract.ComparisonSetting.TABLE_NAME, values, null,
-                null);
+        // notify observers
+        updatedSettings.notifyObservers();
 
         Toast.makeText(this, "Weights updated", Toast.LENGTH_LONG).show();
     }
