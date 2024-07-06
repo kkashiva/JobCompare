@@ -35,6 +35,11 @@ public class EnterJobOffers extends AppCompatActivity {
         inputTrainingDevelopment = findViewById(R.id.inputTrainingDevelopmentID);
         inputLeaveTime = findViewById(R.id.inputLeaveTimeID);
         inputTelework = findViewById(R.id.inputTeleworkID);
+
+        if (checkIsFirstRenderEmpty()) {
+            Button saveOfferbutton = findViewById(R.id.saveJobButtonID);
+            saveOfferbutton.setEnabled(false);
+        }
     }
 
     private boolean checkIfValid(String title, String company, String locationState, String locationCity, String livingCost,
@@ -99,12 +104,7 @@ public class EnterJobOffers extends AppCompatActivity {
         startActivity(new Intent(EnterJobOffers.this, MainActivity.class));
     }
 
-    public void handleCompareSavedJobOffer(View view) {
-        startActivity(new Intent(EnterJobOffers.this, MainActivity.class));
-    }
-
     public void handleClickSaveJob(View view) {
-
         String title = inputTitle.getText().toString().trim();
         String company = inputCompany.getText().toString().trim();
         String locationState = inputState.getText().toString().trim();
@@ -244,9 +244,6 @@ public class EnterJobOffers extends AppCompatActivity {
 
 
         }
-        else {
-
-        }
     }
     // Method to clear all EditText fields
     private void clearEditTexts() {
@@ -262,10 +259,34 @@ public class EnterJobOffers extends AppCompatActivity {
         inputTelework.setText("");
     }
 
-    // close the database in onDestroy()
-    // @Override
-    // protected void onDestroy() {
-    //     dbHelper.close();
-    //     super.onDestroy();
-    // }
+    private boolean checkIsFirstRenderEmpty() {
+        if (inputTitle.getText().toString().isEmpty()) {
+            return true;
+        }
+        if (inputCompany.getText().toString().isEmpty()) {
+            return true;
+        }
+        if (inputState.getText().toString().isEmpty()) {
+            return true;
+        }
+        if (inputCity.getText().toString().isEmpty()) {
+            return true;
+        }
+        if (inputLivingCost.getText().toString().isEmpty()) {
+            return true;
+        }
+        if (inputYearlySalary.getText().toString().isEmpty()) {
+            return true;
+        }
+        if (inputYearlyBonus.getText().toString().isEmpty()) {
+            return true;
+        }
+        if (inputTrainingDevelopment.getText().toString().isEmpty()) {
+            return true;
+        }
+        if (inputLeaveTime.getText().toString().isEmpty()) {
+            return true;
+        }
+        return inputTelework.getText().toString().isEmpty();
+    }
 }
