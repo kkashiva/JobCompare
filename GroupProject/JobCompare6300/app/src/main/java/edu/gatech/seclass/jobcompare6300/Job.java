@@ -177,31 +177,16 @@ public class Job implements Serializable, Observer {
             totalParam += param;
         }
 
-        System.out.println("valueOfEmpHour: " + valueOfEmpHour);
-        System.out.println("yearlyCommuterHour: " + yearlyCommuterHour);
-        System.out.println("travelTimeCost: " + travelTimeCost);
-        System.out.println("totalParam: " + totalParam);
-
         double AYSParam = (double) adjustedParameter.get(0)/totalParam;
         double AYBParam = (double) adjustedParameter.get(1)/totalParam;
         double TDFParam = (double) adjustedParameter.get(2)/totalParam;
         double LTParam = (double) adjustedParameter.get(3)/totalParam;
         double commuteCostParam = (double) adjustedParameter.get(4)/totalParam;
 
-        System.out.println("AYSParam: " + AYSParam);
-        System.out.println("AYBParam: " + AYBParam);
-        System.out.println("TDFParam: " + TDFParam);
-        System.out.println("LTParam: " + LTParam);
-        System.out.println("commuteCostParam: " + commuteCostParam);
-
         double result = (double) (AYSParam * AYS) + (AYBParam * AYB) + (TDFParam * trainDevFund) +
         (LTParam * leaveDay * (AYS / 260)) - (commuteCostParam * travelTimeCost);
 
-        System.out.println("Result: " + result);
-
         return result;
-        // put the non-weighted version as of now. Need more changes
-        // return (double) AYS + AYB + trainDevFund + leaveDay * valueOfEmpHour * 8 - travelTimeCost;
     }
 
     // update score in DB
