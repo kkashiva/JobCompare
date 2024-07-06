@@ -6,6 +6,7 @@ import android.database.DataSetObserver;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +19,7 @@ public class CompareJobOffers extends AppCompatActivity {
     private final JobDbHelper dbHelper = JobDbHelper.getInstance(this); //get singleton instance;
     private final SQLiteDatabase db = dbHelper.getReadableDatabase();
     private Set<Integer> storeIds; // store the ids of offer to query from table
-    private JobOfferListAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         storeIds = new HashSet<>();
@@ -26,6 +27,7 @@ public class CompareJobOffers extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compare_job_offers);
 
+        Button compareButtonAction = findViewById(R.id.compareActionButton);
         ListView listView = findViewById(R.id.listViewId);
 
         Cursor cursor = db.rawQuery("SELECT _id, title, company, score, jobType FROM Job ORDER BY Score DESC", null);
@@ -41,7 +43,13 @@ public class CompareJobOffers extends AppCompatActivity {
             jobOffersList.add(new JobOffer(id, title, company, ++rank, jobType == 0));
         }
 
-        adapter = new JobOfferListAdapter(this, R.layout.adapter_view_ranking_table_layout, jobOffersList);
+        if (storeIds.size() < 2) {
+            compareButtonAction.setEnabled(false);
+        } else if (storeIds.size() == 2) {
+            compareButtonAction.setEnabled(true);
+        }
+
+        JobOfferListAdapter adapter = new JobOfferListAdapter(this, R.layout.adapter_view_ranking_table_layout, jobOffersList);
         adapter.registerDataSetObserver(new DataSetObserver() {
             @Override
             public void onChanged() {
@@ -53,9 +61,17 @@ public class CompareJobOffers extends AppCompatActivity {
                     else {
                         storeIds.remove(state!=null ? state.getId():null);
                     }
+
+                    // Enable/Disable Compare Offer button
+                    if (storeIds.size() < 2) {
+                        compareButtonAction.setEnabled(false);
+                    } else if (storeIds.size() == 2) {
+                        compareButtonAction.setEnabled(true);
+                    }
                 }
             }
         });
+
         listView.setAdapter(adapter);
 
         cursor.close();
@@ -88,7 +104,6 @@ public class CompareJobOffers extends AppCompatActivity {
                 intent.putExtra("offer" + ++count, job);
                 cursor.close();
             }
-
         }
 
         startActivity(intent);

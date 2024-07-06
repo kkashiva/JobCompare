@@ -39,7 +39,6 @@ class StateStore {
 public class JobOfferListAdapter extends ArrayAdapter<JobOffer> {
     int mResource;
     private final Context mContext;
-//    private final SparseBooleanArray checkedStates;
     private final Map<Integer, StateStore> checkedStates;
 
     public JobOfferListAdapter(@NonNull Context context, int resource, @NonNull List<JobOffer> objects) {
@@ -96,7 +95,7 @@ public class JobOfferListAdapter extends ArrayAdapter<JobOffer> {
                 System.out.println("onCheckedChanged @position" + position);
                 checkedStates.put(position, new StateStore(isChecked, id));
                 checkBox.setChecked(isChecked);
-                updateCheckBoxes();
+                notifyDataSetChanged();
             }
         });
 
@@ -110,16 +109,5 @@ public class JobOfferListAdapter extends ArrayAdapter<JobOffer> {
             }
         }
         return checkedCount;
-    }
-
-    private void updateCheckBoxes() {
-        int checkedCount = 0;
-        for (int i = 0; i < checkedStates.size(); i++) {
-            if (checkedStates.get(i) != null && checkedStates.get(i).isChecked()) {
-                checkedCount++;
-            }
-        }
-
-        notifyDataSetChanged();
     }
 }
