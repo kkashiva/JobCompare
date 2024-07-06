@@ -29,8 +29,8 @@ public class Job implements Serializable, Observer {
 
     private Integer jobType;
 
-    // Hardcoded parameters; need to change in next Phase
-    private final List<Integer> adjustedParameter = Arrays.asList(1, 1, 1, 1, 1);
+    // weights for the parameters of calculateJobScore function
+    private final List<Integer> adjustedParameter;    
 
     public Job(String title, String company, String locationState, String locationCity, Integer costOfLiving,
                Integer yearlySalary, Integer yearlyBonus, Integer trainDevFund,
@@ -51,6 +51,11 @@ public class Job implements Serializable, Observer {
         this.AYB = calculateAdjustedYearlyBonus(this.yearlyBonus, this.costOfLiving);
         this.score = calculateJobScore(adjustedParameter, this.AYS, this.AYB, this.trainDevFund, this.leaveDay, this.teleworkDaysPerWeek);
         this.jobType = jobType;
+
+        // initialize the adjustedParameter list by calling the getWeights function
+        adjustedParameter = Arrays.asList(1, 1, 1, 1, 1);
+        getWeights();
+
     }
 
     public Job(int jobId, int AYS, int AYB, int trainDevFund, int leaveDay, int teleworkDaysPerWeek) {
@@ -212,5 +217,17 @@ public class Job implements Serializable, Observer {
 
         // update the score in DB
         updateScoreInDB();
+    }
+
+    // method to get weights from DB and update adjustedParameter
+    public void getWeights(){
+        ComparisonSettings currentSettings = ComparisonSettings.getInstance();
+        currentSettings.getWeightsFromDB(); // get the saved weights from db
+
+        adjustedParameter.set(0, currentSettings.getYearlySalaryWeight());
+        adjustedParameter.set(1, currentSettings.getYearlyBonusWeight());
+        adjustedParameter.set(2, currentSettings.getTrainingAndDevWeight());
+        adjustedParameter.set(3, currentSettings.getLeaveTimeWeight());
+        adjustedParameter.set(4, currentSettings.getTeleworkDaysWeight());
     }
 }
