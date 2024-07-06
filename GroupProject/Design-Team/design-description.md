@@ -50,7 +50,10 @@ This class will serve as the **entry point** to the app that ties everything tog
 
 
 ### 2. Job
+This class implements the Observer interface that is notified by the Subject (ComparisonSettings) whenever the weights change. This helps recalculate the score for each job with the new weights
+
 **Attributes:**
+- `jobId` (int) : set from the primary key of each row created in the Jobs DB table. Helpful to update specific rows in the DB with their corresponding score updon recalculation.
 - `jobType` (Int): The indicator to distinguish between current job and job offer.
 - `title` (String): The title of the job.
 - `company` (String): The name of the company offering the job.
@@ -66,6 +69,7 @@ This class will serve as the **entry point** to the app that ties everything tog
 - `AYS` (Double): Derived variable. The number of yearly Salary Adjusted for cost of living.
 - `AYB` (Double): Derived variable. The number of early Bonus Adjusted for cost of living. 
 - `Score` (Double): Derived variable. The number of weighted scores based on default or user entered comparison parameter.
+- `adjustedParameter` (List \<Integer>): stores weights for the parameters of calculateJobScore function, initialized to 1, later fetched from DB
 
 **Methods:**
 - `setJobType()`: Set the job type (0 = current job, 1 = job offer).
@@ -101,10 +105,13 @@ This class will serve as the **entry point** to the app that ties everything tog
 - `calculateAdjustedYearlySalary()`: Calculate the amount of annual salary adjusted by the cost of living index as double.
 - `calculateAdjustedYearlyBonus()`: Calculate the amount of annual bonus adjusted by the cost of living index as double.
 - `calculateJobScore()`: Calculate job score based on comparison parameters and job characters as double.
+- `updateScoreInDB()`: Update the score in DB with for the existing row with _ID = jobId
+- `updateWeights()`: update the adjusted parameters once notified from Subject and recalculates the score
+- `getWeights()`: get the saved weights from db
 
 **Subclassees:**
 These two subclasses inherit all the attributes and methods from the Job superclass
-- CurrentJob
+- CurrentJob: This subclass follows a singleton pattern to ensure only one instance exists. This also helps limit only a single row in the common Jobs table with jobType = 0. CurrentJob also has its own methods getCurrentJobDetails(), saveCurrentJob(), updateCurrentJob() to read, write and update current job details in the DB table
 - JobOffer
 
 >Be able to either save the job details or cancel and exit without saving, returning in both cases to the main menu.
@@ -134,17 +141,25 @@ NOTE: These factors should be integer-based from 0 (no interest/don’t care) to
 For this relationship we defined a **ComparisonSetting** class with different attributes, methods and relationships that allows the user to assign weights to the settings as shown below:
 
 ### 3. Comparison Setting
+This class implements the interface Subject. Whenever the weight attributes change in this class all the objects implementing the Observer interface are notified of changes. We make use of this to recalculate all the Jobs' score when comparison settings change.
+
 **Attributes:**
 - `yearlySalaryWeight` (Int): The weight assigned to the yearly salary. Default = 1.
 - `yearlyBonusWeight` (Int): The weight assigned to the yearly bonus. Default = 1.
 - `trainingAndDevFundWeight` (Int): The weight assigned to the training and development fund. Default = 1.
 - `leaveTimeWeight` (Int): The weight assigned to the leave time. Default = 1.
 - `teleworkDaysPerWeekWeight` (Int): The weight assigned to the telework days per week. Default = 1.
+- `instance` (ComparisonSettings): private singleton instance
+- `observers` (List \<Observer>) : stores an array of all the Job objects that are registered as observers to be notified of changes
 
 **Methods:**
 - `checkIfValid()`: check if the input comparison settings are valid integers.
 - `saveWeights()`: save the input weights.
 - `displayCurrentComaprisonSettings()`: Retrieve the current comparison settings and display.
+- `getInstance()`: public method to return an instance of the ComparisonSettings as a singleton to ensure only 1 instance of this class exists
+- `getObservers()`: gets all jobs from DB and loops through the cursor to register them as observers
+- `getWeightsFromDB()`: Queries DB table ComparisonSettings to fetch saved comparison settings from db. If no settings saved then uses default values of 1 for each weight.
+- `updateWeightsInDB()`: Update the weights in the existing row in ComparisonSetting table
 
 **Relationships:**
 - A `ComparisonSetting` is associated with one `User`. Default value is a list of 1. 
