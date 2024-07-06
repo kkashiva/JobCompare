@@ -110,8 +110,13 @@ public class EnterComparisonSettings extends AppCompatActivity {
         // get singleton instance of ComparisonSettings
         ComparisonSettings updatedSettings = ComparisonSettings.getInstance();
 
-        // call method to update weights in DB
+        updatedSettings.getObservers(); // register all jobs from DB as observers to be notified of weight changes
+
+        // call method to update weights in DB table ComparisonSettings
         updatedSettings.updateWeightsInDB(yearlySalaryInt, yearlyBonusInt, trainingFundInt, leaveTimeInt, teleworkDaysInt);
+
+        // notify observers
+        updatedSettings.notifyObservers();
 
         Toast.makeText(this, "Weights updated", Toast.LENGTH_LONG).show();
     }

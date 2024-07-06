@@ -109,17 +109,17 @@ public class ComparisonSettings implements Subject{
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         String[] projection = {
-            DatabaseContract.Job._ID,
-            DatabaseContract.Job.COLUMN_NAME_AYS,
-            DatabaseContract.Job.COLUMN_NAME_AYB,
-            DatabaseContract.Job.COLUMN_NAME_TRAINING_DEVELOPMENT_FUND,
-            DatabaseContract.Job.COLUMN_NAME_LEAVE_TIME,
-            DatabaseContract.Job.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK
+            DatabaseContract.Jobs._ID,
+            DatabaseContract.Jobs.COLUMN_NAME_AYS,
+            DatabaseContract.Jobs.COLUMN_NAME_AYB,
+            DatabaseContract.Jobs.COLUMN_NAME_TRAINING_DEVELOPMENT_FUND,
+            DatabaseContract.Jobs.COLUMN_NAME_LEAVE_TIME,
+            DatabaseContract.Jobs.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK
         };
 
         // Query to fetch all jobs from db
         Cursor cursor = db.query(
-                DatabaseContract.Job.TABLE_NAME, // The table to query
+                DatabaseContract.Jobs.TABLE_NAME, // The table to query
                 projection, // The array of columns to return (pass null to get all)
                 null, // The columns for the WHERE clause
                 null, // The values for the WHERE clause
@@ -130,12 +130,12 @@ public class ComparisonSettings implements Subject{
 
         if (cursor != null) {
             while (cursor.moveToNext()) {
-                int jobId = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Job._ID));
-                int AYS = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Job.COLUMN_NAME_AYS));
-                int AYB = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Job.COLUMN_NAME_AYB));
-                int trainDevFund = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Job.COLUMN_NAME_TRAINING_DEVELOPMENT_FUND));
-                int leaveDay = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Job.COLUMN_NAME_LEAVE_TIME));
-                int teleworkDaysPerWeek = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Job.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK));
+                int jobId = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs._ID));
+                int AYS = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_AYS));
+                int AYB = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_AYB));
+                int trainDevFund = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_TRAINING_DEVELOPMENT_FUND));
+                int leaveDay = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_LEAVE_TIME));
+                int teleworkDaysPerWeek = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseContract.Jobs.COLUMN_NAME_TELEWORK_DAYS_PER_WEEK));
 
                 // create job object and register it as observer
                 Job job = new Job(jobId, AYS, AYB, trainDevFund, leaveDay, teleworkDaysPerWeek);

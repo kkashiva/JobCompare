@@ -1,10 +1,13 @@
 package edu.gatech.seclass.jobcompare6300;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
+
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
-public class Job implements Serializable {
+public class Job implements Serializable, Observer {
     
     private int jobId;
     private String title;
@@ -48,6 +51,15 @@ public class Job implements Serializable {
         this.AYB = calculateAdjustedYearlyBonus(this.yearlyBonus, this.costOfLiving);
         this.score = calculateJobScore(adjustedParameter, this.AYS, this.AYB, this.trainDevFund, this.leaveDay, this.teleworkDaysPerWeek);
         this.jobType = jobType;
+    }
+
+    public Job(int jobId, int AYS, int AYB, int trainDevFund, int leaveDay, int teleworkDaysPerWeek) {
+        this.jobId = jobId;
+        this.AYS = (double) AYS;
+        this.AYB = (double) AYB;
+        this.trainDevFund = trainDevFund;
+        this.leaveDay = leaveDay;
+        this.teleworkDaysPerWeek = teleworkDaysPerWeek;
     }
 
     // set functions
@@ -171,5 +183,34 @@ public class Job implements Serializable {
 //                LTParam * leaveDay * valueOfEmpHour * 8 - commuteCostParam * travelTimeCost;
         // put the non-weighted version as of now. Need more changes
         return (double) AYS + AYB + trainDevFund + leaveDay * valueOfEmpHour * 8 - travelTimeCost;
+    }
+
+    // update score in DB
+    public void updateScoreInDB(){
+    
+        JobDbHelper dbHelper = JobDbHelper.getInstance(null);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(DatabaseContract.Jobs.COLUMN_NAME_SCORE, this.score);
+
+        // Update the score in DB with for the existing row with _ID = jobId 
+        db.update(DatabaseContract.Jobs.TABLE_NAME, values, DatabaseContract.Jobs._ID + " = " + this.jobId, null);
+    }
+
+    @Override
+    public void updateWeights(int yearlySalaryWeight, int yearlyBonusWeight, int trainingAndDevWeight, int leaveTimeWeight, int teleworkDaysWeight) {
+        // update the adjusted parameters
+        adjustedParameter.set(0, yearlySalaryWeight);
+        adjustedParameter.set(1, yearlyBonusWeight);
+        adjustedParameter.set(2, trainingAndDevWeight);
+        adjustedParameter.set(3, leaveTimeWeight);
+        adjustedParameter.set(4, teleworkDaysWeight);
+        
+        // recalculating the score
+        this.score = calculateJobScore(adjustedParameter, this.AYS, this.AYB, this.trainDevFund, this.leaveDay, this.teleworkDaysPerWeek);
+
+        // update the score in DB
+        updateScoreInDB();
     }
 }
