@@ -3,3 +3,4 @@ My accomplishments for this deliverable - D3:
 * Designed and worked mainly on Compare Job Offers functionality.
 * Gave constructive code reviews
 * Tested the app manually and filed bugs.
+* Enhanced user experience by disabling buttons when there are invalid inputs.

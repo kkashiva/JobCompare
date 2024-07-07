@@ -115,8 +115,9 @@ Below are the design layout description and the beta version UI screenshots of e
 
 ### Enter Job Offer Detail
 - This screen will have the same input fields as Enter Current Job Details screen
-- 2 buttons:
+- 3 buttons:
     - Save Job Offer
+    - Compare Saved Offer
     - Back to Main Menu
 
 ### Adjust Comparison Settings
