@@ -65,6 +65,17 @@ public class Job implements Serializable, Observer {
         this.teleworkDaysPerWeek = teleworkDaysPerWeek;
     }
 
+    // overloaded constructor for testing in JUnit classes without any database calls
+    public Job(int jobId, int AYS, int AYB, int trainDevFund, int leaveDay, int teleworkDaysPerWeek, int costOfLiving) {
+        this.jobId = jobId;
+        this.AYS = (double) AYS;
+        this.AYB = (double) AYB;
+        this.trainDevFund = trainDevFund;
+        this.leaveDay = leaveDay;
+        this.teleworkDaysPerWeek = teleworkDaysPerWeek;
+        this.costOfLiving = costOfLiving;
+    }
+
     // set functions
     public void setTitle(String title) {
         this.title = title;
