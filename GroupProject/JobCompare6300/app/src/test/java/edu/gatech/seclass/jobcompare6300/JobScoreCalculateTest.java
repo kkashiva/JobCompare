@@ -23,6 +23,10 @@ public class JobScoreCalculateTest {
         // Call the calculateJobScore() method to return the actual score
         double actualScore = job.calculateJobScore(adjustedParameter, job.getAYS(), job.getAYB(), job.getTrainingDevelopmentFund(), job.getLeaveTime(), job.getTeleworkDaysPerWeek());
 
+        // print score
+        System.out.println(expectedScore);
+        System.out.println(actualScore);
+
         // Test if actual score matches the expected score
         assertEquals(expectedScore, actualScore, 0.001);
     }
@@ -41,6 +45,9 @@ public class JobScoreCalculateTest {
 
         // Call the calculateJobScore() method to return the actual score
         double actualScore = job.calculateJobScore(adjustedParameter, job.getAYS(), job.getAYB(), job.getTrainingDevelopmentFund(), job.getLeaveTime(), job.getTeleworkDaysPerWeek());
+
+        System.out.println(expectedScore);
+        System.out.println(actualScore);
 
         // Test if actual score matches the expected score
         assertEquals(expectedScore, actualScore, 0.001);

@@ -64,7 +64,9 @@ Others will be determined as we continue with the development.
 
 
 ## 2 Test Cases
-For this deliverable, we attempted manual testing to test the app's functionality.
+For this deliverable, we attempted manual testing to test the app's functionality that requires multiple classes and database interaction.
+
+We also created a JUnit test class JobScoreCalculateTest with 2 test cases to ensure the actual calculated score is as per expected score of sample inputs.
 
 #### Main Menu:
 - **Test case 1**: *Edit Current Job Details* button is disabled when no current job exists.
@@ -267,3 +269,32 @@ For this deliverable, we attempted manual testing to test the app's functionalit
     - A toast message showing Weights updated is displayed at the botton of the screen.
   - Actual Result:
     ![comparisonsettings_tc3.png](images/comparisonsettings_tc3.png)
+
+### JUnit test for calculateJobScore() method in Job class
+JUnit test class **JobScoreCalculateTest** has 2 test cases:
+- **test1** : 
+  - Sample Input:
+    - AYS: 150000
+    - AYB: 50000
+    - trainDevFund: 5000
+    - leaveDay: 15
+    - teleworkDaysPerWeek: 3
+    - costOfLiving: 200
+    - adjustedParameter: 1, 1, 1, 1, 1
+  - Expected Result: 41230.769230769234
+  - Actual Result: 41230.769230769234
+
+- **test2** : 
+  - Sample Input:
+    - AYS: 150000
+    - AYB: 50000
+    - trainDevFund: 5000
+    - leaveDay: 15
+    - teleworkDaysPerWeek: 3
+    - costOfLiving: 200
+    - adjustedParameter: 2, 2, 2, 1, 1
+  - Expected Result: 51394.230769230766
+  - Actual Result: 51394.230769230766
+
+Both test cases passed, that means the job score calculation formula works and takes into account the weights correclty.
+![image](images/JUnit_test_passed.png)
