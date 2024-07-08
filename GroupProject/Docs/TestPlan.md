@@ -1,8 +1,5 @@
 # Test Plan
-
-
-**Author**: Team 047.
-
+**Author**: Team 047 | CS6300 Summer2024
 
 ## 1 Testing Strategy
 
@@ -39,7 +36,7 @@ For this we will use the below:
 - Integration Testing: Automated Tests with JUnit to verify that the different modules in the application work together.
 
 #### Black-Box Testing:
-This testing involves testing the funtionality of the appliiction without looking at internal code.
+This testing involves testing the functionality of the application without looking at internal code.
 For this we will use the below:
 - Acceptance Testing: Manual tests to verify that the application meets business requirements and is ready for delivery.
 - Usability Testing: Manual tests to ensure that the applicaton is user-friendly and meets user experience expectations.
