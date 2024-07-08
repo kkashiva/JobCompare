@@ -2,12 +2,14 @@
 **Author**: Team 047 | CS6300 Summer2024
 
 ## 1 Introduction
-The delivery of this Team project is a job comparison software application that compares job offers with salary, benefits, working locations, and other aspects (such as leave time and telework days). Users can save current job and job offers, adjust the comparison settings, rank jobs, and compare jobs.
+The delivery of this Team project is a job comparison software application that compares job offers with salary, 
+benefits, working locations, and other aspects (such as leave time per year and weekly allowed telework days). 
+Users can save current job and job offers, edit current job, adjust the comparison settings, rank jobs, and compare jobs.
 
 ## 2 Process Description
 ### Activity: Initiate and Plan - Week of June 10th
 - Description: In this phase, the team will set the project scope of work and deliverables. The team will also describe the roles and responsibilities of each team member while determining the team timeline.
-- Entrance criteria: Project requirements from the instruction team and the team member assignment.
+- Entrance criteria: Project requirements from the instruction team and the team member assignment result.
 - Exit criteria: Project plan, refined project requirement documentation, and initial draft of project documentation
 
 ### Activity: Design - Week of June 17th
