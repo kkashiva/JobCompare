@@ -97,7 +97,7 @@ Below are the design layout descriptions and the UI screenshots of each activity
 - 2 buttons:
     - Update Current Job
     - Back to Main Menu
-![editcurrentjobdetails_tc8a.png](images/editcurrentjobdetails_tc8a.png)
+![editcurrentjobdetails_tc8a.png](images/editcurrentjobdetails_tc5a.png)
 ### Enter Job Offer Detail
 - This screen will have the same input fields as Enter Current Job Details screen
 - User can save the inputs if they align with the pre-defined requirements and all inputs for the successfully saved job will be removed automatically
@@ -106,7 +106,7 @@ Below are the design layout descriptions and the UI screenshots of each activity
     - Save Job Offer
     - Compare Saved Offer
     - Back to Main Menu
-![enterJobOffer_tc12.png](images/enterJobOffer_tc12.png)
+![enterJobOffer_tc12.png](images/enterJobOffer_tc9.png)
 ### Adjust Comparison Settings
 - This screen will have 5 EditText input fields to take integer values as weights for:
     - Yearly Salary (Non-negative integer, default = 1)
