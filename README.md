@@ -140,7 +140,7 @@ Below are the design layout descriptions and the UI screenshots of each activity
     - Enter Job Offer Detail
     - Adjust Comparison Settings
     - Compare Job Offers: disabled if less than 2 total jobs (# of current job + # of job offer) have been saved
-    ![image](images/ui_main_menu.png)
+    ![image](GroupProject/Docs/images/ui_main_menu.png)
 
 
 ## Enter Current Job Details
@@ -159,7 +159,7 @@ Below are the design layout descriptions and the UI screenshots of each activity
 - 2 buttons:
     - Save Current Job
     - Back to Main Menu
-![image](images/ui_edit_current_job.png)
+![image](GroupProject/Docs/images/ui_edit_current_job.png)
 
 ## Edit Current Job Details
 - This screen will have the same input fields as Enter Current Job Details screen
@@ -169,7 +169,7 @@ Below are the design layout descriptions and the UI screenshots of each activity
 - 2 buttons:
     - Update Current Job
     - Back to Main Menu
-![editcurrentjobdetails_tc8a.png](images/editcurrentjobdetails_tc5a.png)
+![editcurrentjobdetails_tc8a.png](GroupProject/Docs/images/editcurrentjobdetails_tc5a.png)
 ## Enter Job Offer Detail
 - This screen will have the same input fields as Enter Current Job Details screen
 - User can save the inputs if they align with the pre-defined requirements and all inputs for the successfully saved job will be removed automatically
@@ -178,7 +178,7 @@ Below are the design layout descriptions and the UI screenshots of each activity
     - Save Job Offer
     - Compare Saved Offer
     - Back to Main Menu
-![enterJobOffer_tc12.png](images/enterJobOffer_tc9.png)
+![enterJobOffer_tc12.png](GroupProject/Docs/images/enterJobOffer_tc9.png)
 ## Adjust Comparison Settings
 - This screen will have 5 EditText input fields to take integer values as weights for:
     - Yearly Salary (Non-negative integer, default = 1)
@@ -191,7 +191,7 @@ Below are the design layout descriptions and the UI screenshots of each activity
 - 2 buttons:
     - Save Weights
     - Back to Main Menu
-![image](images/ui_adjust_comparison_settings.png)
+![image](GroupProject/Docs/images/ui_adjust_comparison_settings.png)
 
 
 ## Compare Job Offers
@@ -205,7 +205,7 @@ Below are the design layout descriptions and the UI screenshots of each activity
 - 2 buttons:
     - Compare Offers
     - Back to Main Menu
-![image](images/ui_compare_job.png)
+![image](GroupProject/Docs/images/ui_compare_job.png)
 
 ## Display 2 Job Offers
 - This screen displays the 2 selected jobs' details side-by-side for an easy comparison in 2 columns. Their attributes to compare are shown in rows, including:
@@ -222,7 +222,7 @@ Below are the design layout descriptions and the UI screenshots of each activity
 - 2 Buttons:
   - Compare Another Offer
   - Back to Main Menu
-  ![image](images/ui_display2jobs.png)
+  ![image](GroupProject/Docs/images/ui_display2jobs.png)
 
 ---
 
