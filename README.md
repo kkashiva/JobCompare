@@ -245,3 +245,8 @@ Clone the repository:
 
 ```bash
 git clone https://github.com/<your-username>/<repo-name>.git
+```
+
+Open the project in Android Studio and run it using either:
+- Android emulator
+- Android device running API 33+
