@@ -128,41 +128,101 @@ Since this is a single-user application, the Android app connects to a local SQL
 
 ---
 
-# User Interface
-
-The application contains several screens.
+# User Interface Design
+Below are the design layout descriptions and the UI screenshots of each activity/screen in the app. 
 
 ## Main Menu
+- This is the entry point of the app and the first activity that is created on launch
+- This screen will have a title to show the app title "Job Offer Comparison"
+- This screens will have 5 buttons to start other activities for:
+    - Enter Current Job Details: disabled if current job has already been saved
+    - Edit Current Job Details: disabled if no current job has been saved yet
+    - Enter Job Offer Detail
+    - Adjust Comparison Settings
+    - Compare Job Offers: disabled if less than 2 total jobs (# of current job + # of job offer) have been saved
+    ![image](images/ui_main_menu.png)
 
-Entry point of the application where users can:
 
-- Enter current job
-- Edit current job
-- Add job offers
-- Adjust comparison weights
-- Compare job offers
+## Enter Current Job Details
+- This screen will have TextView labels and EditText input fields:
+    - Title (String)
+    - Company (String)
+    - Location: State, City (Strings)
+    - Cost of Living (Integer)
+    - Yearly Salary (Integer)
+    - Yearly Bonus (Integer)
+    - Training & Dev Fund (0 - 18,000 integer, inclusively)
+    - Leave Time (Days per year, 0 - 100 integer, inclusively)
+    - Telework Days per week (0 - 5 integer, inclusively)
+- User can save the inputs if they align with the pre-defined requirements and will be re-directed to main menu automatically
+- User will not be able to save the inputs and will be notified by the error message if the inputs do not meet the requirements
+- 2 buttons:
+    - Save Current Job
+    - Back to Main Menu
+![image](images/ui_edit_current_job.png)
 
-## Job Entry Screens
+## Edit Current Job Details
+- This screen will have the same input fields as Enter Current Job Details screen
+- The input fields will be pre-filled with data from the saved current job, and the user can choose to edit any field
+- User can save the edit if the updated information aligns with the pre-defined requirements and will be re-directed to main menu automatically
+- User will not be able to save the inputs and will be notified by the error message if the inputs do not meet the requirements
+- 2 buttons:
+    - Update Current Job
+    - Back to Main Menu
+![editcurrentjobdetails_tc8a.png](images/editcurrentjobdetails_tc5a.png)
+## Enter Job Offer Detail
+- This screen will have the same input fields as Enter Current Job Details screen
+- User can save the inputs if they align with the pre-defined requirements and all inputs for the successfully saved job will be removed automatically
+- User will not be able to save the inputs and will be notified by the error message if the inputs do not meet the requirements
+- 3 buttons:
+    - Save Job Offer
+    - Compare Saved Offer
+    - Back to Main Menu
+![enterJobOffer_tc12.png](images/enterJobOffer_tc9.png)
+## Adjust Comparison Settings
+- This screen will have 5 EditText input fields to take integer values as weights for:
+    - Yearly Salary (Non-negative integer, default = 1)
+    - Yearly Bonus (Non-negative integer, default = 1)
+    - Training & Dev Fund (Non-negative integer, default = 1)
+    - Leave Time (Day per year) (Non-negative integer, default = 1)
+    - Telework Days per week (Non-negative integer, default = 1)
+- These fields should be pre-filled with the saved weights in the ComparisonSetting db table. If no weights saved previously, show default values of 1
+- User can save the inputs if they align with the pre-defined requirements
+- 2 buttons:
+    - Save Weights
+    - Back to Main Menu
+![image](images/ui_adjust_comparison_settings.png)
 
-Users input:
 
-- Title
-- Company
-- Location (state, city)
-- Cost of living index
-- Salary
-- Bonus
-- Training & development fund
-- Leave time
-- Telework days
+## Compare Job Offers
+- This screen will have a tabular layout to show all the saved jobs with these columns:
+     - Rank: sorted descending based on weighted job score
+     - Title
+     - Company
+     - Selected : checkbox
+- Button compare offers will be disabled if there are not exactly 2 jobs are selected
+- Checkboxes will be disabled if there are 2 boxes selected. User is allowed to de-selected and re-select other jobs in the list.
+- 2 buttons:
+    - Compare Offers
+    - Back to Main Menu
+![image](images/ui_compare_job.png)
 
-## Comparison Settings
-
-Allows users to assign weights to compensation components used in ranking jobs.
-
-## Job Comparison
-
-Displays a ranked table of jobs and allows users to select two offers for side-by-side comparison.
+## Display 2 Job Offers
+- This screen displays the 2 selected jobs' details side-by-side for an easy comparison in 2 columns. Their attributes to compare are shown in rows, including:
+  - Title
+  - Company
+  - Location
+  - Cost of living index
+  - Yearly Salary
+  - Yearly Bonus
+  - Training/Dev Fund
+  - Leave Time
+  - Telework Days per Week
+- Compare Another Offer will direct user back to the list view of offers in the **Compare Job Offers** page
+- 2 Buttons:
+  - Compare Another Offer
+  - Back to Main Menu
+  ![image](images/ui_display2jobs.png)
 
 ---
 
