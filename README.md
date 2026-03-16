@@ -122,7 +122,7 @@ Represents the static structure of the core classes and their relationships.
 
 ## Deployment Diagram
 
-![Deployment Diagram](images/deployment_diagram.png)
+![Deployment Diagram](GroupProject/Docs/images/deployment_diagram.png)
 
 Since this is a single-user application, the Android app connects to a local SQLite database.
 
