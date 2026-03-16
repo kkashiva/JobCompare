@@ -303,8 +303,8 @@ Team 047
 
 Clone the repository:
 
-```bash
-git clone https://github.com/<your-username>/<repo-name>.git
+```bash[
+git clone https://github.com/kkashiva/JobCompare.git
 ```
 
 Open the project in Android Studio and run it using either:
